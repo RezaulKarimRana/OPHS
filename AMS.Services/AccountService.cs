@@ -18,7 +18,6 @@ using AMS.Models.ServiceModels.Account;
 using AMS.Services.Contracts;
 using AMS.Services.Managers.Contracts;
 using Newtonsoft.Json;
-using AMS.Repositories.DatabaseRepos.EmailContentsRepo.Models;
 using AMS.Repositories.DatabaseRepos.UserRepo.Models;
 
 namespace AMS.Services
@@ -549,29 +548,6 @@ namespace AMS.Services
             {
                 response.Notifications.Add("User Not Found", NotificationTypeEnum.Error);
                 return response;
-            }
-
-            if (user != null)
-            {
-                var requestTOSave = new CreateEmailContantRequest();
-                requestTOSave.ToEmail = request.EmailAddress;
-                requestTOSave.ToCc = "asif.ahmed@summitcommunications.net";
-                requestTOSave.Subject = "Password Change For AMS Panel";
-                requestTOSave.Body = emailBody;
-                requestTOSave.CreatedBy = 1;
-                requestTOSave.ModifiedBy = 1;
-
-                using (var uow = _uowFactory.GetUnitOfWork())
-                {
-                    await uow.UserRepo.UpdateUserPassword(new UpdateUserPasswordRequest()
-                    {
-                        User_Id = user.Id,
-                        Password_Hash = PasswordHelper.HashPassword(password),
-                        Updated_By = ApplicationConstants.SystemUserId
-                    });
-                    await uow.EmailRepo.SaveForEmailServer(requestTOSave);
-                    uow.Commit();
-                }
             }
 
             response.Notifications.Add("We have sent a reset password link to your email address if it matches our records", NotificationTypeEnum.Success);

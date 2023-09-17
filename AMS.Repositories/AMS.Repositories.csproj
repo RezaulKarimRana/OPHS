@@ -14,8 +14,4 @@
     <ProjectReference Include="..\AMS.Models\AMS.Models.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="DatabaseRepos\AdminSupportRepo\Models\" />
-  </ItemGroup>
-
 </Project>

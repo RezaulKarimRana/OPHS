@@ -89,20 +89,11 @@ namespace AMS.Web
            
 
             // Business Logic Admin Service
-            services.AddTransient<IConfigurationService, ConfigurationService>();
             services.AddTransient<IPermissionsService, PermissionsService>();
             services.AddTransient<IRoleService, RoleService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<ISessionService, SessionService>();
             services.AddTransient<IAdminService, AdminService>();
-            services.AddTransient<IParticularService, ParticularService>();
-            services.AddTransient<IItemCategoryService, ItemCategoryService>();
-            services.AddTransient<IItemService, ItemService>();
-            services.AddTransient<IDepartmentService, DepartmentService>();
-            services.AddTransient<IDistService, DistService>();
-            services.AddTransient<IThanaService, ThanaService>();
-            services.AddTransient<IEstimationService, EstimationService>();
-            services.AddTransient<IEstimateTypeService, EstimateTypeService>();
 
             // Business Logic Managers
             services.AddTransient<IAuthenticationManager, AuthenticationManager>();
@@ -113,11 +104,7 @@ namespace AMS.Web
 
             // Business Logic Service Repos
             services.AddTransient<IEmailTemplateRepo, EmailTemplateRepo>();
-            services.AddTransient<IHtmlGeneratorService, HtmlGeneratorService>();
-            services.AddTransient<IEmailHandlerService, EmailHandlerService>();
 
-            //Admin Set Up
-            services.AddTransient<IAdminSetUpService,AdminSetUpService>();
             #endregion
 
             #region Authentication and Authorization

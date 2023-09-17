@@ -14,7 +14,6 @@ namespace AMS.Web.Pages
 
         private readonly IUserService _userService;
         private readonly ICacheManager _cache;
-        private readonly IDepartmentService _deptService;
 
         #endregion
 
@@ -29,11 +28,10 @@ namespace AMS.Web.Pages
 
         #region Constructors
 
-        public CreateUserModel(IUserService userService, ICacheManager cache, IDepartmentService deptService)
+        public CreateUserModel(IUserService userService, ICacheManager cache)
         {
             _userService = userService;
             _cache = cache;
-            _deptService = deptService;
             RolesLookup = new List<RoleEntity>();
             Department = new List<DepartmentEntity>();
             FormData = new CreateUserRequest();
@@ -44,8 +42,6 @@ namespace AMS.Web.Pages
         public async Task OnGet()
         {
             RolesLookup = await _cache.Roles();
-            var deptResponse = await _deptService.GetAllDepartments();
-            Department = deptResponse.Departments;
             FormData = new CreateUserRequest();
         }
 

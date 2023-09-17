@@ -32,7 +32,6 @@ namespace AMS.Services.Admin
 
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IUnitOfWorkFactory _uowFactory;
-        private readonly IDepartmentService _deptService;
         private readonly ICacheManager _cache;
 
         #endregion
@@ -45,11 +44,9 @@ namespace AMS.Services.Admin
             IEmailManager emailManager,
             IHttpContextAccessor httpContextAccessor,
             IUnitOfWorkFactory uowFactory,
-            IDepartmentService deptService,
             ICacheManager cache)
         {
             _uowFactory = uowFactory;
-            _deptService = deptService;
             _httpContextAccessor = httpContextAccessor;
             _cache = cache;
             _accountService = accountService;
@@ -147,7 +144,7 @@ namespace AMS.Services.Admin
         {
             using (var uow = _uowFactory.GetUnitOfWork())
             {
-                var concateEmail = await uow.FundRequisitionRepo.getUserEmailAddressByDepartmentId(departmentId);
+                var concateEmail = string.Empty;
                 return concateEmail;
             }
         }
@@ -203,13 +200,6 @@ namespace AMS.Services.Admin
             int id;
             using (var uow = _uowFactory.GetUnitOfWork())
             {
-                var department = await _deptService.GetById(request.DepartmentId);
-                if (department == null)
-                {
-                    response.Notifications.AddError($"Department has not been selected properly.");
-                    return response;
-                }
-
                 id = await uow.UserRepo.CreateUser(new Repositories.DatabaseRepos.UserRepo.Models.CreateUserRequest()
                 {
                     Username = username,
@@ -220,7 +210,7 @@ namespace AMS.Services.Admin
                     Password_Hash = PasswordHelper.HashPassword(request.Password),
                     Created_By = sessionUser.Id,
                     Department_Id = request.DepartmentId,
-                    CanEdit = department.CanEdit,
+                    CanEdit = 1,
                     Is_Enabled = true
                 });
                 uow.Commit();

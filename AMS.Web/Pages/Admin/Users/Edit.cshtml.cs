@@ -14,7 +14,6 @@ namespace AMS.Web.Pages
         #region Private Fields
 
         private readonly IUserService _userService;
-        private readonly IDepartmentService _deptService;
         private readonly ICacheManager _cache;
 
         #endregion
@@ -36,11 +35,10 @@ namespace AMS.Web.Pages
 
         #region Constructors
 
-        public EditUserModel(IUserService userService, ICacheManager cache, IDepartmentService deptService)
+        public EditUserModel(IUserService userService, ICacheManager cache)
         {
             _userService = userService;
             _cache = cache;
-            _deptService = deptService;
             RolesLookup = new List<RoleEntity>();
             Department = new List<DepartmentEntity>();
             FormData = new UpdateUserRequest();
@@ -61,9 +59,6 @@ namespace AMS.Web.Pages
             }
 
             RolesLookup = await _cache.Roles();
-            var deptResponse = await _deptService.GetAllDepartments();
-            Department = deptResponse.Departments;
-
             UserEntity = response.User;
             FormData = new UpdateUserRequest()
             {
