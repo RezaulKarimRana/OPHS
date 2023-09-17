@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31911.196
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AMS.Common", "AMS.Common\AMS.Common.csproj", "{EB918F54-0CF4-474D-989F-66FCCD9A1187}"
 EndProject
@@ -12,7 +12,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AMS.Repositories", "AMS.Rep
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AMS.Services", "AMS.Services\AMS.Services.csproj", "{BB626EA8-7BC9-4794-92B5-502A369C8502}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AMS.Web", "AMS.Web\AMS.Web.csproj", "{8C997BCA-99EE-46F7-9D29-9F4E924ECAAB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "Web\Web.csproj", "{6E02FAAA-C682-4304-A4F5-B93C00EDF72F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,10 +40,10 @@ Global
 		{BB626EA8-7BC9-4794-92B5-502A369C8502}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BB626EA8-7BC9-4794-92B5-502A369C8502}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BB626EA8-7BC9-4794-92B5-502A369C8502}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8C997BCA-99EE-46F7-9D29-9F4E924ECAAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8C997BCA-99EE-46F7-9D29-9F4E924ECAAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8C997BCA-99EE-46F7-9D29-9F4E924ECAAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8C997BCA-99EE-46F7-9D29-9F4E924ECAAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E02FAAA-C682-4304-A4F5-B93C00EDF72F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E02FAAA-C682-4304-A4F5-B93C00EDF72F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E02FAAA-C682-4304-A4F5-B93C00EDF72F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E02FAAA-C682-4304-A4F5-B93C00EDF72F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
