@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using AMS.Models.ServiceModels.BudgetEstimate;
 using AMS.Models.ServiceModels.Dashboard;
 using AMS.Repositories.UnitOfWork.Contracts;
-using AMS.Services.Budget.Contracts;
 using AMS.Services.Contracts;
 using AMS.Services.Managers.Contracts;
 
@@ -16,17 +15,15 @@ namespace AMS.Services
 
         private readonly IUnitOfWorkFactory _uowFactory;
         private readonly ISessionManager _sessionManager;
-        private readonly IBudgetService _budgetService;
 
         #endregion
 
         #region Constructor
 
-        public DashboardService(IUnitOfWorkFactory uowFactory, ISessionManager sessionManager, IBudgetService budgetService)
+        public DashboardService(IUnitOfWorkFactory uowFactory, ISessionManager sessionManager)
         {
             _uowFactory = uowFactory;
             _sessionManager = sessionManager;
-            _budgetService = budgetService;
         }
 
         #endregion
@@ -71,16 +68,8 @@ namespace AMS.Services
                 using var uow = _uowFactory.GetUnitOfWork();
 
                 var navCount = await uow.DashboardRepo.GetNavBarCount(sessionUser.Id);
-
-                var result = await _budgetService.LoadAllPendingEstimateByUser(sessionUser.Id);
                 var data = new List<object>();
                 var resultSet = new List<EstimateVM>();
-                foreach (var item in result)
-                {
-                    bool isValid = await _budgetService.IsValidToShowInParking(item.EstimationId, item.Priority);
-                    if (!isValid) continue;
-                    resultSet.Add(item);
-                }
 
                 var recordsTotal = resultSet.Count;
 
@@ -88,7 +77,6 @@ namespace AMS.Services
                 {
                     TotalCompletedParking = navCount.TotalCompletedParking,
                     TotalDraftParking = navCount.TotalDraftParking,
-                    //TotalPendingApprovalParking = navCount.TotalPendingApprovalParking,
                     TotalRollbackParking = navCount.TotalRollbackParking
                 };
                 response.TotalPendingApprovalParking = recordsTotal;

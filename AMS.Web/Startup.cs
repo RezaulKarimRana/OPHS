@@ -32,22 +32,13 @@ using AMS.Services.Admin.Contracts;
 using AMS.Web.Authorization;
 using AMS.Web.Authorization.Requirements;
 using AMS.Infrastructure.Authorization;
-using AMS.Repositories.DatabaseRepos.FundDisburseRepo;
 using Microsoft.AspNetCore.Authorization;
 using AMS.Web.Authorization.Handlers;
 using Microsoft.Net.Http.Headers;
 using Microsoft.Extensions.Hosting;
-using AMS.Services.Budget.Contracts;
-using AMS.Services.Budget;
-using AMS.Services.FundDisburseService;
 using Microsoft.AspNetCore.StaticFiles;
 using DinkToPdf;
 using DinkToPdf.Contracts;
-using AMS.Services.FundRequisitionService;
-using AMS.Services.SettlementItem;
-using AMS.Services.SettlementService;
-using AMS.Services.Memo.Contracts;
-using AMS.Services.Memo;
 
 namespace AMS.Web
 {
@@ -59,41 +50,22 @@ namespace AMS.Web
         {
             _configuration = configuration;
         }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
             services.AddControllers().AddNewtonsoftJson();
             #region Configuration
-
-            // Add our appsettings.json config options
             services.Configure<ConnectionStringSettings>(_configuration.GetSection("ConnectionStrings"));
             services.Configure<CacheSettings>(_configuration.GetSection("Cache"));
             services.Configure<EmailSettings>(_configuration.GetSection("Email"));
 
-            // If you don't want the cookie to be automatically authenticated and assigned HttpContext.User, 
-            // remove the CookieAuthenticationDefaults.AuthenticationScheme parameter passed to AddAuthentication.
-            //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-            //    .AddCookie(options =>
-            //    {
-            //        options.LoginPath = "/Account/LogIn";
-            //        options.LogoutPath = "/Account/LogOff";
-            //    });
-
             services.Configure<CookiePolicyOptions>(options =>
             {
-                // Check whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => false;
-
-                // Although this setting breaks OAuth2 and other cross-origin authentication schemes, 
-                // it elevates the level of cookie security for other types of apps that don't rely 
-                // on cross-origin request processing.
                 options.MinimumSameSitePolicy = Microsoft.AspNetCore.Http.SameSiteMode.Strict;
             });
 
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
-            //services.AddRazorPages();//.AddRazorRuntimeCompilation();
             #endregion
 
             #region Services
@@ -141,24 +113,8 @@ namespace AMS.Web
 
             // Business Logic Service Repos
             services.AddTransient<IEmailTemplateRepo, EmailTemplateRepo>();
-
-            // Business Logic Budget
-            services.AddTransient<IBudgetService, BudgetService>();
-            services.AddTransient<IDraftedBudgetService, DraftedBudgetService>();
-            services.AddTransient<IBudgetApproverService, BudgetApproverService>();
-
-            // Fund Requisition Services
-            services.AddTransient<IFundRequisitionService, FundRequisitionService>();
-            //  Fun Disburse Service
-            services.AddTransient<IFundDisburseService, FundDisburseService>();
-            //Settlement
-            services.AddTransient<ISettlementItemService, SettlementItemService>();
-            services.AddTransient<ISettlementService, SettlementService>();
             services.AddTransient<IHtmlGeneratorService, HtmlGeneratorService>();
             services.AddTransient<IEmailHandlerService, EmailHandlerService>();
-
-            //Memo
-            services.AddTransient<IMemoService, MemoService>();
 
             //Admin Set Up
             services.AddTransient<IAdminSetUpService,AdminSetUpService>();

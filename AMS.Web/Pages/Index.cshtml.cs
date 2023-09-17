@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using AMS.Models.CustomModels;
 using AMS.Models.ServiceModels.BudgetEstimate;
 using AMS.Models.ServiceModels.Dashboard;
-using AMS.Services.Budget.Contracts;
 using AMS.Services.Contracts;
 using AMS.Services.Managers.Contracts;
 
@@ -15,21 +14,12 @@ namespace AMS.Web.Pages
         #region Private Fields
 
         private readonly IDashboardService _dashboardService;
-        private readonly IBudgetService _budgetService;
         private readonly ISessionManager _sessionManager;
 
 
         #endregion
 
         #region Properties
-
-        //public int TotalSessions { get; set; }
-
-        //public int TotalUsers { get; set; }
-
-        //public int TotalRoles { get; set; }
-
-        //public int TotalConfigItems { get; set; }
         public int TotalRunningBudget { get; private set; }
         public int TotalCompletedBudget { get; private set; }
         public int TotalDraftedBudget { get; set; }
@@ -45,10 +35,9 @@ namespace AMS.Web.Pages
 
         #region Constructors
 
-        public IndexModel(IDashboardService dashboardService, IBudgetService budgetService, ISessionManager sessionManager)
+        public IndexModel(IDashboardService dashboardService, ISessionManager sessionManager)
         {
             _dashboardService = dashboardService;
-            _budgetService  = budgetService;
             _sessionManager = sessionManager;
         }
 
@@ -63,17 +52,14 @@ namespace AMS.Web.Pages
             }
             else
             {
-                List<EstimateEditVM> runningBudgetList = await _budgetService.LoadAllPendingEstimate(sessionUser.Id, 0, 0);
-                List<EstimateEditVM> rejectedBUdgetList = await _budgetService.LoadRejectedEstimate(sessionUser.Id, 0, 0);
                 var response = await _dashboardService.GetIndexDashBoard();
-                var totalBudgetAmoutSumByUserWithCurrency = await _budgetService.GetAllBudgetAmountSumByUserId();
                 var responseForNav = await _dashboardService.GetNavBarCount();
                 var pieData = new List<SimpleReportViewModel>
             {
                 new SimpleReportViewModel
                 {
                     DimensionOne = "Running",
-                    Quantity = runningBudgetList.Count
+                    Quantity = 9
                 },
                 new SimpleReportViewModel
                 {
@@ -98,18 +84,18 @@ namespace AMS.Web.Pages
                 new SimpleReportViewModel
                 {
                     DimensionOne = "Rejected",
-                    Quantity = rejectedBUdgetList.Count
+                    Quantity = 8
                 }
             };
                 if (response.IsSuccessful)
                 {
-                    TotalRunningBudget = runningBudgetList.Count;
+                    TotalRunningBudget = 8;
                     TotalCompletedBudget = responseForNav.TotalCompletedParking;
                     TotalDraftedBudget = responseForNav.TotalDraftParking;
-                    TotalAmountWithCurrency = totalBudgetAmoutSumByUserWithCurrency;
+                    TotalAmountWithCurrency = new List<DashboardTotalAmountVM>();
                     TotalPendingBudget = responseForNav.TotalPendingApprovalParking;
                     TotalRollbackedBudget = responseForNav.TotalRollbackParking;
-                    TotalRejectedBudget = rejectedBUdgetList.Count;
+                    TotalRejectedBudget = 6;
                     PieReportViewModel = pieData;
                 }
 
