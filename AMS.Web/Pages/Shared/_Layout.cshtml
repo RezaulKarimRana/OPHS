@@ -1,0 +1,435 @@
+﻿@inject Services.Managers.Contracts.ICacheManager _cacheManager
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <partial name="_MetaTagsPartial" model='ViewData[ViewDataConstants.OpenGraphViewModel]' />
+
+    <link rel="stylesheet" media="print" onload="this.media='all'" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" integrity="sha384-i1LQnF23gykqWXg6jxC2ZbCbUMxyw5gLZY6UiUS98LYV5unm8GWmfkIS6jqJfb4E" crossorigin="anonymous" asp-fallback-href="~/lib/fontawesome-free/css/all.min.css" asp-fallback-test-class="fab" asp-fallback-test-property="font-style" asp-fallback-test-value="normal" asp-suppress-fallback-integrity="true" />
+    @*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">*@
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.27/dist/sweetalert2.min.css" rel="stylesheet">
+    <link href="~/css/framework.min.css" rel="stylesheet" asp-append-version="true" />
+    <link href="~/css/site.min.css" rel="stylesheet" media="print" onload="this.media='all'" asp-append-version="true" />
+    <link href="~/css/bootstrap-datepicker.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link href="~/lib/select2/css/select2.css" rel="stylesheet" />
+    <link href="~/lib/sweetalert2/sweetalert2.css" rel="stylesheet" />
+    <link href="~/lib/datatables/dataTables.bootstrap4.css" rel="stylesheet" />
+    <link href="~/css/alertify.css" rel="stylesheet" />
+    <style>
+        select, option { width: 200px; }
+        #TableAprroverList tbody { counter-reset: serial-number; }
+
+    #TableAprroverList tbody td:first-child:before {
+        counter-increment: serial-number;
+        content: counter(serial-number);
+    }
+
+    #TableAprroverFeedBackList tbody { counter-reset: serial-number; }
+
+    #TableAprroverFeedBackList tbody td:first-child:before {
+        counter-increment: serial-number;
+        content: counter(serial-number);
+    }
+
+    #particularItemsDetails tbody { counter-reset: serial-number; }
+
+    #particularItemsDetails tbody td:first-child:before {
+        counter-increment: serial-number;
+        content: counter(serial-number);
+    }
+    .table-hideable td,
+    .table-hideable th {
+        width: auto;
+        transition: width .5s, margin .5s;
+    }
+
+    .btn-condensed.btn-condensed {
+        padding: 0 5px;
+        box-shadow: none;
+    }
+    .hide-col {
+        width: 0px !important;
+        height: 0px !important;
+        display: block !important;
+        overflow: hidden !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+    }
+    .newAddRowColor {
+        background: honeydew;
+    }
+    
+    .newAddedRowColor {
+        background: mintcream;
+    }
+    .disabledRowColor {
+        background: darkgrey;
+    }
+    body {
+        margin: 0;
+        font-family: "Source Sans Pro",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+        font-weight: 500 !important;
+        line-height: 1.5 !important;
+        color: #212529;
+        text-align: left;
+        background-color: #fff;
+    }
+
+    .bg-gradient-dark {
+        background: #343a40 linear-gradient(180deg,#52585d,#343a40) repeat-x !important;
+        color: #fff !important;
+    }
+
+    .form-group.required .control-label:after {
+        content: "*";
+        color: red;
+    }
+
+    body {
+        color: #292421;
+        font-weight: 700;
+    }
+
+    .table {
+        width: 100%;
+        margin-bottom: 1rem;
+        color: #57524e;
+    }
+
+    .form-control {
+        display: block;
+        width: 100%;
+        height: calc(1.5em + .75rem + 2px);
+        padding: .375rem .75rem;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #6e707e;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #d1d3e2;
+        border-radius: .35rem;
+        -webkit-transition: border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
+        transition: border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
+    }
+
+    tbody {
+        text-align: center;
+    }
+
+    tbody td {
+        font-size: 80%;
+    }
+
+    .dialog-ovelay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.50);
+        z-index: 999999
+    }
+
+    .dialog-ovelay .dialog {
+        width: 400px;
+        margin: 100px auto 0;
+        background-color: #fff;
+        box-shadow: 0 0 20px rgba(0,0,0,.2);
+        border-radius: 3px;
+        overflow: hidden
+    }
+
+    .dialog-ovelay .dialog header {
+        padding: 10px 8px;
+        background-color: #f6f7f9;
+        border-bottom: 1px solid #e5e5e5
+    }
+
+    .dialog-ovelay .dialog header h3 {
+        font-size: 14px;
+        margin: 0;
+        color: #555;
+        display: inline-block
+    }
+
+    .dialog-ovelay .dialog header .fa-close {
+        float: right;
+        color: #c4c5c7;
+        cursor: pointer;
+        transition: all .5s ease;
+        padding: 0 2px;
+        border-radius: 1px
+    }
+
+    .dialog-ovelay .dialog header .fa-close:hover {
+        color: #b9b9b9
+    }
+
+    .dialog-ovelay .dialog header .fa-close:active {
+        box-shadow: 0 0 5px #673AB7;
+        color: #a2a2a2
+    }
+
+    .dialog-ovelay .dialog .dialog-msg {
+        padding: 12px 10px
+    }
+
+    .dialog-ovelay .dialog .dialog-msg p {
+        margin: 0;
+        font-size: 15px;
+        color: #333
+    }
+
+    .dialog-ovelay .dialog footer {
+        border-top: 1px solid #e5e5e5;
+        padding: 8px 10px
+    }
+
+    .dialog-ovelay .dialog footer .controls {
+        direction: rtl
+    }
+
+    .dialog-ovelay .dialog footer .controls .button {
+        padding: 5px 15px;
+        border-radius: 3px
+    }
+
+    .button {
+        cursor: pointer
+    }
+
+    .button-default {
+        background-color: rgb(248, 248, 248);
+        border: 1px solid rgba(204, 204, 204, 0.5);
+        color: #5D5D5D;
+    }
+
+    .button-danger {
+        background-color: #f44336;
+        border: 1px solid #d32f2f;
+        color: #f5f5f5
+    }
+    </style>
+
+    <script>
+        function showErrorMessageBelowCtrl(ctrlId, message, show) {
+
+            var divHtml = '<div style="color:red;" id="' + ctrlId + '_err_div" >' + message + '</div>';
+
+            if (show == true) {
+                $('#' + ctrlId).addClass("highlight");
+                $('#' + ctrlId).after(divHtml);
+            } else {
+                $('#' + ctrlId).removeClass("highlight");
+                $('#' + ctrlId + '_err_div').remove();
+            }
+        }
+
+        function validateTextField(controlId, errorMessage) {
+            $(document).on("input propertychange", "#" + controlId, function(event) {
+
+                var value = $("#" + controlId).val().trim();
+                if (value.length == 0) {
+                    showErrorMessageBelowCtrl(controlId, "", false);
+                    showErrorMessageBelowCtrl(controlId, errorMessage, true);
+                    return false;
+                } else {
+                    showErrorMessageBelowCtrl(controlId, "", false);
+                }
+            });
+        }
+
+        function validateDropDownField(controlId, targetId, errorMessage) {
+            $(document).on("change", "#" + controlId, function(event) {
+
+                var val = $("#" + targetId).val();
+                if (val.length == 0) {
+                    //showErrorMessageBelowCtrl(controlId, "", false);
+                    showErrorMessageBelowCtrl(controlId, errorMessage, true);
+                } else {
+                    showErrorMessageBelowCtrl(controlId, "", false);
+                }
+            });
+        }
+
+        function validateDropDownField(controlId, errorMessage) {
+            $(document).on("change", "#" + controlId, function(event) {
+
+                var val = $("#" + controlId).val();
+                if (val.length == 0) {
+                    showErrorMessageBelowCtrl(controlId, "", false);
+                    showErrorMessageBelowCtrl(controlId, errorMessage, true);
+                } else {
+                    showErrorMessageBelowCtrl(controlId, "", false);
+                }
+            });
+        }
+
+        function validateListField(controlId, errorMessage) {
+            $(document).on("change", "#" + controlId, function(event) {
+                var val = $("#" + controlId).val();
+                if (val == null || val.length == 0) {
+                    showErrorMessageBelowCtrl(controlId, "", false);
+                    showErrorMessageBelowCtrl(controlId, errorMessage, true);
+                } else {
+                    showErrorMessageBelowCtrl(controlId, "", false);
+                }
+            });
+        }
+
+
+    </script>
+    <script type="text/javascript">
+        (function(c, l, a, r, i, t, y) {
+            c[a] = c[a] || function() { (c[a].q = c[a].q || []).push(arguments) };
+            t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+            y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+        })(window, document, "clarity", "script", "hawoebwks6");
+    </script>
+</head>
+<body id="page-top">
+
+    <div id="wrapper">
+
+        @await Html.PartialAsync("_NavSidebar")
+
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <div id="content">
+
+                @await Html.PartialAsync("_TopNav")
+                @RenderBody()
+
+            </div>
+
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Approval Management<sup>(AMS)</sup>&nbsp;@DateTime.Now.Year - Developed by <a target="_blank" href="#">SComm-IT Dev Team</a></span>
+                    </div>
+                </div>
+            </footer>
+
+        </div>
+
+    </div>
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        @await Html.PartialAsync("_LogoutModal")
+    }
+
+    @await Html.PartialAsync("_Notifications")
+
+    <script src="~/js/framework.min.js" asp-append-version="true"></script>
+    <script src="~/js/site.min.js" asp-append-version="true"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/jszip.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/xlsx.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.27/dist/sweetalert2.all.min.js"></script>
+    <script src="~/js/bootstrap-datepicker.js"></script>
+    <script src="~/lib/select2/js/select2.js"></script>
+    <script src="~/js/jquery.blockUI.js"></script>
+    <script src="~/js/alertify.js"></script>
+    <script src="~/js/sweetalert.min.js"></script>
+
+    <script>
+        $('.datepicker').datepicker({ format: 'mm/dd/yyyy', autoclose: true });
+        var globalViewModel = new GlobalViewModel(
+            '@Html.Raw(JsonConvert.SerializeObject(await _cacheManager.Configuration_Javascript()))',
+            '@Html.Raw(TempData["Notifications"] as string)'
+        );
+        globalViewModel.initialise();
+        const formatter = new Intl.NumberFormat('BD', {
+            style: 'currency',
+            currency: 'BDT',
+            minimumFractionDigits: 2
+        })
+
+        $(document).on("input propertychange", ".numbersOnly", function(event) {
+            var valStr = $(this).val();
+            var id = $(this).attr("id");
+            var val = parseInt(valStr);
+            if (isNaN(val)) {
+                $(this).val("");
+            }
+            else if (val < 0) {
+                $(this).val("");
+            } else {
+                $(this).val(val);
+            }
+        });
+
+        $(document).on("input propertychange", ".floatNumbersOnly", function(event) {
+            var valStr = $(this).val();
+            var id = $(this).attr("id");
+            var val = parseInt(valStr);
+            if (isNaN(val)) {
+                $(this).val("");
+                return;
+            }
+            if (val < 0) {
+                $(this).val("");
+                return;
+            }
+
+            var re = new RegExp('[0-9]*\.?[0-9]*');
+            var m = re.exec(valStr);
+            if (m == null) {
+                $(this).val("");
+                return;
+            }
+            else {
+                var s = "";
+                for (i = 0; i < m.length; i++) {
+                    s = s + m[i];
+                }
+                $(this).val(s);
+            }
+        });
+
+        $(document).ready(function() {
+            $('[data-toggle="tooltip"]').tooltip();
+
+            $(document).on('click', '#globalSearchBtn', function() {
+                var searchKeyWord = $("#globalSearchText").val();
+                if (searchKeyWord == null || searchKeyWord == "") {
+                    return;
+                }
+                window.location = "/Search/ShowEstimationSearchList?keyWord=" + searchKeyWord.replace(/^\s+|\s+$/gm, '');
+            });
+            setInterval(function() {
+                $('.flash').toggleClass('active');
+            }, 700);
+
+            $(".hideShow").click(function() {
+                $(this).next().toggle(700);
+            });
+            document.addEventListener("keyup", function(event) {
+                if (event.keyCode === 13) {
+                    var searchKeyWord = $("#globalSearchText").val().replace(/^\s+|\s+$/gm, '');
+                    if (searchKeyWord.length > 3) {
+
+                        document.getElementById("globalSearchBtn").click();
+
+                    }
+                }
+            });
+
+        });
+    </script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

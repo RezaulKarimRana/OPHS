@@ -1,0 +1,29 @@
+﻿IF OBJECT_ID('[dbo].[sp_user_update_password]')IS NOT NULL
+BEGIN
+DROP PROC [dbo].[sp_user_update_password]
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[sp_user_update_password]
+	@User_Id					INT,
+	@Password_Hash				VARCHAR(MAX),
+	@Updated_By					INT
+AS
+BEGIN
+   UPDATE [User]
+   SET
+		[Password_Hash] = ISNULL(@Password_Hash, [Password_Hash]),
+		[Is_Locked_Out] = 0,
+		[Invalid_Login_Attempts] = 0,
+		[Updated_By] = @Updated_By,
+		[Updated_Date] = GETDATE()
+   WHERE
+		[Id] = @User_Id
+   SELECT
+		@User_Id
+END
+
+

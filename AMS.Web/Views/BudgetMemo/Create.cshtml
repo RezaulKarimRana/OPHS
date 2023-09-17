@@ -1,0 +1,72 @@
+﻿@model AMS.Models.CustomModels.EstimationInfoForMemo
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+@using AMS.Models.DomainModels
+@inject AMS.Services.Managers.Contracts.ISessionManager _sessionManager
+@{
+    UserEntity? user = await _sessionManager.GetUser();
+}
+<div class="hiddenElements">
+    <input id="estimateId" type="hidden" value="@Model.EstimateId" />
+    <input id="estimateIdProtected" type="hidden" value="@Model.EstimateIdProtected" />
+</div>
+<div class="hiddenElements">
+    <input id="estimateReferId" type="hidden" value="@Model.EstimationReferenceId" />
+</div>
+<div class="container-fluid">
+    <form id="form">
+        @await Html.PartialAsync("_BudgetInfoPartial")
+        @await Html.PartialAsync("_DepartmentWiseRunningSummaryPartial")
+        @await Html.PartialAsync("_BudgetSettlementSummaryPartial")
+        @await Html.PartialAsync("_MemoDetailsPartial")
+        @await Html.PartialAsync("_AddApproverPartial")
+        
+        <div class="card border-secondary mb-4">
+            <div class="card-header hideShow"><b>Approver List</b></div>
+            <div class="card-body">
+                <div class="container-fluid">
+                    <span id="app_err-container"></span>
+                    <div class="table-responsive">
+                        <table class="table table-sm table-hover table-bordered" id="TableAprroverList">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>#</th>
+                                    <th class="text-center" scope="col">Approver Name</th>
+                                    <th class="text-center" scope="col">Approver Type</th>
+                                    <th class="text-center" scope="col">Status</th>
+                                    <th class="text-center" scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tApproverbody" style="text-align:left"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="container-fluid">
+            <div class="form-group row" style="align-content:center">
+                <div class="col-sm-5"></div>
+                <div class="col-sm-7 ">
+                    <button type="button" id="submitBudgeMemo" class="btn btn-outline-info text-decoration-none"><i class="fa fa-file"></i> Submit Memo</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+@section Scripts{
+    <script src="~/js/AjaxCall/Memo.js"></script>
+    <script>
+        $(document).ready(function() {
+            var estimateId = $("#estimateId").val();
+            loadUserList();
+            formateCurrency();
+            autoApproverAddorRemove();
+            loadDepartmentWiseRunningSummary(estimateId);
+        });
+    </script>
+}
+

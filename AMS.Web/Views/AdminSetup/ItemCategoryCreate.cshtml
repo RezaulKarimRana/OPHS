@@ -1,0 +1,47 @@
+﻿@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+<div class="container-fluid">
+    <div class="card border-secondary mb-4">
+        <div class="card-header">
+            <b>Add New Item Category</b>
+        </div>
+        <div class="card-body">
+            <div class="container-fluid">
+                <div class="form-group required row">
+                    <label class="col-sm-2 col-form-label-sm control-label">Particular</label>
+                    <div class="col-sm-4">
+                        <select class="form-control autoSuggestionSelect" aria-label=".form-select-sm example" id="ddlParticular"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="form-group required row">
+                    <label class="col-sm-2 col-form-label-sm control-label">Item Category Name</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="itemCategoryName" />
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-md btn-primary" id="itemCategorySubmit" type="button"><i class="fa fa-plus" aria-hidden="true"></i>Add Item Category</button>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/jquery-ui.min.js"></script>
+    <script src="~/js/bootstrap-datepicker.js"></script>
+    <script src="~/js/alertify.js"></script>
+    <script src="~/js/jquery.blockUI.js"></script>
+    <script src="~/lib/select2/js/select2.js"></script>
+    <script src="~/js/AjaxCall/AdminSupport.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.autoSuggestionSelect').css('width', '100%');
+            $(".autoSuggestionSelect").select2({});
+            getInitData();
+        });
+    </script>
+}

@@ -1,0 +1,50 @@
+﻿<div class="card border-secondary mb-4">
+    <div class="card-header hideShow"><b>Approver Workflow</b></div>
+    <div class="card-body">
+        <div class="container-fluid" id="addApproverForm">
+            <div class="form-group required row">
+                <label for="employeeListforApprover" class="col-2 col-form-label-sm control-label">Employee List</label>
+                <div class="col-8">
+                    <select class="form-control autoSuggestionSelect" aria-label=".form-select-sm example" id="employeeListforApprover" style="width:100%" required>
+                        <option value="-1">Please Select Approver</option>
+                    </select>
+                </div>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" id="userDepartmentID" hidden />
+                    <input type="text" class="form-control" id="DeptIdUserID" hidden />
+                </div>
+            </div>
+            <div class="form-group required row">
+                <label class="col-2 col-form-label-sm" for="datetimepickerApproverTimeLine">Approver Role</label>
+                <div class="col-8" id="approverTypeRadioDiv">
+                    <label class="btn btn-secondary" title="Only for notification and view access, no parking and no action required.">
+                        <input type="radio" class="btn btn-default" id="informerRadioBtn" name="role" value="3" />&nbsp;&nbsp;Inform
+                    </label>
+                    <label class="btn btn-success" title="Will be pending to Recommendation end for input. Will go to next after recommendation input.">
+                        <input type="radio" class="btn btn-default" id="recomendorRadioBtn" name="role" value="2" checked />&nbsp;&nbsp;Recomendor
+                    </label>
+                    <label class="btn btn-warning" title="Will be pending to Recommendation end for input. This will be the last stage of the workflow. Only one person can be final approver.">
+                        <input type="radio" class="btn btn-default" name="role" value="1" />&nbsp;&nbsp;Final Acknowledged
+                    </label>
+                </div>
+            </div>
+            <div class="form-group required row">
+                <label class="col-2 col-form-label-sm" for="datetimepickerApproverTimeLine">Approval Flow</label>
+                <div class="col-8" id="sequenORparalllerRadioDiv">
+                    <label class="btn btn-secondary" title="SEQUENCIAL or PARALLEL ??">
+                        Flow >>>
+                    </label>
+                    <label class="btn btn-secondary" title="The approval request will process one by one in SEQUENCIAL mode.">
+                        <input type="radio" class="btn btn-default" name="flow" value="Sequencial" checked />&nbsp;&nbsp;Sequencial
+                    </label>
+                    <label class="btn btn-secondary" title="The approval request will sent to all stakeholder during PARALLEL then will follow SEQUENCIAL mode.">
+                        <input type="radio" class="btn btn-default" name="flow" value="Parallel" />&nbsp;&nbsp;Parallel
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid col-8">
+            <button type="button" id="addApprover" style="float:right" class="btn btn-outline-primary text-decoration-none"><i class="fa fa-plus"></i> Add Approver</button>
+        </div>
+    </div>
+</div>

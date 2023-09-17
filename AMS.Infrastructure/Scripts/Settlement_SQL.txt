@@ -1,0 +1,800 @@
+﻿IF OBJECT_ID('[dbo].[sp_load_particular_wise_summary_for_running_settlement_by_settlementId]')IS NOT NULL
+BEGIN
+DROP PROC [dbo].[sp_load_particular_wise_summary_for_running_settlement_by_settlementId]
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[sp_load_particular_wise_summary_for_running_settlement_by_settlementId]
+@settlementId int,
+@estimateId int
+AS
+declare @estimationId int
+BEGIN
+    SET NOCOUNT ON;
+    if @settlementId > 0
+    begin
+             select @estimationId = EstimationId from Settlement where id = @settlementId;
+    end
+    else
+    begin
+           set @estimationId = @estimateId;
+    end;
+     with A as (select S.Id                     as SettlementId,
+                      p.id                     as ParticularId,
+                      p.Name                   as particularName,
+                      SUM(si.ActualTotalPrice) as RunningTotalPrice
+               from EstimateSettleItem esi
+                        join Estimation E on E.ID = esi.Estimation_Id
+                        join SettleItem si on si.EstimateSettleItemId = esi.ID
+                        join Settlement S on S.ID = Si.SettlementId
+                        join Item I on esi.Item_Id = I.ID
+
+               join ItemCategory ic on I.ItemCategory_Id = ic.ID
+               join Particular p on p.id = ic.Particular_Id
+
+
+               where SettlementId = @settlementId
+               group by S.id, p.id, p.Name),
+          B as (select p.Name                           particularName
+                    , Particular_Id                    ParticularId
+                    , (select isnull(sum(pws.TotalPrice)
+                                  , 0)
+                       from ParticularWiseSummary pws
+                       where pws.Estimate_Id = @estimationId
+                         and pws.Particular_Id = p.ID) TotalBudget
+                    , (select isnull(sum(sps.TotalPrice)
+                                  , 0)
+                       from SettlementParticularWiseSummary sps
+                                join Settlement s on sps.Settlement_Id = s.Id
+                       where s.EstimationId = @estimationId
+                         and sps.Particular_Id = p.ID) TotalCost
+
+               from (SELECT Particular_Id
+                     FROM dbo.ParticularWiseSummary
+                     WHERE Estimate_Id = @estimationId
+                     UNION
+                     SELECT Particular_Id
+                     FROM dbo.SettlementParticularWiseSummary spws
+                              join Settlement s on spws.Settlement_Id = s.Id
+                              join Estimation e on e.id = s.EstimationId
+                     where EstimationId = @estimationId
+                     ) comDept
+                        join Particular p on p.ID = comDept.Particular_Id)
+    select B.*, A.ParticularId, A.particularName, COALESCE(A.RunningTotalPrice, 0) as TotalRunningCost
+    from B
+             full outer join A on A.ParticularId = B.ParticularId
+
+
+END
+GO
+IF OBJECT_ID('[dbo].[sp_estimation_info_for_memo]')IS NOT NULL
+BEGIN
+DROP PROC [dbo].[sp_estimation_info_for_memo]
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[sp_estimation_info_for_memo]
+	@EstimateId		INT
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	declare @tadaBudget decimal(15,2);
+
+	SELECT @tadaBudget = SUM(TotalPrice) FROM EstimateDetails ED
+	LEFT JOIN Item I ON I.ID = ED.Item_Id
+	LEFT JOIN ItemCategory IC ON IC.ID = I.ItemCategory_Id
+	WHERE Estimation_Id = @EstimateId AND IC.Name = 'TA/DA' AND ED.ResponsibleDepartment_Id != 7 AND ED.ResponsibleDepartment_Id != 41
+
+    SELECT
+		est.ID EstimateId
+		,est.[EstimateType_Id] EstimationTypeId
+		,estType.Name EstimationTypeName
+		,estType.ApplicationName EstimationTypeProject
+		,est.[Status] EstimationStatus
+		,est.[SystemID] EstimationSystemID
+		,est.[UniqueIdentifier] EstimationIdentifier
+		,est.[Subject] EstimationSubject
+		,est.[Objective] EstimationObjective
+		,est.[Details] EstimationDetails
+		,est.[PlanStartDate] EstimationPlanStartDate
+		,est.[PlanEndDate] EstimationPlanEndDate
+		,est.[Remarks] EstimationRemarks
+		,est.[TotalPrice] EstimaionTotalPrice
+		,est.Created_By CreatorID
+		,CONCAT(us.First_Name,' ', us.Last_Name,'/',dept.Name) CreateorFullName
+		,dept.Name CreatorDepartment
+		,us.Email_Address CreatorEmail
+		,est.Updated_Date CreatedDate
+		,estRefer.Id EstimationReferenceId
+		,(estRefer.AllowableBudget - @tadaBudget) AllowableBudget
+		,estRefer.AlreadySettle TotalCost
+		,(estRefer.AlreadySettle - (estRefer.AllowableBudget - @tadaBudget)) as Deviation
+		,(select CAST(((estRefer.AlreadySettle * 100) / (estRefer.AllowableBudget-@tadaBudget)) as decimal(15,2))) Percentage
+	FROM [Estimation] est
+
+	inner join EstimateType estType
+	on est.EstimateType_Id = estType.ID
+
+	inner join [User] us
+	on est.Created_By = us.Id
+
+	inner join Department dept
+	on us.Department_Id = dept.ID
+
+	inner join EstimationReference estRefer
+	on est.ID = estRefer.EstimationId
+
+	where est.ID = @EstimateId
+	and est.Is_Deleted = 0
+	and estType.Is_Deleted = 0
+END
+GO
+IF OBJECT_ID('[dbo].[sp_clone_estimation_to_estimationReference]')IS NOT NULL
+BEGIN
+DROP PROC [dbo].[sp_clone_estimation_to_estimationReference]
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[sp_clone_estimation_to_estimationReference] @estimationId int,
+                                                                    @userId int
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    insert into EstimationReference(EstimationId, AllowableBudget, Created_By,
+                                    Created_Date)
+    select id,
+           (select sum(TotalPrice)
+            from DepartmentWiseSummary
+            where Estimate_Id = e.ID
+              and Department_Id not in
+                  (select DepartmentId from FundRequisitionConfig where isDeductFromCalculation = 1)),
+           @userId, getdate()
+
+    from Estimation E
+    where E.ID = @estimationId
+	
+
+	declare @tadaBudget decimal(15,2),@allowableBudget decimal(15,2);
+
+	SELECT @tadaBudget = SUM(TotalPrice) FROM EstimateDetails ED
+	LEFT JOIN Item I ON I.ID = ED.Item_Id
+	LEFT JOIN ItemCategory IC ON IC.ID = I.ItemCategory_Id
+	WHERE Estimation_Id = @estimationId AND IC.Name = 'TA/DA' AND ED.ResponsibleDepartment_Id != 7 AND ED.ResponsibleDepartment_Id != 41
+	SELECT TOP 1 @allowableBudget = AllowableBudget FROM EstimationReference WHERE EstimationId = @estimationId
+	UPDATE EstimationReference SET AllowableBudget = @allowableBudget - @tadaBudget WHERE EstimationId = @estimationId
+END
+GO
+IF OBJECT_ID('[dbo].[sp_load_all_settlement_for_follower_by_follower_id]')IS NOT NULL
+BEGIN
+DROP PROC [dbo].[sp_load_all_settlement_for_follower_by_follower_id]
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[sp_load_all_settlement_for_follower_by_follower_id]
+    @user_Id int = 0
+AS
+BEGIN
+
+    SET NOCOUNT ON;
+    select Ss.Id                                 SettlementId,
+           e.id                                  EstimationId,
+           Ss.RequestNo                  EstimateIdentifier,
+           e.Subject,
+           case
+               when Ss.IsItFinalSetttlement = 1
+                   then 'Yes'
+               else
+                   'No' end                      IsItFinalSettlement,
+           e.TotalPrice TotalBudgedPrice,
+           er.AllowableBudget,
+           er.AlreadySettle,
+           Ss.TotalAmount                        SettleAmount,
+           su.First_Name + ' ' + su.Last_Name as CreatorFullName
+    from EstimationReference er
+             join Estimation E on E.ID = er.EstimationId
+             join Settlement Ss on E.ID = Ss.EstimationId
+             join SettlementApprover sa on sa.SettlementId = Ss.Id
+             join [User] su on su.Id = Ss.Created_By
+    where (sa.User_Id = @user_Id and sa.Priority =
+                                     (
+                                         select top 1 Priority
+                                         from SettlementApprover
+                                         where Status = 2 and SettlementApprover.SettlementId = Ss.Id
+                                         order by Priority desc
+                                     ))
+END
+GO
+IF OBJECT_ID('[dbo].[sp_settlement_create_or_modify]')IS NOT NULL
+BEGIN
+DROP PROC [dbo].[sp_settlement_create_or_modify]
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[sp_settlement_create_or_modify]
+	@Id INT,
+	@Estimate_Id INT,
+	@Status INT,
+	@SettlementNote varchar(max),
+	@Created_By INT,
+	@totalSettlementAmount float,
+	@isItFinalSettlement int
+
+AS
+BEGIN
+
+	DECLARE @P_Key INT;
+
+    if exists(SELECT * from Settlement where Id = @Id)
+        BEGIN
+            update Settlement
+            set EstimationId= @Estimate_Id,
+                Status = @Status,
+                TotalAmount = @totalSettlementAmount,
+                IsItFinalSetttlement = @isItFinalSettlement,
+                Updated_By = @Created_By,
+                Updated_Date = getdate(),
+                SettlementNote = @SettlementNote
+
+
+            where Id = @Id;
+            delete from SettlementApprover where SettlementApprover.SettlementId = @Id;
+            if(@isItFinalSettlement = 1)
+                       begin
+                           update EstimationReference set IsFinalSettle = 1
+                           where EstimationId= @Estimate_Id;
+
+                       end
+            else
+                begin
+                    update EstimationReference set IsFinalSettle = 0
+                           where EstimationId= @Estimate_Id;
+                end
+            select @Id as Id;
+        End
+
+    else
+        begin
+			DECLARE @RequestNo VARCHAR(50),@UniqueIdentifier VARCHAR(50),@estimationCount INT;
+			SELECT @estimationCount = COUNT(Id) + 1 FROM Settlement WHERE EstimationId = @Estimate_Id
+			SELECT @UniqueIdentifier = UniqueIdentifier FROM Estimation WHERE ID = @Estimate_Id
+			SET @RequestNo = @UniqueIdentifier+'['+CAST(@estimationCount AS VARCHAR(20))+']';
+
+            INSERT INTO [Settlement]
+            ( [RequestNo],
+			[EstimationId],
+             [SettlementNote],
+             [Status],
+             [TotalAmount]
+             ,[IsItFinalSetttlement]
+            , [Created_By]
+            , [Updated_By]
+            , [Created_Date]
+            , [Updated_Date])
+            VALUES ( @RequestNo,
+					@Estimate_Id
+                   , @SettlementNote
+                   , @Status
+                   ,@totalSettlementAmount
+                   ,@isItFinalSettlement
+                   , @Created_By
+                   , @Created_By
+                   , GETDATE()
+                   ,GETDATE())
+
+                   if(@isItFinalSettlement = 1 )
+                       begin
+                           update EstimationReference set IsFinalSettle = 1
+                           where EstimationId= @Estimate_Id;
+
+                       end
+				SET @P_Key = SCOPE_IDENTITY();
+                SELECT @P_Key AS [Id]
+        END
+END
+GO
+IF OBJECT_ID('[dbo].[sp_load_all_on_going_settlement_list_by_user_id_and_Status_v2]')IS NOT NULL
+BEGIN
+DROP PROC [dbo].[sp_load_all_on_going_settlement_list_by_user_id_and_Status_v2]
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[sp_load_all_on_going_settlement_list_by_user_id_and_Status_v2]
+    @user_Id int =0,
+    @status int
+AS
+BEGIN
+
+    SET NOCOUNT ON;
+    select distinct Ss.Id                                     SettlementId,
+                    e.id                                      EstimationId,
+                    Ss.RequestNo							  EstimateIdentifier,
+                    e.Subject,
+                    case
+                        when Ss.IsItFinalSetttlement = 1
+                            then 'Yes'
+                        else
+                            'No' end                          IsItFinalSettlement,
+                    e.TotalPrice                              TotalBudgedPrice,
+
+                    er.AllowableBudget,
+                    er.AlreadySettle,
+                    Ss.TotalAmount                            SettleAmount,
+                    CONVERT(varchar, Ss.Created_Date, 103) as SettlementInitiateDate,
+                    su.First_Name + ' ' + su.Last_Name     as CreatorFullName,
+                ('[' + (select stuff( (select ','+ dbo.getSettlementApproverJson((case when sa.Status = 2
+                        then 'Pending'
+                        when sa.Status = -404 then 'RollBack'
+                       when sa.Status = 100 then 'Completed'
+                           else 'Rejected' end) , sa.RolePriority_Id, sa.Priority,
+                                                 U.Username)
+
+               from  SettlementApprover sa
+                              join [User] U on sa.User_Id = U.Id
+                     WHERE sa.SettlementId = Ss.Id order by sa.Priority desc
+
+               for xml path('')),1,2,'{') + ']'))
+
+                                           AS SettlementApprovalList
+    from EstimationReference er
+             join Estimation E on E.ID = er.EstimationId
+             join Settlement Ss on E.ID = Ss.EstimationId
+             join SettlementApprover sa on sa.SettlementId = Ss.Id
+             join [User] su on su.Id = Ss.Created_By
+    where (sa.User_Id = @user_Id or ss.Created_By = @user_Id)
+      and ss.status <> 100  -- complete
+      and not ss.Status = 5 --draft
+      and not ss.Status = -500 --rejected--rejected
+
+    ;
+END
+GO
+IF OBJECT_ID('[dbo].[sp_load_all_settlement_list_by_user_id_and_Status]')IS NOT NULL
+BEGIN
+DROP PROC [dbo].[sp_load_all_settlement_list_by_user_id_and_Status]
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[sp_load_all_settlement_list_by_user_id_and_Status]
+    @user_Id int =0,
+    @status int
+AS
+BEGIN
+
+    SET NOCOUNT ON;
+     select distinct Ss.Id                                  SettlementId,
+           e.id												EstimationId,
+           ss.RequestNo										EstimateIdentifier,
+           e.Subject,
+           case
+               when Ss.IsItFinalSetttlement = 1
+                   then 'Yes'
+               else
+                   'No' end                      IsItFinalSettlement,
+           e.TotalPrice TotalBudgedPrice,
+           er.AllowableBudget,
+           er.AlreadySettle,
+           Ss.TotalAmount                        SettleAmount,
+           su.First_Name + ' ' + su.Last_Name as CreatorFullName
+    from EstimationReference er
+             join Estimation E on E.ID = er.EstimationId
+             join Settlement Ss on E.ID = Ss.EstimationId
+             join SettlementApprover sa on sa.SettlementId = Ss.Id
+             join [User] su on su.Id = Ss.Created_By
+    where (sa.User_Id = @user_Id or ss.Created_By = @user_Id)
+      and ss.Status = @status
+      ;
+END
+GO
+IF OBJECT_ID('[dbo].[sp_load_particular_wise_summary_for_settled_estimation_with_budget_data]') IS NOT NULL
+BEGIN
+DROP PROC [dbo].[sp_load_particular_wise_summary_for_settled_estimation_with_budget_data]
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[sp_load_particular_wise_summary_for_settled_estimation_with_budget_data]
+	@estimationId			int
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+    with ParticularWiseSummaryBudget as (select ic.Particular_Id, sum(ed.TotalPrice) as TotalBudget
+                                     from EstimateDetails ed
+                                              join Item I on ed.Item_Id = I.ID
+                                              join ItemCategory ic on I.ItemCategory_Id = ic.ID
+                                     where ed.Estimation_Id = @estimationId
+                                       and ed.ResponsibleDepartment_Id
+                                         not in (
+                                               select DepartmentId
+                                               from FundRequisitionConfig
+                                               where isDeductFromCalculation = 1
+                                           )
+                                     group by ic.Particular_Id)
+   , ParticularWiseSummarySettlement as (
+    SELECT spws.Particular_Id, spws.TotalPrice
+    FROM dbo.SettlementParticularWiseSummary spws
+             join Settlement S on s.Id = spws.Settlement_Id
+             join Estimation e on e.ID = s.EstimationId
+    where EstimationId = @estimationId)
+   , Summary as (
+    select pwss.Particular_Id
+    from ParticularWiseSummarySettlement pwss
+    union
+    select pwsb.Particular_Id
+    from ParticularWiseSummaryBudget pwsb
+)
+select Summary.Particular_Id as ParticularId, p.Name as particularName , isnull ((select isnull(sum(ParticularWiseSummaryBudget.TotalBudget) , 0)
+        from ParticularWiseSummaryBudget
+        where ParticularWiseSummaryBudget.Particular_Id = Summary.Particular_Id),0) as TotalBudget,
+        isnull((select sum(ParticularWiseSummarySettlement.TotalPrice)
+        from ParticularWiseSummarySettlement
+        where ParticularWiseSummarySettlement.Particular_Id = Summary.Particular_Id),0)  as TotalCost
+
+
+from Summary  join Particular p on p.ID = Summary.Particular_Id
+END
+GO
+IF OBJECT_ID('[dbo].[sp_settlement_ready_list]')IS NOT NULL
+BEGIN
+DROP PROC [dbo].[sp_settlement_ready_list]
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROC [dbo].[sp_settlement_ready_list]
+	@UserId INT,
+	@start int =0,
+	@rowsperpage int =10,
+	@DepartmentID int,
+	@currentstatus int
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+	DECLARE @TotalRow INT = 0;
+	Select @TotalRow = COUNT(e.id)
+        from [Estimation] e
+                 left join [User] u on u.Id = e.Created_By
+                 left join [Department] Dept on Dept.ID = u.Department_Id
+        where
+		  e.status = 100
+		  and 
+		  ((select SUM(DWS.TotalPrice)
+                    from DepartmentWiseSummary DWS
+
+                    where DWS.Estimate_Id = E.ID
+                    and DWS.Department_Id not in (
+                        select DepartmentId from FundRequisitionConfig frc where frc.isDeductFromCalculation = 1))
+						-
+						ISNULL((select sum(Amount)
+                    from FundRequisition FRR
+                    where FRR.EstimationId = E.ID
+                        and FRR.RequisitionStatus != -500),0)
+					) > 0
+
+        Select distinct e.id                                                                    Id,
+                        e.UniqueIdentifier                                                      EstimationIdentity,
+                        e.Subject,
+                        e.PlanStartDate,
+                        e.PlanEndDate,
+                        e.TotalPrice,
+                        @TotalRow as 'TotalRow',
+                        (select SUM(DWS.TotalPrice)
+                         from DepartmentWiseSummary DWS
+
+                         where DWS.Estimate_Id = E.ID
+                           and DWS.Department_Id not in (
+                             select DepartmentId from FundRequisitionConfig frc where frc.isDeductFromCalculation = 1)
+                        )                                                                    as TotalAllowableBudget,
+                        (
+                            select sum(Amount)
+                            from FundRequisition FRR
+                            where FRR.EstimationId = E.ID
+                              and FRR.RequisitionStatus != -500
+                        )                                                                    as TotalRequisitionAmount,
+						(
+						(select SUM(DWS.TotalPrice)
+                         from DepartmentWiseSummary DWS
+
+                         where DWS.Estimate_Id = E.ID
+                           and DWS.Department_Id not in (
+                             select DepartmentId from FundRequisitionConfig frc where frc.isDeductFromCalculation = 1))
+							 -
+							 ISNULL((select sum(Amount)
+                            from FundRequisition FRR
+                            where FRR.EstimationId = E.ID
+                              and FRR.RequisitionStatus != -500),0)
+						)                                                                   as RemainingBudget,
+                        (
+                            select SUM(FDD.DisburseAmount)
+                            from FundRequisition FRR
+                                     join FundDisburse FDD
+                                          on FRR.ID = FDD.FundRequisitionId
+                            where FRR.EstimationId = E.ID
+                              and FDD.Status = 100
+                        )                                                                    as TotalReceived,
+                        (
+                            select count(id) as esitimateTotalItem
+                            from EstimateDetails
+                            where EstimateDetails.Estimation_Id = E.ID
+                        )                                                                    as IsItAllowableForSettlement,
+                        (
+                            select count(id) as esitimateTotalItem
+                            from Settlement
+                            where (Settlement.EstimationId = E.ID
+                                and Settlement.Created_By = @UserId)
+                              and (dbo.Settlement.Status = 5)
+                        )                                                                    as DraftExists
+
+
+        from [Estimation] e
+                 left join [User] u on u.Id = e.Created_By
+                 left join [Department] Dept on Dept.ID = u.Department_Id
+        where
+		  e.status = 100
+		  and 
+		  ((select SUM(DWS.TotalPrice)
+                    from DepartmentWiseSummary DWS
+
+                    where DWS.Estimate_Id = E.ID
+                    and DWS.Department_Id not in (
+                        select DepartmentId from FundRequisitionConfig frc where frc.isDeductFromCalculation = 1))
+						-
+						ISNULL((select sum(Amount)
+                    from FundRequisition FRR
+                    where FRR.EstimationId = E.ID
+                        and FRR.RequisitionStatus != -500),0)
+					) > 0
+			order by e.Id desc
+			OFFSET @start ROWS
+			FETCH NEXT @rowsperpage ROWS ONLY
+END
+GO
+IF OBJECT_ID('[dbo].[sp_load_all_Settlement_Summary]')IS NOT NULL
+BEGIN
+DROP PROC [dbo].[sp_load_all_Settlement_Summary]
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[sp_load_all_Settlement_Summary]
+@userId INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+	DECLARE @Draft INT = 0,@Pending INT = 0, @RollBack INT = 0, @Completed INT = 0, @Rejected INT = 0, @All INT = 0;
+	
+	SELECT @Draft = COUNT (DISTINCT S.Id)
+	FROM Settlement S
+	WHERE S.Created_By = @userId AND S.Status = 5
+	SELECT @Pending = COUNT (DISTINCT S.Id)
+	FROM Settlement S
+	LEFT JOIN SettlementApprover SA ON S.Id = SA.SettlementId
+	WHERE (S.Created_By = @userId OR SA.User_Id = @userId) AND S.Status = 2
+	SELECT @RollBack = COUNT (DISTINCT S.Id)
+	FROM Settlement S
+	LEFT JOIN SettlementApprover SA ON S.Id = SA.SettlementId
+	WHERE (S.Created_By = @userId OR SA.User_Id = @userId) AND S.Status = -404
+	SELECT @Completed = COUNT (DISTINCT S.Id)
+	FROM Settlement S
+	LEFT JOIN SettlementApprover SA ON S.Id = SA.SettlementId
+	WHERE (S.Created_By = @userId OR SA.User_Id = @userId ) AND S.Status = 100
+	SELECT @Rejected = COUNT (DISTINCT S.Id)
+	FROM Settlement S
+	LEFT JOIN SettlementApprover SA ON S.Id = SA.SettlementId
+	WHERE (S.Created_By = @userId OR SA.User_Id = @userId) AND S.Status = -500
+	SELECT @All = COUNT (DISTINCT S.Id)
+	FROM Settlement S
+	LEFT JOIN SettlementApprover SA ON S.Id = SA.SettlementId
+	WHERE (S.Created_By = @userId OR SA.User_Id = @userId)
+
+	SELECT @Draft Draft,@Pending Pending, @RollBack CR, @Completed Completed, @Rejected Rejected, @All Total
+END
+GO
+IF OBJECT_ID('[dbo].[sp_load_all_Settlement]')IS NOT NULL
+BEGIN
+DROP PROC [dbo].[sp_load_all_Settlement]
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[sp_load_all_Settlement]
+    @user_Id int =0,
+    @status int,
+	@start int =0,
+	@rowsperpage int =10
+AS
+BEGIN
+
+    SET NOCOUNT ON;
+
+	DECLARE @TotalRow INT = 0;
+
+	select @TotalRow = COUNT(distinct Ss.Id)
+    from EstimationReference er
+             join Estimation E on E.ID = er.EstimationId
+             join Settlement Ss on E.ID = Ss.EstimationId
+             join SettlementApprover sa on sa.SettlementId = Ss.Id
+             join [User] su on su.Id = Ss.Created_By
+    where (sa.User_Id = @user_Id or ss.Created_By = @user_Id)
+      and (ISNULL(@status,0) = 0 OR SS.Status = @status)
+
+    select distinct Ss.Id                                     SettlementId,
+                    e.id                                      EstimationId,
+                    Ss.RequestNo							  EstimateIdentifier,
+                    e.Subject,
+                    case
+                        when Ss.IsItFinalSetttlement = 1
+                            then 'Yes'
+                        else
+                            'No' end                          IsItFinalSettlement,
+                    e.TotalPrice                              TotalBudgedPrice,
+
+                    er.AllowableBudget,
+                    er.AlreadySettle,
+                    Ss.TotalAmount                            SettleAmount,
+					ss.Created_By as SettlementInitiatorUserId,
+                    CONVERT(varchar, Ss.Created_Date, 103) as SettlementInitiateDate,
+                    su.First_Name + ' ' + su.Last_Name     as CreatorFullName,
+                ('[' + (select stuff( (select ','+ dbo.getSettlementApproverJson((case when sa.Status = 2
+                        then 'Pending'
+                        when sa.Status = -404 then 'RollBack'
+                       when sa.Status = 100 then 'Completed'
+                           else 'Rejected' end) , sa.RolePriority_Id, sa.Priority,
+                                                 U.Username)
+
+               from  SettlementApprover sa
+                              join [User] U on sa.User_Id = U.Id
+                     WHERE sa.SettlementId = Ss.Id order by sa.Priority desc
+
+               for xml path('')),1,2,'{') + ']'))
+
+                                           AS SettlementApprovalList,
+			   @TotalRow TotalRow
+    from EstimationReference er
+             join Estimation E on E.ID = er.EstimationId
+             join Settlement Ss on E.ID = Ss.EstimationId
+             join SettlementApprover sa on sa.SettlementId = Ss.Id
+             join [User] su on su.Id = Ss.Created_By
+    where (sa.User_Id = @user_Id or ss.Created_By = @user_Id)
+      and (ISNULL(@status,0) = 0 OR SS.Status = @status)
+	  ORDER BY SS.Id DESC
+	  OFFSET @start ROWS
+	  FETCH NEXT @rowsperpage ROWS ONLY
+END
+GO
+IF OBJECT_ID('[dbo].[sp_Settlement_Attachments_DeleteById]')IS NOT NULL
+BEGIN
+DROP PROC [dbo].[sp_Settlement_Attachments_DeleteById]
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[sp_Settlement_Attachments_DeleteById]
+    @id int =0
+AS
+BEGIN
+
+    SET NOCOUNT ON;
+    DELETE EstimateSettlementAttachments WHERE ID = @id
+	SELECT @id
+END
+GO
+IF OBJECT_ID('[dbo].[sp_get_Comma_separate_email_info_by_settlement]')IS NOT NULL
+BEGIN
+DROP PROC [dbo].[sp_get_Comma_separate_email_info_by_settlement]
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[sp_get_Comma_separate_email_info_by_settlement]
+	@SettlementId INT
+AS
+BEGIN
+	select stuff((
+                 select ',' + u.Email_Address
+                 from [User] u
+                 where u.Id in (
+                     select User_Id
+                     from SettlementApprover sa
+
+
+                     where sa.Priority =
+                           (
+                               select top 1 Priority
+                               from SettlementApprover
+                               where Status = 2
+                                 and SettlementApprover.SettlementId = @SettlementId
+                               order by Priority desc
+                           )
+                       and (sa.Status = 2 and SettlementId = @SettlementId)
+                 )
+                 order by u.Id
+                 for xml path('')
+             ), 1, 1, '') as NextApprover,
+
+
+
+       stuff((
+                 select ',' + u.Email_Address
+                 from [User] u
+                 where u.Id in (
+                     select User_Id
+                     from SettlementApprover sa
+
+
+                     where sa.SettlementId = @SettlementId
+                     and sa.User_Id not in (
+                         select User_Id
+                     from SettlementApprover sa
+
+
+                     where sa.Priority =
+                           (
+                               select top 1 Priority
+                               from SettlementApprover
+                               where Status = 2
+                                 and SettlementApprover.SettlementId = @SettlementId
+                               order by Priority desc
+                           )
+                       and (sa.Status = 2 and SettlementId = @SettlementId)
+                         )
+						 AND sa.User_Id != 532 AND sa.User_Id != 515
+					 -- Bashir Hasan and Sheikh Pannu is not want to get email
+                 )
+                 order by u.Id
+                 for xml path('')
+             ), 1, 1, '') as AllApproverExceptNextApprover,
+       stuff((
+                 select ',' + u.Email_Address
+                 from [User] u
+                 where u.Id in (
+                     select User_Id
+                     from SettlementApprover sa
+                     where sa.SettlementId = @SettlementId
+					 AND sa.User_Id != 532 AND sa.User_Id != 515
+					 -- Bashir Hasan and Sheikh Pannu is not want to get email
+                 )
+                 order by u.Id
+                 for xml path('')
+             ), 1, 1, '') as AllApproverMail,
+
+	       (select u.Email_Address from Settlement s join [User] u on u.id = s.Created_By where s.Id = @SettlementId) as creatorEmailAddress
+END
+GO

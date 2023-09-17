@@ -1,0 +1,2856 @@
+﻿@model AMS.Models.ServiceModels.BudgetEstimate.SingleEstimationWithTypeResponse
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+@using System.Globalization
+@using AMS.Models.DomainModels
+@inject AMS.Services.Managers.Contracts.ISessionManager _sessionManager
+@{
+    UserEntity? user = await _sessionManager.GetUser();
+}
+<div class="hiddenElements">
+    <input id="estimateId"
+           type="hidden"
+           value="@Model.Estimation.EstimateId"/>
+</div>
+<div class="container-fluid">
+<form id="form">
+<div class="card border-secondary mb-4">
+    <div class="card-header">
+        <b>View Estimate Budget</b>
+        <a id="btnDownloadExcelReport"
+           style="margin-left: 5px;"
+           href="/ReportGenarator/SingleEstimateReport?id=@Model.Estimation.EstimateId"
+           class="btn btn-info float-right">
+            <span class="icon text-gray-100">
+                <i class="fas fa-file-excel"></i>
+            </span>
+        </a>
+
+        <a id="btnDownloadPdfReport" href="/ReportGenarator/SingleSettlementPdfReport?id=@ViewBag.Settlement.Id" class="btn btn-info float-right">
+            <span class="icon text-gray-100">
+                <i class="fas fa-file-pdf"></i>
+            </span>
+        </a>
+    </div>
+    <div class="card-body">
+        <div class="container-fluid">
+            <div class="form-group required row">
+                <label for="approvalForDropDown" class="col-sm-2 col-form-label-sm control-label">Approval For</label>
+                <div class="col-sm-4">
+                    <select class="form-control" aria-label=".form-select-sm example" id="approvalForDropDown" disabled>
+                        <option value="@Model.Estimation.EstimationTypeId" selected>@Model.Estimation.EstimationTypeName</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group required row">
+                <label for="IdentificationTextId" class="col-sm-2 col-form-label-sm control-label">Idenfication</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="IdentificationTextId" value="@Model.Estimation.EstimationIdentifier" disabled/>
+                </div>
+            </div>
+            <div class="form-group required row">
+                <label for="subjectTextId" class="col-sm-2 col-form-label-sm control-label">Subject</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="subjectTextId" disabled/>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="card secondary mb-4 procurementApprovalDiv">
+    <div class="card-header">
+        <b>Background</b>
+    </div>
+    <div class="card-body">
+        <div class="container-fluid">
+            <div class="form-group required row">
+                <label for="paReferenceNumberTextId" class="col-sm-2 col-form-label-sm control-label">PA. Reference No.</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="paReferenceNumberTextId" disabled/>
+                </div>
+            </div>
+            <div class="form-group required row">
+                <label for="titleOfPRorRFQTextId" class="col-sm-2 col-form-label-sm control-label">Title of the PR/RFQ</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="titleOfPRorRFQTextId" disabled/>
+                </div>
+            </div>
+            <div class="form-group required row">
+                <label for="RFQReferNoTextId" class="col-sm-2 col-form-label-sm control-label">RFQ Reference No.</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="RFQReferNoTextId" disabled/>
+                </div>
+            </div>
+            <div class="form-group required row">
+                <label for="PRReferenceNoTextId" class="col-sm-2 col-form-label-sm control-label">PR Reference No.</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="PRReferenceNoTextId" disabled/>
+                </div>
+            </div>
+            <div class="form-group required row">
+                <label for="NameAndCellRequesterTextId" class="col-sm-2 col-form-label-sm control-label">Name and Cell No. of Requester</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="nameAndCellRequesterTextId" disabled/>
+                </div>
+            </div>
+            <div class="form-group required row">
+                <label for="deptOrDivTextId" class="col-sm-2 col-form-label-sm control-label">Department/Division</label>
+                <div class="col-sm-10">
+                    @*<input type="text" class="form-control" id="" required />*@
+                    <select class="form-control" aria-label=".form-select-sm" id="deptOrDivTextId" disabled>
+                        <option value="-1" selected>Select</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group required row">
+                <label for="RFQProcessTextId" class="col-sm-2 col-form-label-sm control-label">RFQ Process</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="RFQProcessTextId" disabled/>
+                </div>
+            </div>
+            <div class="form-group required row">
+                <label for="sourcingMethodTextId" class="col-sm-2 col-form-label-sm control-label">Sourcing Method</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="sourcingMethodTextId" disabled/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card secondary mb-4 procurementApprovalDiv">
+    <div class="card-header">
+        <b>Award Recommandation</b>
+    </div>
+    <div class="card-body">
+        <div class="container-fluid">
+            <div class="form-group required row">
+                <label for="nameSupplierTextId" class="col-sm-2 col-form-label-sm control-label">Name of the Recommended Supplied</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="nameSupplierTextId" disabled/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="purchaseValueTextId" class="col-sm-2 col-form-label-sm">Purchase Value</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" id="purchaseValueTextId" style="height: 200px;" aria-label="With textarea" disabled></textarea>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="savingAmountTextId" class="col-sm-2 col-form-label-sm">Saving Amount</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" id="savingAmountTextId" style="height: 200px;" aria-label="With textarea" disabled></textarea>
+                </div>
+            </div>
+            <div class="form-group required row">
+                <label for="savingTypeDropDown" class="col-sm-2 col-form-label-sm control-label">Saving Type</label>
+                <div class="col-sm-4">
+                    <select class="form-control" aria-label=".form-select-sm example" id="savingTypeDropDown" disabled>
+                        <option value="None">Select</option>
+                        <option value="CostAvoidance">Cost Avoidance</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card border-secondary mb-4">
+    <div class="card-header">
+        <b>Budget Descriptions</b>
+    </div>
+    <div class="card-body">
+        <div class="container-fluid">
+            <div class="form-group row">
+                <label for="objectiveTextId" class="col-sm-2 col-form-label-sm">Objective</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" id="objectiveTextId" aria-label="With textarea" style="height: 200px;" disabled>@Model.Estimation.EstimationObjective</textarea>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="textEditorEstimation" class="col-sm-2 col-form-label-sm">Details</label>
+                <div class="col-sm-10">
+                    <textarea id="textEditorEstimation" name="detailsData" disabled>@Model.Estimation.EstimationDetails</textarea>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label-sm">Plan Date</label>
+                <div class="col-sm-4">
+                    <label for="datetimepickerEstimationStartDate" class="col-form-label-sm control-label">Start</label>
+                    <input readonly="readonly" @*type="datetime-local"*@ id="datetimepickerEstimationStartDate" class="form-control datepicker" disabled/>
+                </div>
+                <div class="col-sm-4">
+                    <label for="datetimepickerEstimationEndDate" class="col-form-label-sm control-label">End</label>
+                    <input readonly="readonly" @*type="datetime-local"*@ id="datetimepickerEstimationEndDate" class="form-control datepicker" disabled/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="estimationfiles" class="col-sm-2 col-form-label-sm">Attachments</label>
+                <div class="col-sm-4">
+                    <table class="table table-sm">
+                        <tr id="attachmentsTable"></tr>
+                    </table>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="creatortext" class="col-sm-2 col-form-label-sm control-label">Created By</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="creatortext" value="@Model.Estimation.CreateorFullName" disabled/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="creationDateTxt" class="col-sm-2 col-form-label-sm control-label">Creation Time</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="creationDateTxt" value="@Model.Estimation.CreatedDate.ToString("f")" disabled/>
+                </div>
+            </div>
+            <div class="form-group row" id="totalPriceDiv">
+                <label for="totalPriceText" class="col-sm-2 col-form-label-sm control-label">Total Price</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control numbersOnly" id="totalPriceText" value="@Model.Estimation.EstimaionTotalPrice" disabled/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<div class="card border-secondary mb-4">
+    <div class="card-header" data-toggle="collapse" href="#approverWorkflowDetailsEstimation"><b>Estimaton Approver Workflow  </b>  <i class="fa"></i></div>
+    <div class="card-body collapse"   id="approverWorkflowDetailsEstimation">
+        <div class="card border-secondary mb-4">
+            <div class="card-header"><b>Approver List </b></div>
+            <div class="card-body">
+                <div class="container-fluid">
+                    <span id="app_err-container"></span>
+                    <div class="table-responsive">
+                        <table class="table table-sm table-hover table-bordered" id="TableAprroverList">
+                            <thead class="thead-dark">
+                            <tr>
+                                <th>#</th>
+                                <th class="text-center" scope="col">Approver Name</th>
+                                @*<th class="text-center" scope="col">Approver Priority</th>*@
+                                <th class="text-center" scope="col">Approver Type</th>
+                                <th class="text-center" scope="col">Approver Department</th>
+                                <th class="text-center" scope="col">Expected Time</th>
+                            </tr>
+                            </thead>
+                            <tbody id="tApproverbodyEstimation " style="text-align:left">
+                            <tr style="background-color:khaki;">
+                                <td>&nbsp;</td>
+                                <td class="text-left">@Model.Estimation.CreateorFullName</td>
+                                <td class="text-left">Creator</td>
+                                <td class="text-left">@Model.Estimation.CreatorDepartment</td>
+                                <td class="text-left"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card border-secondary mb-4" id="AddParticularSection">
+    <div class="card-header">
+        <b>Particular Items and Details</b>
+    </div>
+    <div class="card-body">
+        <div id="AddParticularSection">
+            <div class="container-fluid">
+                <div class="large-table-fake-top-scroll-container-3">
+                    <div>&nbsp;</div>
+                </div>
+                <div class="table-responsive large-table-container-3 " id="particularItemTableId">
+                    <table class="table table-responsive-md table-hover 
+table-bordered particularItemsAndDetailsTable 
+" id="particularItemsDetails">
+                        <thead style="position: sticky; top: 0" class="thead-dark">
+                        <tr>
+                            <th>#</th>
+                            @*<th scope="col" hidden>EstimateSettleIItemId</th>*@
+
+
+                            <th scope="col">Item Description </th>
+
+
+
+                            <th scope="col">Location & Department</th>
+                            <th scope="col" width="30%">Estimate Details</th>
+
+                            <th scope="col" width="30%">Settlement Details</th>
+
+
+                            <th scope="col" colspan="2">Settlement Remarks</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tbody" style="text-align: left">
+                        </tbody>
+                        <tfoot align="right">
+
+                        <tr>
+
+                            <td id="sumOfTotalPrice" hidden>@Model.Estimation.EstimaionTotalPrice</td>
+                            <td colspan="3"><span>Total </span></td>
+                            <td style="font-weight: bold;" id="sumOfTotalPriceShow"> @Model.Estimation.EstimaionTotalPrice.ToString("N", new CultureInfo("hi-IN"))<span>&#2547;</span></td>
+                            @*<td>
+                                <span id="validationMsgOnDepartment" style="color: red"></span>
+                            </td>*@
+                           
+                          
+
+                            <td style="font-weight: bold;" id="sumOfActualTotalPriceShow"> @ViewBag.Settlement.TotalAmount.ToString("N", new CultureInfo("hi-IN"))<span>&#2547;</span></td>
+                            <td colspan="2"></td>
+                            
+                            <td></td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        @if (@ViewBag.Settlement.Status == 2)
+        {
+            <div class="container-fluid">
+                <div class="card border-secondary mb-4">
+                    <div class="card-header">
+                        <b>Running Settlement Summary </b>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm">
+                                <div class="summaryHead">
+                                    <h1>Department Wise Summary</h1>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-sm table-hover table-bordered departmentWiseSummaryTable"
+                                           id="TableDepartmentWishSummary" style="float: left">
+                                        <thead class="thead-dark">
+                                        <tr>
+                                            <th class="text-left" scope="col">Departments</th>
+                                            <th class="text-right" scope="col">Total Budget (TK.)</th>
+                                            <th class="text-right" scope="col">Total TA/DA Budget (TK.)</th>
+                                            <th class="text-right" scope="col">Total Allowed Budget (TK.)</th>
+                                            <th class="text-right" scope="col">Total Cost (TK.)</th>
+                                            <th class="text-right" scope="col">Total Running Cost (TK.)</th>
+                                            <th class="text-right" scope="col">Deviation</th>
+                                            <th class="text-right" scope="col">Percentage</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="SettlementDepartSummarybody" style="text-align: left">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class="row">
+                            <div class="col-sm">
+                                <div class="summaryHead">
+                                    <h1>Particular Wise Summary</h1>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-sm table-hover table-bordered particularWiseSummaryTable"
+                                           id="TableParticularWishSummary" style="float: left">
+                                        <thead class="thead-dark">
+                                        <tr>
+                                            <th class="text-left" scope="col">Particulars</th>
+                                            <th class="text-right" scope="col">Total Budget (TK.)</th>
+                                            <th class="text-right" scope="col">Total TA/DA Price (TK.)</th>
+                                            <th class="text-right" scope="col">Total Allowed Price (TK.)</th>
+                                            <th class="text-right" scope="col">Total Cost (TK.)</th>
+                                            <th class="text-right" scope="col">Total Running Cost (TK.)</th>
+                                            <th class="text-right" scope="col">Deviation</th>
+                                            <th class="text-right" scope="col">Percentage</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="SettlementPartiSummarybody" style="text-align: left">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>*@
+                    </div>
+                </div>
+            </div>
+        }
+            <br/>
+            <div class="card secondary mb-4">
+                <div class="card-header">
+                    <b>Settlment Details</b>
+                </div>
+                <div class="card-body">
+                    @{
+                        var settlementNote = ViewBag.Settlement == null ? "" : ViewBag.Settlement.SettlementNote;
+                    }
+
+
+                    <div class="container-fluid">
+                        <div class="form-group row">
+                            <label for="detailsId" class="col-sm-2 col-form-label-sm">Settlement Note</label>
+                            <div class="col-sm-10">
+                                <textarea id="settlementNote" name="settlementNote" disabled="disabled">@Html.Raw(settlementNote)</textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group row" hidden="hidden">
+                            <label for="estimationfiles" class="col-sm-2 col-form-label-sm">Attachments</label>
+                            <div class="col-sm-4">
+                                <input type="file" class="form-control" id="estimationfiles" name="attachedFiles" multiple/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-2"></div>
+                            <div class="col-sm-8">
+                                <ul id="attachmentsTableNew"></ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <br/>
+           
+            <div class="container-fluid">
+                <div class="card border-secondary mb-4">
+                    <div class="card-header">
+                        <b>Budget Summary View</b>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm">
+                                <div class="summaryHead">
+                                    <h1>Department Wise Summary</h1>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-sm table-hover table-bordered departmentWiseSummaryTable"
+                                           id="TableDepartmentWishSummary" style="float: left">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th class="text-left" scope="col">Departments</th>
+                                            <th class="text-right" scope="col">Total Budget (TK.)</th>
+                                            <th class="text-right" scope="col">Total TA/DA Budget (TK.)</th>
+                                            <th class="text-right" scope="col">Total Allowed Budget (TK.)</th>
+                                                <th class="text-right" scope="col">Total Cost (TK.)</th>
+                                                <th class="text-right" scope="col">Deviation</th>
+                                                <th class="text-right" scope="col">Percentage</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tDepartSummarybody" style="text-align: left">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm">
+                                <div class="summaryHead">
+                                    <h1>Particular Wise Summary</h1>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-sm table-hover table-bordered particularWiseSummaryTable"
+                                           id="TableParticularWishSummary" style="float: left">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th class="text-left" scope="col">Particulars</th>
+                                                <th class="text-right" scope="col">Total Price (TK.)</th>
+                                                <th class="text-right" scope="col">Total TA/DA Price (TK.)</th>
+                                                <th class="text-right" scope="col">Total Allowed Price (TK.)</th>
+                                                <th class="text-right" scope="col">Total Cost (TK.)</th>
+                                                <th class="text-right" scope="col">Deviation</th>
+                                                <th class="text-right" scope="col">Percentage</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tPartiSummarybody" style="text-align: left">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card  secondary mb-4">
+    <div class="card-header">
+        Is it Final Settle
+    </div>
+    <div class="card-body">
+        <label for="" class="col-sm-2 col-form-label-sm control-label">Is Final Settlement </label>
+        <div class="col-sm-4" id="settlementIsFinalDiv">
+            @{
+                var isItFinalSettlement = ViewBag.Settlement.IsItFinalSetttlement;
+               
+            }
+            @if (isItFinalSettlement == 1)
+            {
+               
+                   
+                
+                <label class="btn btn-primary" title="">
+                    <input type="radio" class="btn btn-primary" readonly="readonly" checked onclick="return false;"  />&nbsp;&nbsp;Yes
+                </label>
+                <label class="btn btn-secondary" title="">
+                    <input type="radio" class="btn btn-default" readonly="readonly" onclick="return false;" />&nbsp;&nbsp;No
+                </label>
+              
+
+               
+            }
+            else
+            {
+                <label class="btn btn-secondary" title="">
+                    <input type="radio" class="btn btn-default"  readonly="readonly" onclick="return false;"  />&nbsp;&nbsp;Yes
+                </label>
+                <label class="btn btn-primary" title="">
+                    <input type="radio" class="btn btn-default"  readonly="readonly" checked onclick="return false;"  />&nbsp;&nbsp;No
+                </label> 
+                   
+                
+            }
+            
+        </div>
+    </div>
+</div>
+<div class="card  secondary mb-4">
+    <div class="card-header">
+        Settlement Attachments
+    </div>
+    <div class="card-body">
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label-sm">Settlement Attachments</label>
+            <div class="col-sm-8">
+                @foreach (var _file in ViewBag.Settlement.EstimateSettlementAttachments)
+                {
+                    <a href="@_file.URL" download><i class="fa fa-download" aria-hidden="true"></i> @_file.FileName</a>
+                    <br />
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<br/>
+
+
+<div class="card secondary mb-4">
+    <div class="card-header">
+        <b>Acknowledger Workflow  </b>
+    </div>
+    <div class="card-body">
+       
+        <div class="card secondary mb-4">
+            <div class="card-header">
+                <b>Acknowledger List </b>
+            </div>
+            <div class="card-body">
+                <div class="container-fluid">
+                    <span id="app_err-container"></span>
+                    <div class="table-responsive">
+                        <table class="table table-sm table-hover table-bordered" id="TableAprroverList">
+                            <thead class="thead-dark">
+                            <tr>
+                                <th>#</th>
+                                <th class="text-center" scope="col">Acknowledger Name</th>
+                                <th class="text-center" scope="col">Acknowledger Type</th>
+                                <th class="text-center" scope="col">Acknowledger Department</th>
+                                <th class="text-center" scope="col">Expected Time</th>
+                            </tr>
+                            </thead>
+                            <tbody id="tApproverbody" style="text-align: left">
+                            <tr style="background-color:khaki;">
+                                <td>&nbsp;</td>
+                                            <td class="text-left">@ViewBag.Settlement.SettlementInitiatorNameDept</td>
+                                <td class="text-left">Creator</td>
+                         
+                                <td class="text-left"></td>
+                                <td class="text-left"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="card border-secondary mb-4" id="divApproverRemarksList">
+                <div class="card-header"><b>Acknowledger Remarks </b></div>
+                <div class="card-body">
+                    <div class="card border-secondary mb-4">
+                        <div class="card-header"><b>Feedback List </b></div>
+                        <div class="card-body">
+                            <div class="container-fluid">
+                                <span id="app_err-container"></span>
+                                <div class="table-responsive">
+                                    <table class="table table-sm table-hover table-bordered" id="TableAprroverFeedBackList">
+                                        <thead class="thead-dark">
+                                        <tr>
+                                            <th>#</th>
+                                            <th class="text-center" scope="col">Acknowledger</th>
+                                            <th class="text-center" scope="col">Status</th>
+                                            <th class="text-center" scope="col">Feedback Date</th>
+                                            <th class="text-center" scope="col">Feedback</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="tApproverRemarksbody" style="text-align:left">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+<br/>
+
+@{
+    var settlementId = ViewBag.Settlement == null ? -1 : ViewBag.Settlement.Id;
+}
+
+<input id="settlementId"
+       type="hidden"
+       value="@settlementId"/>
+        
+@if (ViewBag.Settlement.CurrentApprovalUserId == user.Id)
+{
+    <div class="container-fluid">
+        <div class="form-group row">
+            <label for="approved_remarks" class="col-sm-2 col-form-label-sm">Remarks</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" id="approvalRemakrs" aria-label="With textarea"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="form-group row" style="align-content: center">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-9">
+                <button type="button" id="approvedButton" class="btn btn-primary btn-lg">
+                    <i class="fa fa-check" aria-hidden="true"></i> Acknowledged
+                </button>
+                <button id="rollBackButton" class="btn btn-warning btn-lg" type="button">
+                    <i class="fa fa-undo" aria-hidden="true"></i> Rollback Request
+                </button>
+                <button id="rejectButton" class="btn btn-danger btn-lg" type="button">
+                    <i class="fa fa-ban" aria-hidden="true"></i> Reject
+                </button>
+            </div>
+        </div>
+    </div>
+}
+</form>
+<div class="modal fade bd-example-modal-xl" id="MemoItemDetailModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="ModalLabel">Item Settlement Details</h4>
+            </div>
+            <div class="modal-body">
+                <div align='center' style='font-family:Calibri; font-size:100%;' class="table-responsive">
+                    <table class="table table-striped" id="modalItemDetails">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Particular</th>
+                            <th scope="col">Item Category</th>
+                            <th scope="col">Item</th>
+                            <th scope="col">Unit Price</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Total Price</th>
+                            <th scope="col">Remarks</th>
+                        </tr>
+                        </thead>
+                        <tbody id="settleItemDetail">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+@section Scripts{
+    <script src="~/js/AjaxCall/Settlement.js"></script>
+    <script>
+        $('#approvalRemakrs').bind('input propertychange',
+            function () {
+                showErrorMessageBelowCtrl('approvalRemakrs', 'please input less then 250 character', false);
+                if (this.value.length > 256) {
+                    showErrorMessageBelowCtrl('approvalRemakrs', 'please input less then 250 character', true);
+                    $("#approvalRemakrss").val($("#approvalRemakrs").val().substring(0, 256));
+                }
+            });
+
+        var rowIdx = 0;
+        var storeItemDetails;
+        var storeUsersWithDepartmentName;
+        var tableOpen = 1;
+
+        var filelist = [];
+        var formData;
+        var approverPriorityIndex = 101;
+        $(document).ready(function() {
+
+            $(document).on('click',
+                '#clearbtn',
+                function() {
+
+                    $("#form")[0].reset();
+                });
+
+            $('.procurementApprovalDiv').hide();
+            $("#totalPriceDiv").hide();
+            // $("#addBtn").hide();
+            //rich text editor configuration
+            $('#settlementNote').summernote({
+                placeholder: 'Settlment Note',
+                tabsize: 2,
+                height: 300,
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']],
+                    ['fontname', ['fontname']],
+                    ['fontsize', ['fontsize']],
+                    ['color', ['color']],
+                    ['para', ['ol', 'ul', 'paragraph', 'height']],
+                    ['table', ['table']],
+                    ['insert', ['link', 'picture', 'video']],
+                    ['view', ['undo', 'redo', 'fullscreen', 'codeview', 'help']]
+                ]
+            });
+            $("#settlementNote").summernote("disable");
+
+
+            //rich text editor configuration
+            $('#textEditorEstimation').summernote({
+                placeholder: 'Estimation Details',
+                tabsize: 2,
+                height: 300,
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']],
+                    ['fontname', ['fontname']],
+                    ['fontsize', ['fontsize']],
+                    ['color', ['color']],
+                    ['para', ['ol', 'ul', 'paragraph', 'height']],
+                    ['table', ['table']],
+                    ['insert', ['link', 'picture', 'video']],
+                    ['view', ['undo', 'redo', 'fullscreen', 'codeview', 'help']]
+                ]
+            });
+
+
+            $('#textEditorEstimation').summernote('disable');
+            getUserWithDepartmentNameSelect2FromDb();
+
+            //upload file limitation
+            var uploadField = document.getElementById("estimationfiles");
+            uploadField.onchange = function() {
+                if (this.files[0].size > 10000000) {
+                    alertify.alert("File is too big!");
+                    this.value = "";
+                };
+            };
+
+            $("input[name=attachedFiles]").change(function() {
+                var files = $(this).get(0).files;
+                for (var x = 0; x < files.length; x++) {
+                    filelist.push(files[x]);
+                    $("#attachmentsTableNew").append('<li id="liAttach' + x + '"><a href="#">' + files[x].name + '</a><span id="' + x + '" class="removeAttachLocal" style="font-size:15px;">&#10060;</span></li>');
+                }
+            });
+
+            var estimationId = $("#estimateId").val();
+            var selectValue = $("#approvalForDropDown").val();
+
+            var formatter = new Intl.NumberFormat('en-IN',
+                {
+                    style: 'currency',
+                    currency: 'BDT'
+                });
+
+            var totalPriceWithoutItemTable = $('#totalPriceText').val();
+            var formatedtotalPriceWithoutItemTable = formatter.format(totalPriceWithoutItemTable);
+            $('#totalPriceText').val(formatedtotalPriceWithoutItemTable);
+
+            getUserDept();
+            loadEstimation(estimationId);
+            loadAttachments(estimationId);
+            if (selectValue == 7) {
+                $('.procurementApprovalDiv').show();
+                loadProcurementApprovalEstimate(estimationId);
+            }
+            loadEstimationDetails(estimationId);
+            loadEstimateApprovers(estimationId);
+            loadSettlementApprovers($("#settlementId").val());
+            loadSummariesOfThisEstimation(estimationId);
+            loadEstimateApproverRemarkList(estimationId);
+
+            loadSummariesOfThisRunningSettlement($("#settlementId").val(), estimationId);
+
+
+          
+
+
+            //when particular selector changes
+            $('#tbody').on('change',
+                '.particularSelectorFromTable',
+                function() {
+                    let getDomId = $(this).attr('id');
+                    var rowTrackId = getDomId.slice(17);
+                    var value = $("#paticularDropdown" + rowTrackId).val();
+                    getItemCategoryById(value, rowTrackId);
+                    //getItemUnitDetails(0, rowTrackId);
+                    $('#itemDropdown' + rowTrackId).text("Select");
+                    setDefaultDataOnMultipleSpanAndTextBoxOnParticularTable(rowTrackId);
+                });
+
+            //when itemCategoryDropdownSelector
+            $('#tbody').on('change',
+                '.itemCategoryDropdownSelector',
+                function() {
+                    let getDomId = $(this).attr('id');
+                    var rowTrackId = getDomId.slice(20);
+                    var value = $("#itemCategoryDropdown" + rowTrackId).val();
+                    getItemUnitDetails(value, rowTrackId);
+                    setDefaultDataOnMultipleSpanAndTextBoxOnParticularTable(rowTrackId);
+                });
+
+            //when Item Selector changes
+            $('#tbody').on('change',
+                '.itemSelectorFromTable',
+                function() {
+                    $("#validationMsgOnParticular").hide();
+                    let getDomId = $(this).attr('id');
+                    var rowTrackId = getDomId.slice(12);
+                    var value = $("#itemDropdown" + rowTrackId).val();
+                    var flag;
+                    for (var i = 0; i < storeItemDetails.length; i++) {
+                        if (storeItemDetails[i]['id'] == value) {
+                            flag = i;
+                            break;
+                        }
+                    }
+                    setValuesOnItemCodeAndItemUnitTextAndUnitPrice(rowTrackId, flag);
+                });
+
+            //event to remove a row from tbody table
+            $('#tbody').on('click',
+                '.remove',
+                function() {
+
+                    //var child = $(this).closest('tr').nextAll();
+                    //child.each(function () {
+
+                    //    var id = $(this).attr('id');
+                    //    var idx = $(this).children('.row-index').children('p');
+                    //    var dig = parseInt(id.substring(1));
+                    //    idx.html(`Row ${dig - 1}`);
+                    //    $(this).attr('id', `R${dig - 1}`);
+                    //});
+                    $(this).closest('tr').remove();
+                    //rowIdx--;
+                    getSumOfTotalPrice();
+                });
+
+            //when district changes
+            $('#tbody').on('change',
+                '.distSelectorFromTable',
+                function() {
+                    var child = $(this).closest('tr').nextAll();
+                    var rowTrackId = child.prevObject.attr("id").slice(1);
+                    var value = $("#districtDropdown" + rowTrackId).val();
+                    getThanaByDistIdFromDB(value, rowTrackId);
+                });
+
+            //when thana changes
+            $('#tbody').on('change',
+                '.particularTableThana',
+                function() {
+                    $("#validationMsgOnThana").hide();
+                });
+
+            //keyup event on findTotalPrice classes
+            $('#tbody').on('keyup',
+                '.findTotalPrice',
+                function() {
+                    var child = $(this).closest('tr').nextAll();
+                    var rowTrackId = child.prevObject.attr("id").slice(1);
+                    calculateTotalPrice(rowTrackId);
+                });
+            //
+            $('#tbody').on('keyup',
+                '.itemUnitPrice',
+                function() {
+                    var child = $(this).closest('tr').nextAll();
+                    var rowTrackId = child.prevObject.attr("id").slice(1);
+                    calculateTotalPrice(rowTrackId);
+                });
+
+
+            function getUserDept() {
+                var sessionUserDept = {};
+                $.ajax({
+                    type: "POST",
+                    url: "/User/GetUserByUserId",
+                    data: "{}",
+                    success: function(data) {
+                        var sessionUserDept = data;
+                        //console.log(sessionUserDept.isCRA);
+                        ;
+                    }
+                });
+                return sessionUserDept.isCRA;
+
+            }
+
+            function loadEstimation(value) {
+                $.ajax({
+                    type: "GET",
+                    url: "/Estimation/GetEstimationInfobyId?estimationId=" + value,
+                    data: "{}",
+                    success: function(data) {
+                        var estimation = data.estimation;
+                        $("#subjectTextId").val(estimation.estimationSubject);
+                        $("#datetimepickerEstimationEndDate").val(estimation.estimationPlanEndDate.slice(0, 10));
+                        $("#datetimepickerEstimationStartDate").val(estimation.estimationPlanStartDate.slice(0, 10));
+                    }
+                });
+            }
+
+            function loadProcurementApprovalEstimate(value) {
+                $.ajax({
+                    type: "GET",
+                    url: "/Estimation/GetProcurementApprovalEstimationInfobyEstimateId?estimationId=" + value,
+                    data: "{}",
+                    success: function(data) {
+                        // console.log(data);
+
+                        $("#paReferenceNumberTextId").val(data.paReferenceNo);
+                        $("#titleOfPRorRFQTextId").val(data.titleOfPRorRFQ);
+                        $("#RFQReferNoTextId").val(data.rfqReferenceNo);
+                        $("#PRReferenceNoTextId").val(data.prReferenceNo);
+                        $("#nameAndCellRequesterTextId").val(data.nameOfRequester);
+                        //$('#deptOrDivTextId option[value=' + data.departmentId + ']').attr('selected', 'selected');
+                        $('#deptOrDivTextId').val(data.departmentId);
+                        $("#RFQProcessTextId").val(data.rfqProcess);
+                        $("#sourcingMethodTextId").val(data.sourcingMethod);
+                        $("#nameSupplierTextId").val(data.nameOfRecommendedSupplier);
+                        $("#purchaseValueTextId").val(data.purchaseValue);
+                        $("#savingAmountTextId").val(data.savingAmount);
+                        //$('#savingTypeDropDown option[value=' + data.savingType + ']').attr('selected', 'selected');
+                        $("#savingTypeDropDown option").filter(function() {
+                            return $(this).text() == data.savingType;
+                        }).prop('selected', true);
+                    }
+                });
+            }
+
+            function loadAttachments(value) {
+                $.ajax({
+                    type: "GET",
+                    url: "/BudgetEstimation/LoadEstimateAttachmentsByEstimateId?estimateId=" + value,
+                    data: "{}",
+                    success: function(data) {
+                        let attachment = data;
+                        for (var i = 0; i < attachment.length; i++) {
+                            var str = attachment[i].url;
+
+                            let index = str.indexOf('\\uploadedFiles\\NewFolder');
+                            var res = str.substring(index);
+                            //console.log(res);
+
+                            $('#attachmentsTable').append(
+                                `<td><a href="` + res + `" download>` + attachment[i].fileName + `</a></td>`
+                            );
+                        }
+                    }
+                });
+            }
+
+            function loadEstimationDetails(value) {
+                var formatter = new Intl.NumberFormat('en-IN');
+
+                $.ajax({
+                    type: "GET",
+                    url: "/SettlementItem/GetSettlementItemsBySattlementId?settlementId=" + $("#settlementId").val(),
+                    data: "{}",
+                    success: function(data) {
+                        var details = data;
+                        if (details.length < 1) {
+                            // console.log("No Items");
+                            $("#AddParticularSection").hide();
+                            $("#totalPriceDiv").show(0);
+                            tableOpen = 0;
+                        } else {
+                            for (var i = 0; i < details.length; i++) {
+                               
+                               // console.log('detials calling ....');
+
+                                var deptId = details[i].departmentId;
+                                var deptName = details[i].departmentName;
+                                var formatedTotalPrice = formatter.format(details[i].totalPrice);
+                               console.log(details[i]);
+                                if (Number(details[i].settleItemId) > 0) {
+                                    
+                                    console.log('zahid ................... 2');
+                                    if (Number(details[i].quantityRequired) > 0) {
+
+                                        if (Number(details[i].isItDeduct) == 1) {
+                                            console.log('zahid ................... 1');
+                                            $('#tbody').append(`
+                                            <tr id="R${++rowIdx}" class="disabledRowColor">
+                                                <td>&nbsp;</td>
+                                                <td class="estimateSettleItemId" hidden>
+                                                ` +
+                                                        details[i].estimateSettleItemId +
+                                                        `
+                                                </td>
+                                                <td>
+                                                    ` +
+                                                        details[i].particular +
+                                                        `
+                                                </td>
+                                                <td>
+                                                    ` +
+                                                        details[i].itemCategory +
+                                                        ` 
+                                                </td>
+                                                <td>
+                                                    <span >` +
+                                                        details[i].itemName +
+                                                        `</span>
+                                                </td>
+                                                <td>
+                                                    <span >` +
+                                                        details[i].itemCode +
+                                                        `</span>
+                                                </td>
+                                                <td>
+                                                    <span >` +
+                                                        details[i].itemUnit +
+                                                        `</span>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="findTotalPrice nomuct singleRowFindTotalPrice${rowIdx}" style="width:50px"
+                                                                    id="NoOfMaUTCaTextId${rowIdx}" name="indexMAU"
+                                                                        value="` +
+                                                        details[i].noOfMachineAndUsagesAndTeamAndCar +
+                                                        `" disabled />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="onlyNumber findTotalPrice nodut singleRowFindTotalPrice${rowIdx}" style="width:50px"
+                                                                  id="NoOfDTUTextId${rowIdx}" value="` +
+                                                        details[i].noOfDayAndTotalUnit +
+                                                        `" disabled />
+                                                </td>
+                                                <td>
+                                                     <input type="text" class="onlyNumber findTotalPrice rqt singleRowFindTotalPrice${rowIdx}" style="width:50px"
+                                                                  id="requiredQuantityTextId${rowIdx}" value="` +
+                                                        details[i].quantityRequired +
+                                                        `" disabled />
+                                                </td>
+                                                <td>
+                                                     <input type="text" class="form-control-sm itemUnitPrice numbersOnly" id="unitPriceTextId${rowIdx}" value="` +
+                                                details[i].unitPrice + "&#2547;"
+                                                        `" style="width:100px" disabled />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="onlyNumber findTotalPrice nodut singleRowFindTotalPrice${rowIdx}" style="width:50px"
+                                                                   id="totalPriceBudget${rowIdx}" value="` +
+                                                        details[i].totalPrice +
+                                                        `" disabled />
+                                                                   </td>  
+                                                <td>` +
+                                                        deptName +
+                                                        `</td><td>` +
+                                                        details[i].districtName +
+                                                        `
+                                                        <td>` +
+                                                        details[i].thanaName +
+                                                        `
+                                                        <td>` +
+                                                        details[i].areaType +
+                                                        `
+
+                                                <td>
+                                                    <input type="text" class="onlyNumber findTotalPrice rqt singleRowFindTotalPrice${rowIdx}" style="width:50px"
+                                                                    id="settleActualQuantityTextId${rowIdx}" value="` +
+                                                        details[i].settleActualQuantity +
+                                                        `" disabled /> 
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="onlyNumber findTotalPrice nodut singleRowFindTotalPrice${rowIdx}" style="width:50px"
+                                                                    id="alreadySettleCost${rowIdx}" value="` +
+                                                details[i].alreadySettle + "&#2547;"
+                                                        `" disabled />
+                                                </td>
+                                                <td class="settleItemId" hidden>
+                                                ` +
+                                                        details[i].settleItemId +
+                                                        `
+                                                </td>
+                                                <td >
+                                                        <input type="text" class="onlyNumber actualQuantity  actualQuantity{rowIdx}" style="width:50px"
+                                                            id="actualQuantity${rowIdx}" value="` +
+                                                (details[i].actualQuantity == 0 ? '' : details[i].actualQuantity) +
+                                                `" disabled />
+                                                    </td>
+                                                    <td >
+                                                        <input type="text" class="onlyNumber actualUnitPrice  actualUnitPrice${rowIdx}" style="width:50px"
+                                                            id="actualUnitPrice${rowIdx}" value="` +
+                                                (details[i].actualUnitPrice == 0 ? '' : details[i].actualUnitPrice) +
+                                                `" disabled />
+                                                    </td>
+                                                    <td >
+                                                        <input type="text" class="onlyNumber actualTotalPrice  actualTotalPrice${rowIdx}" style="width:50px"
+                                                            id="actualTotalPrice${rowIdx}" value="` +
+                                                (details[i].actualTotalPrice == 0 ? '' : details[i].actualTotalPrice) +
+                                                `" disabled />
+                                                    </td>
+                                                     <td colspan="2">
+                                                        <input type="text" class="settleItemRemarks  settleItemRemarks${rowIdx}"
+                                                            id="settleItemRemarks${rowIdx}" value="` +
+                                                (details[i].settleItemRemarks == null ? '' : details[i].settleItemRemarks) +
+                                                `" disabled />
+                                                    </td>
+                                        </tr>`);
+                                        } else {
+
+                                            
+                                            $('#tbody').append(`
+                                        <tr id="R${++rowIdx}">
+                                      
+                                        
+                                        <td>
+                                        <td width="100%">
+                                            <span style="color:blue;font-weight:bold">Particular :</span>` + details[i].particular + `
+                                            <br/><span style="color:blue;font-weight:bold">Item Category :</span>`+ details[i].itemCategory + ` 
+                                            <br/><span style="color:blue;font-weight:bold"> Item:</span> <span >` + details[i].itemName + `</span>\
+                                            <br/><span style="color:blue;font-weight:bold"> Item Code:</span> ` + details[i].itemCode + `
+                                            <br /><span style="color:blue;font-weight:bold"> Item Unit:</span>` + details[i].itemUnit + `
+                                        </td> 
+                                        
+                                        
+                                        
+                                        <td> <span style="color:blue;font-weight:bold">District:</span> `+ details[i].districtName + ` <br /><br />
+                                            <span style="color:blue;font-weight:bold">Thana:</span> ` + details[i].thanaName + ` <br />
+                                            <span style="color:blue;font-weight:bold">Area Type:</span> ` + details[i].areaType + `
+                                            <br/> <span style="color:blue;font-weight:bold">Department: </span> ` + deptName + `
+                                        </td>
+                                        <td width="30%">
+                                            No.Of Mach./Usages/ Team/Car:<input type="text" class="findTotalPrice nomuct singleRowFindTotalPrice${rowIdx}" style="width:50px"
+                                                id="NoOfMaUTCaTextId${rowIdx}" name="indexMAU"
+                                                    value="` + details[i].noOfMachineAndUsagesAndTeamAndCar + `" disabled /> <br />
+                                            No.Of Day/ Total Unit:<input type="text" class="onlyNumber findTotalPrice nodut singleRowFindTotalPrice${rowIdx}" style="width:50px"
+                                                id="NoOfDTUTextId${rowIdx}" value="` + details[i].noOfDayAndTotalUnit + `" disabled /> <br />
+                                            Req.Quantity: <input type="text" class="onlyNumber findTotalPrice rqt singleRowFindTotalPrice${rowIdx}" style="width:50px"
+                                                id="requiredQuantityTextId${rowIdx}" value="` + details[i].quantityRequired + `" disabled /> <br />
+                                                <br />
+                                           Estimation  Unit Price: <input type="text" class="form-control-sm itemUnitPrice numbersOnly" id="unitPriceTextId${rowIdx}" value="` +
+                                                details[i].unitPrice.toLocaleString() + "&#2547;" +
+                                                `" style="width:100px" disabled /> <br />
+                                                <hr />
+                                            Total Estimation Price: <input type="text" class="onlyNumber findTotalPrice nodut singleRowFindTotalPrice${rowIdx}" style="width:80px"
+                                                           id="totalPriceBudget${rowIdx}" value="` +
+                                                details[i].totalPrice.toLocaleString() + "&#2547;" +
+                                                `" disabled /> <br />
+                                        </td>
+                                        <td >
+                                            Settled Actual Quantity:<input type="text" class="onlyNumber findTotalPrice rqt singleRowFindTotalPrice${rowIdx}" style="width:80px"
+                                                            id="settleActualQuantityTextId${rowIdx}" value="` +
+                                                details[i].settleActualQuantity.toLocaleString()  +
+                                                `" disabled />  <br />
+                                           Already Settled :<input type="text" class="onlyNumber findTotalPrice nodut singleRowFindTotalPrice${rowIdx}" style="width:80px"
+                                                            id="alreadySettleCost${rowIdx}" value="` +
+                                                details[i].alreadySettle.toLocaleString() + "&#2547;"  +
+                                                `" disabled /> <br />
+                                            Actual.Quantity: <input type="text" class="onlyNumber actualQuantity  actualQuantity{rowIdx}" style="width:80px"
+                                                            id="actualQuantity${rowIdx}" value="` +
+                                                (details[i].actualQuantity == 0 ? '' : details[i].actualQuantity) +
+                                                `" disabled /> <br />
+                                                <hr />
+                                           Actual  Unit Price: <input type="text" class="onlyNumber actualUnitPrice  actualUnitPrice${rowIdx}" style="width:80px"
+                                                            id="actualUnitPrice${rowIdx}" value="` +
+                                                (details[i].actualUnitPrice == 0 ? '' : details[i].actualUnitPrice.toLocaleString() + "&#2547;" ) +
+                                                `" disabled /> <br />
+                                                <br />
+                                            Actual Total Price: <input type="text" class="onlyNumber actualTotalPrice  actualTotalPrice${rowIdx}" style="width:80px"
+                                                            id="actualTotalPrice${rowIdx}" value="` +
+                                                (details[i].actualTotalPrice == 0 ? '' : details[i].actualTotalPrice.toLocaleString() + "&#2547;" ) +
+                                                `" disabled  /> <br />
+                                        </td>
+                                                
+
+                                        
+                                        
+                                        <td class="settleItemId" hidden> 
+                                        ` +
+                                                details[i].settleItemId +
+                                                `
+                                        </td>
+                                        
+                                                     <td colspan="2">
+                                                        <input type="text" class="settleItemRemarks  settleItemRemarks${rowIdx}"
+                                                            id="settleItemRemarks${rowIdx}" value="` +
+                                                (details[i].settleItemRemarks == null ? '' : details[i].settleItemRemarks) +
+                                                `" disabled />
+                                                    </td>
+                                                    <td class="text-center"><button type="button"  title="Settlement History" class='btn btn-info itemDetails' id='`
+                                                + details[i].estimateSettleItemId +`'><i class='fa fa-history'></i></button></td>
+                                        </td>
+                                        </tr>`);
+                                        }
+                                    } else {
+                                        console.log('zahid ................... 3');
+                                        $('#tbody').append(`
+                                        <tr id="R${++rowIdx}" class="newAddedRowColor">
+                                      
+                                        
+                                        <td>
+                                        <td >
+                                            <span style="color:blue;font-weight:bold">Particular :</span>` + details[i].particular + `
+                                            <br/><span style="color:blue;font-weight:bold">Item Category :</span>`+ details[i].itemCategory + ` 
+                                            <br/><span style="color:blue;font-weight:bold"> Item:</span> <span >` + details[i].itemName + `</span>\
+                                            <br/><span style="color:blue;font-weight:bold"> Item Code:</span> ` + details[i].itemCode + `
+                                            <br /><span style="color:blue;font-weight:bold"> Item Unit:</span>` + details[i].itemUnit + `
+                                        </td>
+                                        <td> <span style="color:blue;font-weight:bold">District:</span> `+ details[i].districtName + ` <br /><br />
+                                            <span style="color:blue;font-weight:bold">Thana:</span> ` + details[i].thanaName + ` <br />
+                                            <span style="color:blue;font-weight:bold">Area Type:</span> ` + details[i].areaType + `
+                                            <br/> <span style="color:blue;font-weight:bold">Department: </span> ` + deptName + `
+                                        </td>
+                                        <td >
+                                            No.Of Mach./Usages/ Team/Car:<input type="text" class="findTotalPrice nomuct singleRowFindTotalPrice${rowIdx}" style="width:50px"
+                                                id="NoOfMaUTCaTextId${rowIdx}" name="indexMAU"
+                                                    value="` + (Number(details[i].noOfMachineAndUsagesAndTeamAndCar) == -1 ? 'N/A' : details[i].noOfMachineAndUsagesAndTeamAndCar)  + `" disabled /> <br />
+                                            No.Of Day/ Total Unit:<input type="text" class="onlyNumber findTotalPrice nodut singleRowFindTotalPrice${rowIdx}" style="width:50px"
+                                                id="NoOfDTUTextId${rowIdx}" value="` + (Number(details[i].noOfDayAndTotalUnit) == -1 ? 'N/A' : details[i].noOfDayAndTotalUnit) + `" disabled /> <br />
+                                            Req.Quantity: <input type="text" class="onlyNumber findTotalPrice rqt singleRowFindTotalPrice${rowIdx}" style="width:50px"
+                                                id="requiredQuantityTextId${rowIdx}" value="` + (Number(details[i].quantityRequired) == -1 ? 'N/A' : details[i].quantityRequired.toLocaleString() ) + `" disabled /> <hr />
+                                                <br />
+                                           Estimation  Unit Price: <input type="text" class="form-control-sm itemUnitPrice numbersOnly" id="unitPriceTextId${rowIdx}" value="` +
+                                            (Number(details[i].unitPrice) == -1 ? 'N/A' : details[i].unitPrice.toLocaleString() + "&#2547;" ) +
+                                                `" style="width:100px" disabled /> <br />
+                                                <br />
+                                            Total Estimation Price: <input type="text" class="onlyNumber findTotalPrice nodut singleRowFindTotalPrice${rowIdx}" style="width:50px"
+                                                           id="totalPriceBudget${rowIdx}" value="` +
+                                            (Number(details[i].totalPrice) == -1 ? 'N/A' : details[i].totalPrice.toLocaleString() + "&#2547;" ) +
+                                                `" disabled /> <br />
+                                        </td>
+                                        
+                                         
+                                         
+                                        <td >
+                                            Settled Actual Quantity:<input type="text" class="onlyNumber findTotalPrice rqt singleRowFindTotalPrice${rowIdx}" style="width:80px"
+                                                            id="settleActualQuantityTextId${rowIdx}" value="` +
+                                            details[i].settleActualQuantity.toLocaleString()  +
+                                                `" disabled />  <hr />
+                                           Already Settled :<input type="text" class="onlyNumber findTotalPrice nodut singleRowFindTotalPrice${rowIdx}" style="width:80px"
+                                                            id="alreadySettleCost${rowIdx}" value="` +
+                                            details[i].alreadySettle.toLocaleString() + "&#2547;"  +
+                                                `" disabled /> <hr />
+                                            Actual.Quantity: <input type="text" class="onlyNumber actualQuantity  actualQuantity{rowIdx}" style="width:80px"
+                                                            id="actualQuantity${rowIdx}" value="` +
+                                            (details[i].actualQuantity == 0 ? '' : details[i].actualQuantity.toLocaleString()  ) +
+                                                `" disabled /> <hr />
+                                                <hr />
+                                           Actual  Unit Price: <input type="text" class="onlyNumber actualUnitPrice  actualUnitPrice${rowIdx}" style="width:80px"
+                                                            id="actualUnitPrice${rowIdx}" value="` +
+                                            (details[i].actualUnitPrice == 0 ? '' : details[i].actualUnitPrice.toLocaleString() + "&#2547;" ) +
+                                                `" disabled /> <hr />
+                                                <hr />
+                                            Actual Total Price: <input type="text" class="onlyNumber actualTotalPrice  actualTotalPrice${rowIdx}" style="width:80px"
+                                                            id="actualTotalPrice${rowIdx}" value="` +
+                                            (details[i].actualTotalPrice == 0 ? '' : details[i].actualTotalPrice.toLocaleString() + "&#2547;" ) +
+                                                `" disabled  /> <hr />
+                                               
+                                        </td>
+                                                
+                                        
+                                                     <td colspan="2">
+                                                        <input type="text" class="settleItemRemarks  settleItemRemarks${rowIdx}"
+                                                            id="settleItemRemarks${rowIdx}" value="` +
+                                            (details[i].settleItemRemarks == null ? '' : details[i].settleItemRemarks) +
+                                            `" disabled />
+                                                    </td>
+                                                    <td class="text-center"><button type="button"  title="Settlement History" class='btn btn-info itemDetails' id='`
+                                            + details[i].estimateSettleItemId +`'><i class='fa fa-history'></i></button></td>
+                                        </td>
+                                        </tr>`);
+                                    }
+                                }
+
+                                getSumOfTotalPrice();
+                                getSumOfTotalSettledAmount();
+                                getSumOfTotalSettledQuantity();
+
+                            }
+                        }
+
+                    }
+                });
+            }
+            //Running Settlement Approval view
+            function loadSummariesOfThisRunningSettlement(settlementId, estimationId) {
+                var formatter = new Intl.NumberFormat('en-IN',
+                    {
+                        style: 'currency',
+                        currency: 'BDT'
+                    });
+
+                $.ajax({
+                    type: "GET",
+                    url: "/Settlement/LoadDepartmentWiseSummaryForRunningSettlementBySettlementId?settlementId=" + settlementId + "&estimationId=" + estimationId,
+                    data: "{}",
+                    success: function (data) {
+                        var deptSummary = data;
+                        let tTotalCost = 0;
+                        let tTotalRunningCost = 0;
+                        let totalBudgetExclueScm = 0;
+                        let totalTADABudgetExclueScm = 0;
+                        let totalAllowedBudgetExclueScm = 0;
+                        let tTotalBudget = 0;
+                        let totalTADABudget = 0;
+                        let totalAllowableBudget = 0;
+                        let tTotalDeviation = 0;
+
+                        let rowDepartmentWiseSummaryTableIndex = 1;
+                        for (var i = 0; i < deptSummary.length; i++) {
+
+                            var deviation = 0;
+                            var percentage = 0;
+                            var divide = 0;
+
+                            tTotalCost += deptSummary[i].totalCost;
+                            tTotalRunningCost += deptSummary[i].totalRunningCost;
+
+                            if (Number(deptSummary[i].departmentId) != 7 && Number(deptSummary[i].departmentId) != 41) {
+                                totalBudgetExclueScm += deptSummary[i].totalBudget;
+                                totalTADABudgetExclueScm += deptSummary[i].totalTADABudget;
+                                totalAllowedBudgetExclueScm += deptSummary[i].totalAllowableBudget;
+                                deviation = parseFloat(parseFloat(deptSummary[i].totalAllowableBudget - (deptSummary[i].totalCost + deptSummary[i].totalRunningCost)) );
+                                divide = parseFloat(deptSummary[i].totalCost + deptSummary[i].totalRunningCost) / parseFloat(deptSummary[i].totalAllowableBudget   );
+                                percentage = parseFloat(divide) * 100;
+                                tTotalDeviation += deviation;
+                            }
+                            if (Number(deptSummary[i].departmentId) == 7 || Number(deptSummary[i].departmentId) == 41) {
+                                tTotalBudget += deptSummary[i].totalBudget;
+                                totalTADABudget += deptSummary[i].totalTADABudget;
+                                totalAllowableBudget += deptSummary[i].totalAllowableBudget;
+
+                                deviation = parseFloat(parseFloat(deptSummary[i].totalAllowableBudget - (deptSummary[i].totalCost + deptSummary[i].totalRunningCost)) );
+                                if(parseFloat(deptSummary[i].totalAllowableBudget) > 0)
+                                divide = parseFloat(deptSummary[i].totalCost + deptSummary[i].totalRunningCost) / parseFloat(deptSummary[i].totalAllowableBudget);
+                                percentage = parseFloat(divide) * 100;
+
+                                $('#SettlementDepartSummarybody').append(
+                                    `<tr class="deletedDepartmentRow" style="color:#B2BEB5" id="RowDepartmentSummary${rowDepartmentWiseSummaryTableIndex}">
+                                                                    <td lass="text-left">
+                                                                        <span id="nameDepartmentId${rowDepartmentWiseSummaryTableIndex}"
+                                                                            class="departmentWiserSummaryDepartmentColumn"
+                                                                            >` +
+                                    deptSummary[i].departmentName +
+                                    `</span>
+                                                                    </td>
+                                                                    <td id="idDepartmentId${rowDepartmentWiseSummaryTableIndex}" class="departmentSummaryDeptId" hidden>` +
+                                    deptSummary[i].departmentId +
+                                    `</td>
+                                                                    <td class="text-right">
+                                                                        <span id="totalPriceDepartmentId${rowDepartmentWiseSummaryTableIndex}"
+                                                                            class="departmentWiserSummaryTablePriceColumn" hidden>` +
+                                    deptSummary[i].totalBudget +
+                                    `</span>
+                                                                        <span >` +
+                                    formatter.format(deptSummary[i].totalBudget) +
+                                    `</span>
+                                                                    </td>
+                                                                    <td class="text-right">
+                                                                        <span id="totalPriceDepartmentId${rowDepartmentWiseSummaryTableIndex}"
+                                                                            class="departmentWiserSummaryTablePriceColumn" hidden>` +
+                                    deptSummary[i].totalTADABudget +
+                                    `</span>
+                                                                        <span >` +
+                                    formatter.format(deptSummary[i].totalTADABudget) +
+                                    `</span>
+                                                                    </td>
+                                                                    <td class="text-right">
+                                                                        <span id="totalPriceDepartmentId${rowDepartmentWiseSummaryTableIndex}"
+                                                                            class="departmentWiserSummaryTablePriceColumn" hidden>` +
+                                    deptSummary[i].totalAllowableBudget +
+                                    `</span>
+                                                                        <span >` +
+                                    formatter.format(deptSummary[i].totalAllowableBudget) +
+                                    `</span>
+                                                                    </td>
+                                                                    <td class="text-right">
+                                                                        <span id="totalcostDepartmentId${rowDepartmentWiseSummaryTableIndex}"
+                                                                            class="departmentWiserSummaryTablePriceColumn" hidden>` +
+                                    deptSummary[i].totalCost +
+                                    `</span>
+                                                                        <span >` +
+                                    formatter.format(deptSummary[i].totalCost) +
+                                    `</span>
+                                                                    </td>
+                                                                            <td class="text-right">
+                                                                                       <span id="totalRunningcostDepartmentId${rowDepartmentWiseSummaryTableIndex}"
+                                                                                    class="departmentWiserSummaryTablePriceColumn" hidden>` +
+                                    deptSummary[i].totalRunningCost +
+                                    `</span>
+                                                                                <span >` +
+                                    formatter.format(deptSummary[i].totalRunningCost) +
+                                    `</span>
+                                                                            </td>
+                                                                    <td class="text-right">
+                                                                        <span >` +
+                                    formatter.format(deviation) +
+                                    `</span>
+                                                                    </td>
+                                                                    <td class="text-right">
+                                                                        <span >` +
+                                    percentage.toFixed(2) +
+                                    ` % </span>
+                                                                    </td>
+                                                                </tr>`
+                                );
+                            } else {
+                                $('#SettlementDepartSummarybody').append(
+                                    `<tr class="deletedDepartmentRow" id="RowDepartmentSummary${rowDepartmentWiseSummaryTableIndex}">
+                                                                    <td lass="text-left">
+                                                                        <span id="nameDepartmentId${rowDepartmentWiseSummaryTableIndex}"
+                                                                            class="departmentWiserSummaryDepartmentColumn"
+                                                                            style="color:chocolate">` +
+                                    deptSummary[i].departmentName +
+                                    `</span>
+                                                                    </td>
+                                                                    <td id="idDepartmentId${rowDepartmentWiseSummaryTableIndex}" class="departmentSummaryDeptId" hidden>` +
+                                    deptSummary[i].departmentId +
+                                    `</td>
+                                                                    <td class="text-right">
+                                                                        <span id="totalPriceDepartmentId${rowDepartmentWiseSummaryTableIndex}"
+                                                                            class="departmentWiserSummaryTablePriceColumn" hidden>` +
+                                    deptSummary[i].totalBudget +
+                                    `</span>
+                                                                        <span style="color:chocolate">` +
+                                    formatter.format(deptSummary[i].totalBudget) +
+                                    `</span>
+                                                                    </td>
+                                                                    <td class="text-right">
+                                                                        <span id="totalPriceDepartmentId${rowDepartmentWiseSummaryTableIndex}"
+                                                                            class="departmentWiserSummaryTablePriceColumn" hidden>` +
+                                    deptSummary[i].totalTADABudget +
+                                    `</span>
+                                                                        <span >` +
+                                    formatter.format(deptSummary[i].totalTADABudget) +
+                                    `</span>
+                                                                    </td>
+                                                                    <td class="text-right">
+                                                                        <span id="totalPriceDepartmentId${rowDepartmentWiseSummaryTableIndex}"
+                                                                            class="departmentWiserSummaryTablePriceColumn" hidden>` +
+                                    deptSummary[i].totalAllowableBudget +
+                                    `</span>
+                                                                        <span >` +
+                                    formatter.format(deptSummary[i].totalAllowableBudget) +
+                                    `</span>
+                                                                    </td>
+                                                                    <td class="text-right">
+                                                                        <span id="totalcostDepartmentId${rowDepartmentWiseSummaryTableIndex}"
+                                                                            class="departmentWiserSummaryTablePriceColumn" hidden>` +
+                                    deptSummary[i].totalCost +
+                                    `</span>
+                                                                        <span style="color:chocolate">` +
+                                    formatter.format(deptSummary[i].totalCost) +
+                                    `</span>
+                                                                    </td>
+                                                                            <td class="text-right">
+                                                                                        <span >` +
+                                    formatter.format(deptSummary[i].totalRunningCost) +
+                                    `</span>
+                                                                                    </td>
+                                                                    <td class="text-right">
+                                                                        <span style="color:chocolate">` +
+                                    formatter.format(deviation) +
+                                    `</span>
+                                                                    </td>
+                                                                    <td class="text-right">
+                                                                        <span style="color:chocolate">` +
+                                    percentage.toFixed(2) +
+                                    ` % </span>
+                                                                    </td>
+                                                                </tr>`
+                                );
+                            }
+
+
+                            rowDepartmentWiseSummaryTableIndex++
+                        }
+                        $('#SettlementDepartSummarybody').append(
+                            `<tr class="deletedParticularRow" >
+                                                                    <td lass="text-left">
+                                                                        <span style="color: #23098B ">Grand Total(<span style="color: blue ">Exclude SCM & Regularity Affairs</span>)</span>
+
+                                                                    </td>
+                                                                    <td class="text-right">
+
+                                                                        <span style="color: #23098B ">` +
+                            formatter.format(totalBudgetExclueScm) + `(<span style="color: #B2BEB5; ">` + formatter.format(tTotalBudget) + `</span>)
+                                                    </span>
+                                                                    </td>
+                                                                    <td class="text-right">
+
+                                                                        <span style="color: #23098B ">` +
+                            formatter.format(totalTADABudgetExclueScm) + `(<span style="color: #B2BEB5; ">` + formatter.format(totalTADABudget) + `</span>)
+                                                    </span>
+                                                                    </td>
+                                                                    <td class="text-right">
+
+                                                                        <span style="color: #23098B ">` +
+                            formatter.format(totalAllowedBudgetExclueScm) + `(<span style="color: #B2BEB5; ">` + formatter.format(totalAllowableBudget) + `</span>)
+                                                    </span>
+                                                                    </td>
+                                                                    <td class="text-right">
+
+                                                                        <span style="color: #23098B ">` +
+                            formatter.format(tTotalCost) +
+                            `</span>
+                                                                    </td>
+                                                                            <td class="text-right">
+
+                                                                                <span style="color: #23098B ">` +
+                            formatter.format(tTotalRunningCost) +
+                            `</span>
+                                                                            </td>
+                                                                    <td class="text-right">
+                                                                        <span style="color: #23098B">` +
+                            formatter.format(tTotalDeviation) +
+                            `</span>
+                                                                    </td>
+                                                                    <td class="text-right">
+
+                                                                    </td>
+                                                                </tr>`
+                        );
+                    }
+                });
+                $.ajax({
+                    type: "GET",
+                    url: "/Settlement/GetParticularSummaryForRunningSettlementBySettlementId?settlementId=" + settlementId + "&estimationId=" + estimationId,
+                    data: "{}",
+                    success: function (data) {
+                        let partiSummary = data;
+                        //console.log('settlement running particular summary data :');
+                        //console.log(partiSummary);
+                        let rowParticularWiseSummaryTableIndex = 1;
+                        let tTotalCost = 0;
+                        let tTotalRunningCost = 0;
+                        let tTotalBudget = 0;
+                        let totalTADABudget = 0;
+                        let totalAllowableBudget = 0;
+                        let tTotalDeviation = 0;
+                        for (var i = 0; i < partiSummary.length; i++) {
+                            var deviation = 0;
+                            var percentage = 0;
+                            var divide = 0;
+                            
+                            deviation = (parseFloat(partiSummary[i].totalAllowableBudget) - parseFloat(partiSummary[i].totalCost + partiSummary[i].totalRunningCost)) ;
+                            divide = parseFloat(partiSummary[i].totalCost + partiSummary[i].totalRunningCost) / parseFloat(partiSummary[i].totalAllowableBudget);
+                            percentage = parseFloat(divide) * 100;
+                            tTotalDeviation += deviation;
+
+                            tTotalCost += partiSummary[i].totalCost;
+                            tTotalRunningCost += partiSummary[i].totalRunningCost;
+                            tTotalBudget += partiSummary[i].totalBudget;
+                            totalTADABudget += partiSummary[i].totalTADABudget;
+                            totalAllowableBudget += partiSummary[i].totalAllowableBudget;
+
+                            $('#SettlementPartiSummarybody').append(
+                                `<tr class="deletedParticularRow" id="RowParticularSummary${rowParticularWiseSummaryTableIndex}">
+                                                                    <td lass="text-left">
+                                                                        <span id="nameParticularId${rowParticularWiseSummaryTableIndex}"
+                                                                            style="color:chocolate">` +
+                                partiSummary[i].particularName +
+                                `</span>
+                                                                    <td id="idParticularId${rowParticularWiseSummaryTableIndex}" class="particularSummarypartiId" hidden>` +
+                                partiSummary[i].particularId +
+                                `</td>
+                                                                    </td>
+                                                                    <td class="text-right">
+                                                                        <span id="totalPriceParticularId${rowParticularWiseSummaryTableIndex}" hidden>` +
+                                partiSummary[i].totalBudget +
+                                `</span>
+                                                                        <span style="color:chocolate">` +
+                                formatter.format(partiSummary[i].totalBudget) +
+                                `</span>
+                                                                    </td>
+                                                                    <td class="text-right">
+                                                                        <span id="totalPriceParticularId${rowParticularWiseSummaryTableIndex}" hidden>` +
+                                partiSummary[i].totalTADABudget +
+                                `</span>
+                                                                        <span style="color:chocolate">` +
+                                formatter.format(partiSummary[i].totalTADABudget) +
+                                `</span>
+                                                                    </td>
+                                                                    <td class="text-right">
+                                                                        <span id="totalPriceParticularId${rowParticularWiseSummaryTableIndex}" hidden>` +
+                                partiSummary[i].totalAllowableBudget +
+                                `</span>
+                                                                        <span style="color:chocolate">` +
+                                formatter.format(partiSummary[i].totalAllowableBudget) +
+                                `</span>
+                                                                    </td>
+                                                                    <td class="text-right">
+                                                                        <span id="totalcostParticularId${rowParticularWiseSummaryTableIndex}" hidden>` +
+                                partiSummary[i].totalCost +
+                                `</span>
+                                                                        <span style="color:chocolate">` +
+                                formatter.format(partiSummary[i].totalCost) +
+                                `</span>
+                                                                    </td>
+                                                                            <td class="text-right">
+                                                                                        <span >` +
+                                formatter.format(partiSummary[i].totalRunningCost) +
+                                `</span>
+                                                                                    </td>
+                                                                    <td class="text-right">
+                                                                        <span style="color:chocolate">` +
+                                formatter.format(deviation) +
+                                `</span>
+                                                                    </td>
+                                                                    <td class="text-right">
+                                                                        <span style="color:chocolate">` +
+                                percentage.toFixed(2) +
+                                ` % </span>
+                                                                    </td>
+                                                                </tr>`
+                            );
+                            rowParticularWiseSummaryTableIndex++;
+                        }
+                        $('#SettlementPartiSummarybody').append(
+                            `<tr class="deletedParticularRow" id="RowParticularSummary${rowParticularWiseSummaryTableIndex}">
+                                                                    <td lass="text-left">
+                                                                        <span id="nameParticularId${rowParticularWiseSummaryTableIndex}"
+                                                                            style="color: #23098B">Grand Total(Exclued SCM  & Regularity Affairs)</span>
+
+                                                                    </td>
+                                                                    <td class="text-right">
+
+                                                                        <span style="color: #23098B">` +
+                            formatter.format(tTotalBudget) +
+                            `</span>
+                                                                    </td>
+                                                                    <td class="text-right">
+
+                                                                        <span style="color: #23098B">` +
+                            formatter.format(totalTADABudget) +
+                            `</span>
+                                                                    </td>
+                                                                    <td class="text-right">
+
+                                                                        <span style="color: #23098B">` +
+                            formatter.format(totalAllowableBudget) +
+                            `</span>
+                                                                    </td>
+                                                                    <td class="text-right">
+
+                                                                        <span style="color: #23098B">` +
+                            formatter.format(tTotalCost) +
+                            `</span>
+                                                                    </td>
+                                                                             <td class="text-right">
+
+                                                                                <span style="color: #23098B">` +
+                            formatter.format(tTotalRunningCost) +
+                            `</span>
+                                                                            </td>
+                                                                    <td class="text-right">
+                                                                        <span style="color: #23098B">` +
+                            formatter.format(tTotalDeviation) +
+                            `</span>
+                                                                    </td>
+                                                                    <td class="text-right">
+
+                                                                    </td>
+                                                                </tr>`
+                        );
+                    }
+                });
+            }
+            
+            //end running settlement approval view 
+
+            function loadEstimateApprovers(value) {
+                
+                $.ajax({
+                    type: "GET",
+                    url: "/DraftedBudgeEstimation/GetAllApproverByEstimate?estiId=" + value,
+                    data: "{}",
+                    success: function (data) {
+                        var approvers = data;
+                        //console.log(approvers);
+
+                        var statusTag = "";
+                        for (var i = 0; i < approvers.length; i++) {
+                            var expectedDate = "";
+
+                            if (approvers[i].approverRoleId == 1 || approvers[i].approverRoleId == 2) {
+                                if (approvers[i].approverStatus == "2") {
+                                    statusTag = "<span class='w3-tag w3-yellow'>Pending</span>";
+                                }
+                                else if (approvers[i].approverStatus == "100") {
+                                    statusTag = "<span class='w3-tag w3-green'>Approved</span>";
+                                }
+                                else if (approvers[i].approverStatus == "-404") {
+                                    statusTag = "<span class='w3-tag w3-deep-orange'>Rollbacked</span>";
+                                }
+                                else if (approvers[i].approverStatus == "-500") {
+                                    statusTag = "<span class='w3-tag w3-red'>Rejected</span>";
+                                }
+                                var d = new Date(approvers[i].approverPlanDate);
+                                expectedDate = d.toDateString();
+                            }
+                            $('#tApproverbodyEstimation').append(
+                                `<tr>
+                                    <td>&nbsp;</td>
+                                    <td class="approverName">` + approvers[i].approverFullName + ` ` + statusTag +` </td>
+                                    <td class="approverId" hidden>` + approvers[i].approverId + `</td>
+                                    <td class="approverPriority" hidden>` + approvers[i].approverPriority + `</td>
+                                    <td class="approverPriorityType" hidden>` + approvers[i].approverRoleId + `</td>
+                                    <td class="approverPriorityTypeText">` + approvers[i].approverRoleName + `</td>
+                                    <td class="approverDepartment">` + approvers[i].approverDepartment + `</td>
+                                    <td class="approverDepartmentId" hidden>` + approvers[i].approverDepartmentId + `</td>
+                                    <td class="approverExpectedTime">`+ expectedDate + `</td>
+                                </tr>`);
+                        }
+                    }
+                });
+            }
+            function loadSettlementApprovers(value) {
+
+                $.ajax({
+                    type: "GET",
+                    url: "/Settlement/GetAllApproverBySettlementId?settlementId=" + $("#settlementId").val(),
+                    data: "{}",
+                    success: function(data) {
+                        var approvers = data;
+                        //console.log(approvers);
+
+                        var statusTag = "";
+                        for (var i = 0; i < approvers.length; i++) {
+                            var expectedDate = "";
+
+                            if (approvers[i].approverRoleId == 1 || approvers[i].approverRoleId == 2) {
+                                if (approvers[i].approverStatus == "2") {
+                                    statusTag = "<span class='w3-tag w3-yellow'>Pending</span>";
+                                } else if (approvers[i].approverStatus == "100") {
+                                    statusTag = "<span class='w3-tag w3-green'>Acknowledged</span>";
+                                } else if (approvers[i].approverStatus == "-404") {
+                                    statusTag = "<span class='w3-tag w3-deep-orange'>Rollbacked</span>";
+                                } else if (approvers[i].approverStatus == "-500") {
+                                    statusTag = "<span class='w3-tag w3-red'>Rejected</span>";
+                                }
+                                var d = new Date(approvers[i].approverPlanDate);
+                                expectedDate = d.toDateString();
+                            }
+                            var indicateApproverLevel = "";
+                            $('#tApproverbody').append(
+                                `<tr>
+                                    <td>&nbsp;</td>
+                                    <td class="approverName">` +
+                                approvers[i].approverFullName +
+                                ` ` +
+                                statusTag +
+                                ` </td>
+                                    <td class="approverId" hidden>` +
+                                approvers[i].approverId +
+                                `</td>
+                                    <td class="approverPriority" hidden>` +
+                                approvers[i].approverPriority +
+                                `</td>
+                                    <td class="approverPriorityType" hidden>` +
+                                approvers[i].approverRoleId +
+                                `</td>
+                                    <td class="approverPriorityTypeText">` +
+                                approvers[i].approverRoleName +
+                                `</td>
+                                    <td class="approverDepartment">` +
+                                approvers[i].approverDepartment +
+                                `</td>
+                                    <td class="approverDepartmentId" hidden>` +
+                                approvers[i].approverDepartmentId +
+                                `</td>
+                                    <td class="approverExpectedTime">` +
+                                expectedDate +
+                                `</td>
+                                </tr>`);
+                        }
+                    }
+                });
+            }
+
+            function loadSummariesOfThisEstimation(value) {
+                var formatter = new Intl.NumberFormat('en-IN',
+                    {
+                        style: 'currency',
+                        currency: 'BDT'
+                    });
+
+                $.ajax({
+                    type: "GET",
+                    url: "/Settlement/LoadDepartmentWiseSummaryForASettledEstimationWithBudgetData?estimationId=" + value,
+                    data: "{}",
+                    success: function (data) {
+                        var deptSummary = data;
+                        console.log(deptSummary);
+                        let tTotalCost = 0;
+                        let tTotalBudget = 0;
+                        let totalTADABudget = 0;
+                        let totalAllowableBudget = 0;
+                        let tTotalDeviation = 0;
+                        let totalCostExclueScm = 0;
+                        let totalBudgetExclueScm = 0;
+                        let totalTADABudgetExclueScm = 0;
+                        let totalAllowableBudgetExclueScm = 0;
+
+                        let rowDepartmentWiseSummaryTableIndex = 1;
+                        for (var i = 0; i < deptSummary.length; i++) {
+
+                            var deviation = 0;
+                            var percentage = 0;
+                            var divide = 0;
+
+                            if (Number(deptSummary[i].departmentId) != 7 && Number(deptSummary[i].departmentId) != 41) {
+
+                                tTotalBudget += deptSummary[i].totalBudget;
+                                totalTADABudget += deptSummary[i].totalTADABudget;
+                                totalAllowableBudget += deptSummary[i].totalAllowableBudget;
+                                tTotalCost += deptSummary[i].totalCost;
+
+                                deviation = parseFloat(parseFloat(deptSummary[i].totalAllowableBudget - deptSummary[i].totalCost));
+                                divide = parseFloat(deptSummary[i].totalCost) / parseFloat(deptSummary[i].totalAllowableBudget);
+                                percentage = parseFloat(divide) * 100;
+                                tTotalDeviation += deviation;
+
+                            }
+                            if (Number(deptSummary[i].departmentId) == 7 || Number(deptSummary[i].departmentId) == 41) {
+
+                                totalBudgetExclueScm += deptSummary[i].totalBudget;
+                                totalTADABudgetExclueScm += deptSummary[i].totalTADABudget;
+                                totalAllowableBudgetExclueScm += deptSummary[i].totalAllowableBudget;
+                                totalCostExclueScm += deptSummary[i].totalCost;
+
+                                deviation = parseFloat(parseFloat(deptSummary[i].totalAllowableBudget - deptSummary[i].totalCost));
+                                divide = parseFloat(deptSummary[i].totalCost) / parseFloat(deptSummary[i].totalAllowableBudget);
+                                percentage = parseFloat(divide) * 100;
+
+                                $('#tDepartSummarybody').append(
+                                    `<tr class="deletedDepartmentRow" style="color:#B2BEB5" id="RowDepartmentSummary${rowDepartmentWiseSummaryTableIndex}">
+                                                <td lass="text-left">
+                                                    <span id="nameDepartmentId${rowDepartmentWiseSummaryTableIndex}"
+                                                        class="departmentWiserSummaryDepartmentColumn"
+                                                        >` +
+                                    deptSummary[i].departmentName +
+                                    `</span>
+                                                </td>
+                                                <td id="idDepartmentId${rowDepartmentWiseSummaryTableIndex}" class="departmentSummaryDeptId" hidden>` +
+                                    deptSummary[i].departmentId +
+                                    `</td>
+                                                <td class="text-right">
+                                                    <span id="totalPriceDepartmentId${rowDepartmentWiseSummaryTableIndex}"
+                                                        class="departmentWiserSummaryTablePriceColumn" hidden>` +
+                                    deptSummary[i].totalBudget +
+                                    `</span>
+                                                    <span >` +
+                                    formatter.format(deptSummary[i].totalBudget)  +
+                                    `</span>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span id="totalPriceDepartmentId${rowDepartmentWiseSummaryTableIndex}"
+                                                        class="departmentWiserSummaryTablePriceColumn" hidden>` +
+                                    deptSummary[i].totalTADABudget +
+                                    `</span>
+                                                    <span >` +
+                                    formatter.format(deptSummary[i].totalTADABudget)  +
+                                    `</span>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span id="totalPriceDepartmentId${rowDepartmentWiseSummaryTableIndex}"
+                                                        class="departmentWiserSummaryTablePriceColumn" hidden>` +
+                                    deptSummary[i].totalAllowableBudget +
+                                    `</span>
+                                                    <span >` +
+                                    formatter.format(deptSummary[i].totalAllowableBudget)  +
+                                    `</span>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span id="totalcostDepartmentId${rowDepartmentWiseSummaryTableIndex}"
+                                                        class="departmentWiserSummaryTablePriceColumn" hidden>` +
+                                    deptSummary[i].totalCost +
+                                    `</span>
+                                                    <span >` +
+                                    formatter.format(deptSummary[i].totalCost) +
+                                    `</span>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span >` +
+                                    formatter.format(deviation) +
+                                    `</span>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span >` +
+                                    percentage.toFixed(2) +
+                                    ` % </span>
+                                                </td>
+                                            </tr>`
+                                );
+                            } else {
+                                $('#tDepartSummarybody').append(
+                                    `<tr class="deletedDepartmentRow" id="RowDepartmentSummary${rowDepartmentWiseSummaryTableIndex}">
+                                                <td lass="text-left">
+                                                    <span id="nameDepartmentId${rowDepartmentWiseSummaryTableIndex}"
+                                                        class="departmentWiserSummaryDepartmentColumn"
+                                                        style="color:chocolate">` +
+                                    deptSummary[i].departmentName +
+                                    `</span>
+                                                </td>
+                                                <td id="idDepartmentId${rowDepartmentWiseSummaryTableIndex}" class="departmentSummaryDeptId" hidden>` +
+                                    deptSummary[i].departmentId +
+                                    `</td>
+                                                <td class="text-right">
+                                                    <span id="totalPriceDepartmentId${rowDepartmentWiseSummaryTableIndex}"
+                                                        class="departmentWiserSummaryTablePriceColumn" hidden>` +
+                                    deptSummary[i].totalBudget +
+                                    `</span>
+                                                    <span style="color:chocolate">` +
+                                    deptSummary[i].totalBudget.toLocaleString() +"&#2547;" +
+                                    `</span>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span id="totalPriceDepartmentId${rowDepartmentWiseSummaryTableIndex}"
+                                                        class="departmentWiserSummaryTablePriceColumn" hidden>` +
+                                    deptSummary[i].totalTADABudget +
+                                    `</span>
+                                                    <span style="color:chocolate">` +
+                                    deptSummary[i].totalTADABudget.toLocaleString() +"&#2547;" +
+                                    `</span>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span id="totalPriceDepartmentId${rowDepartmentWiseSummaryTableIndex}"
+                                                        class="departmentWiserSummaryTablePriceColumn" hidden>` +
+                                    deptSummary[i].totalAllowableBudget +
+                                    `</span>
+                                                    <span style="color:chocolate">` +
+                                    deptSummary[i].totalAllowableBudget.toLocaleString() +"&#2547;" +
+                                    `</span>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span id="totalcostDepartmentId${rowDepartmentWiseSummaryTableIndex}"
+                                                        class="departmentWiserSummaryTablePriceColumn" hidden>` +
+                                    deptSummary[i].totalCost +
+                                    `</span>
+                                                    <span style="color:chocolate">` +
+                                    deptSummary[i].totalCost.toLocaleString() + "&#2547;" + 
+                                    `</span>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span style="color:chocolate">` +
+                                    deviation.toLocaleString() + "&#2547;" + 
+                                    `</span>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span style="color:chocolate">` +
+                                    percentage.toFixed(2) +
+                                    ` % </span>
+                                                </td>
+                                            </tr>`
+                                );
+                            }
+
+
+                            rowDepartmentWiseSummaryTableIndex++
+                        }
+                        $('#tDepartSummarybody').append(
+                            `<tr class="deletedParticularRow" >
+                                                <td lass="text-left">
+                                                    <span style="color: #23098B ">Grand Total(<span style="color: blue ">Exclude SCM  & Regularity Affairs</span>)</span>
+                                         
+                                                </td>
+                                                <td class="text-right">
+                                                    
+                                                    <span style="color: #23098B ">` +
+                            tTotalBudget.toLocaleString() + "&#2547;"  + `(<span style="color: #B2BEB5; ">` + totalBudgetExclueScm.toLocaleString() + "&#2547;" + `</span>)
+                                </span>
+                                                </td>
+                                                <td class="text-right">
+                                                    
+                                                    <span style="color: #23098B ">` +
+                            totalTADABudget.toLocaleString() + "&#2547;"  + `(<span style="color: #B2BEB5; ">` + totalTADABudgetExclueScm.toLocaleString() + "&#2547;" + `</span>)
+                                </span>
+                                                </td>
+                                                <td class="text-right">
+                                                    
+                                                    <span style="color: #23098B ">` +
+                            totalAllowableBudget.toLocaleString() + "&#2547;"  + `(<span style="color: #B2BEB5; ">` + totalAllowableBudgetExclueScm.toLocaleString() + "&#2547;" + `</span>)
+                                </span>
+                                                </td>
+                                                <td class="text-right">
+                                                    
+                                                    <span style="color: #23098B ">` +
+                            tTotalCost.toLocaleString() + "&#2547;"  + `(<span style="color: #B2BEB5; ">` + totalCostExclueScm.toLocaleString() + "&#2547;" + `</span>)
+                                </span>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span style="color: #23098B">` +
+                            tTotalDeviation.toLocaleString() + "&#2547;"  +
+                            `</span>
+                                                </td>
+                                                <td class="text-right">
+                                                    
+                                                </td>
+                                            </tr>`
+                        );
+                    }
+                });
+                $.ajax({
+                    type: "GET",
+                    url: "/Settlement/GetParticularSummaryForASettledEstimationWithBudgetData?estimationId=" + value,
+                    data: "{}",
+                    success: function (data) {
+                        let partiSummary = data;
+                        let rowParticularWiseSummaryTableIndex = 1;
+                        let tTotalCost = 0;
+                        let tTotalBudget = 0;
+                        let totalTADABudget = 0;
+                        let totalAllowableBudget = 0;
+                        let tTotalDeviation = 0;
+                        for (var i = 0; i < partiSummary.length; i++) {
+                            var deviation = 0;
+                            var percentage = 0;
+
+                            deviation = parseFloat(partiSummary[i].totalAllowableBudget) - parseFloat(partiSummary[i].totalCost);
+                            if(parseFloat(partiSummary[i].totalAllowableBudget) > 0)
+                            var divide = parseFloat(partiSummary[i].totalCost)/parseFloat(partiSummary[i].totalAllowableBudget);
+                            percentage = parseFloat(divide) * 100;
+                            tTotalDeviation += deviation;
+
+                            tTotalCost += partiSummary[i].totalCost;
+                            tTotalBudget += partiSummary[i].totalBudget;
+                            totalTADABudget += partiSummary[i].totalTADABudget;
+                            totalAllowableBudget += partiSummary[i].totalAllowableBudget;
+
+                            $('#tPartiSummarybody').append(
+                                `<tr class="deletedParticularRow" id="RowParticularSummary${rowParticularWiseSummaryTableIndex}">
+                                                <td lass="text-left">
+                                                    <span id="nameParticularId${rowParticularWiseSummaryTableIndex}"
+                                                        style="color:chocolate">` +
+                                partiSummary[i].particularName +
+                                `</span>
+                                                <td id="idParticularId${rowParticularWiseSummaryTableIndex}" class="particularSummarypartiId" hidden>` +
+                                partiSummary[i].particularId +
+                                `</td>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span id="totalPriceParticularId${rowParticularWiseSummaryTableIndex}" hidden>` +
+                                partiSummary[i].totalBudget +
+                                `</span>
+                                                    <span style="color:chocolate">` +
+                                partiSummary[i].totalBudget.toLocaleString() + "&#2547;"  +
+                                `</span>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span id="totalPriceParticularId${rowParticularWiseSummaryTableIndex}" hidden>` +
+                                partiSummary[i].totalTADABudget +
+                                `</span>
+                                                    <span style="color:chocolate">` +
+                                partiSummary[i].totalTADABudget.toLocaleString() + "&#2547;"  +
+                                `</span>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span id="totalPriceParticularId${rowParticularWiseSummaryTableIndex}" hidden>` +
+                                partiSummary[i].totalAllowableBudget +
+                                `</span>
+                                                    <span style="color:chocolate">` +
+                                partiSummary[i].totalAllowableBudget.toLocaleString() + "&#2547;"  +
+                                `</span>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span id="totalcostParticularId${rowParticularWiseSummaryTableIndex}" hidden>` +
+                                partiSummary[i].totalCost +
+                                `</span>
+                                                    <span style="color:chocolate">` +
+                                partiSummary[i].totalCost.toLocaleString() + "&#2547;"  +
+                                `</span>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span style="color:chocolate">` +
+                                deviation.toLocaleString() + "&#2547;"  +
+                                `</span>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span style="color:chocolate">` +
+                                percentage.toFixed(2) +
+                                ` % </span>
+                                                </td>
+                                            </tr>`
+                            );
+                            rowParticularWiseSummaryTableIndex++;
+                        }
+                        $('#tPartiSummarybody').append(
+                            `<tr class="deletedParticularRow" id="RowParticularSummary${rowParticularWiseSummaryTableIndex}">
+                                                <td lass="text-left">
+                                                    <span id="nameParticularId${rowParticularWiseSummaryTableIndex}"
+                                                        style="color: #23098B">Grand Total(Exclued SCM  & Regularity Affairs)</span>
+                                         
+                                                </td>
+                                                <td class="text-right">
+                                                    
+                                                    <span style="color: #23098B">` +
+                            tTotalBudget.toLocaleString() + "&#2547;"  +
+                            `</span>
+                                                </td>
+                                                <td class="text-right">
+                                                    
+                                                    <span style="color: #23098B">` +
+                            totalTADABudget.toLocaleString() + "&#2547;"  +
+                            `</span>
+                                                </td>
+                                                <td class="text-right">
+                                                    
+                                                    <span style="color: #23098B">` +
+                            totalAllowableBudget.toLocaleString() + "&#2547;"  +
+                            `</span>
+                                                </td>
+                                                <td class="text-right">
+                                                    
+                                                    <span style="color: #23098B">` +
+                            tTotalCost.toLocaleString() + "&#2547;"  +
+                            `</span>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span style="color: #23098B">` +
+                            tTotalDeviation.toLocaleString() + "&#2547;"  +
+                            `</span>
+                                                </td>
+                                                <td class="text-right">
+
+                                                </td>
+                                            </tr>`
+                        );
+                    }
+                });
+            }
+
+            function loadEstimateApproverRemarkList(value) {
+                $.ajax({
+                    type: "GET",
+                    url: "/Settlement/GetSettlementApproverRemarkList?settlementId=" + $("#settlementId").val(),
+                    data: "{}",
+                    success: function(data) {
+                        var approvers = data;
+                        var commentIcon = '<i class="fa fa-quote-left fa-2x fa-pull-left" aria-hidden="true"></i>';
+                        //console.log('feedback remarks approvers');
+                        //console.log(approvers);
+                        if (approvers < 1) {
+                            $("#divApproverRemarksList").hide();
+                        }
+                        for (var i = 0; i < approvers.length; i++) {
+                            var statusTag = "";
+                            var d = new Date(approvers[i].feedBackDate);
+                            if (approvers[i].settlementStatus == "-500") {
+                                statusTag = "<span class='w3-tag w3-red'>Rejected</span>";
+                            } else if (approvers[i].settlementStatus == "100") {
+                                statusTag = "<span class='w3-tag w3-green'>Acknowledged</span>";
+                            } else if (approvers[i].settlementStatus == "-404") {
+                                statusTag = "<span class='w3-tag w3-deep-orange'>Rollbacked</span>";
+                            }
+                            if (approvers[i].feedBack == null)
+                                approvers[i].feedBack = 'N/A';
+                            $('#tApproverRemarksbody').append(
+                                `<tr>
+                                    <td>&nbsp;</td>
+                                    <td class="approverNameFromFeedBack">` +
+                                approvers[i].approverFullName +
+                                ` </td>
+                                    <td>` +
+                                statusTag +
+                                `</td>
+                                    <td class="approverApprovalDate">` +
+                                d.toDateString() +
+                                ` ` +
+                                d.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }) +
+                                `</td>
+                                    <td class="approverFeedbackFromFeedBack">` +
+                                commentIcon +
+                                approvers[i].feedBack +
+                                `</td>
+                                </tr>`);
+                        }
+                    }
+                });
+            }
+
+            $('#AddParticularSection').on('click', '.itemDetails', function () {
+
+                var clickedBtnID = $(this).attr('id');
+                var estimationId = $("#estimateId").val();
+                console.log('Button click of the particular ... settlement');
+                $.ajax({
+                    type: "GET",
+                    url: "/BudgetMemo/LoadSettledItemDetails?estimateId=" + estimationId + "&settleitemId=" + clickedBtnID,
+                    data: "{}",
+                    success: function (data) {
+                        var details = data;
+                        console.log(details);
+                        $("#modalItemDetails").find("tr:gt(0)").remove();
+                        if (details.length < 1) {
+                            console.log("No Items");
+                            $('#settleItemDetail').append(`<tr><td colspan="8">No Item Details Available</td></tr>`);
+                        }
+                        else {
+                            for (var i = 0; i < details.length; i++) {
+                                var serial = i + 1;
+                                $('#settleItemDetail').append(`<tr>
+                                    <td>`+ serial +`</td>
+                                    <td>` + details[i].particularName + `</td>
+                                    <td>` + details[i].itemCategoryName + `</td>
+                                    <td>` + details[i].itemName + `</td>
+                                    <td>` + details[i].actualUnitPrice + `</td>
+                                    <td>` + details[i].actualQuantity + `</td>
+                                    <td>` + details[i].actualTotalPrice + `</td>
+                                    <td>` + details[i].remarks + `</td>
+                                </tr>`);
+                            }
+
+
+                        }
+                    }
+                });
+
+                $('#MemoItemDetailModal').modal('show');
+            });
+
+            var rowApproverIdx = 0;
+            $('#addApprover').on('click',
+                function() {
+                    showErrorMessageBelowCtrl('app_err-container', 'please add alteast one approver', false);
+
+                    var selectedsequenORparallleVal = "";
+                    var selectedArrproverTyepVal = "";
+
+                    var selectedsequenORparallle = $("#sequenORparalllerRadioDiv input[type='radio']:checked");
+                    var selectedArrproverTyep = $("#approverTypeRadioDiv input[type='radio']:checked");
+                    if (selectedsequenORparallle.length > 0 && selectedArrproverTyep.length > 0) {
+
+                        selectedsequenORparallleVal = selectedsequenORparallle.val();
+                        // console.log(selectedsequenORparallleVal);
+
+                        selectedArrproverTyepVal = selectedArrproverTyep.val();
+                        //console.log(selectedArrproverTyepVal);
+
+                        if (selectedsequenORparallleVal == "Sequencial" && selectedArrproverTyepVal == "2") {
+                            approverPriorityIndex--;
+                            addApproverinApproverList(approverPriorityIndex, selectedArrproverTyepVal, "Recommender");
+                        } else if (selectedsequenORparallleVal == "Parallel" && selectedArrproverTyepVal == "2") {
+                            addApproverinApproverList(approverPriorityIndex, selectedArrproverTyepVal, "Recommender");
+                        } else if (selectedArrproverTyepVal == "1") {
+                            addApproverinApproverList(1, selectedArrproverTyepVal, "Final Approver");
+                        } else if (selectedArrproverTyepVal == "3") {
+                            addApproverinApproverList(400, selectedArrproverTyepVal, "Informed");
+                        }
+                    }
+
+                });
+
+            //employee list selector change
+            $("#employeeListforApprover").change(function() {
+                var selectorID = $("#employeeListforApprover").val();
+                if (selectorID == 16) {
+                    var o = new Option("1", 1);
+                    $(o).html(1);
+                    $("#priorityforApprover").append(o);
+                    $("#priorityforApprover").val(1);
+                    $("#priorityforApprover").prop("disabled", true);
+                } else {
+                    $("#priorityforApprover").prop("disabled", false);
+                    $("#priorityforApprover option[value='1']").remove();
+                }
+
+                for (var x = 0; x < storeUsersWithDepartmentName.length; x++) {
+                    if (storeUsersWithDepartmentName[x].userID == selectorID) {
+                        $("#userDepartmentID").val(storeUsersWithDepartmentName[x].departmentName);
+                        $("#DeptIdUserID").val(storeUsersWithDepartmentName[x].departmentId);
+                        break;
+                    }
+                }
+            });
+
+
+            //remove row in approver list
+            $('#tApproverbody').on('click',
+                '.remove',
+                function() {
+
+                    var child = $(this).closest('tr').nextAll();
+                    child.each(function() {
+                        var id = $(this).attr('id');
+                        var idx = $(this).children('.row-index').children('p');
+                        var dig = parseInt(id.substring(1));
+                        idx.html(`Row ${dig - 1}`);
+                        $(this).attr('id', `RowApprover${dig - 1}`);
+                    });
+                    $(this).closest('tr').remove();
+                    rowApproverIdx--;
+                });
+
+            function getUserWithDepartmentNameSelect2FromDb() {
+                $.ajax({
+                    type: "GET",
+                    url: "/User/GetAllUsersWithDepartmentName",
+                    data: "{}",
+                    success: function(data) {
+                        var users = data.users;
+                        storeUsersWithDepartmentName = users;
+
+                        for (var i = 0; i < users.length; i++) {
+                            var o = new Option(users[i].fullName, users[i].userID);
+                            $(o).html(users[i].fullName + "/ " + users[i].departmentName);
+                            $("#employeeListforApprover").append(o);
+                        }
+                    }
+                });
+            }
+
+            function addApproverinApproverList(priorityParameter, priorityType, priorityTypeTxt) {
+                let checkFlag = false;
+
+                var priority = priorityParameter; //$('#priorityforApprover').find(":selected").text();
+                var username = $('#employeeListforApprover').find(":selected").text();
+                var userId = $('#employeeListforApprover').find(":selected").val();
+                var userDepartment = $('#userDepartmentID').val();
+                var DeptIdUserID = $('#DeptIdUserID').val();
+                var expectedDate = $('#datetimepickerApproverTimeLine').val();
+
+                var priorityValue = $('#priorityforApprover').find(":selected").val();
+                var usernameValue = $('#employeeListforApprover').find(":selected").val();
+
+
+                if (priorityValue <= 0) {
+                    showErrorMessageBelowCtrl('priorityforApprover', 'please add priority', true);
+                    return;
+                } else {
+                    showErrorMessageBelowCtrl('priorityforApprover', 'please select priority', false);
+                }
+                if (usernameValue <= 0) {
+                    showErrorMessageBelowCtrl('employeeListforApprover', 'please add employee', true);
+                    return;
+                } else {
+                    showErrorMessageBelowCtrl('employeeListforApprover', 'please select employee', false);
+                }
+                if (expectedDate.length <= 0) {
+                    showErrorMessageBelowCtrl('datetimepickerApproverTimeLine', 'please select expected timeline', true);
+                    return;
+                } else {
+                    showErrorMessageBelowCtrl('datetimepickerApproverTimeLine', 'please select expected timeline', false);
+                }
+
+                $("#TableAprroverList tr").each(function(a, b) {
+                    if (a > 0) {
+                        var userIdFromtb = $('.approverId', b).text();
+                        var priorityFromtb = $('.approverPriority', b).text()
+                        if (priorityFromtb == 1 && priority == 1) {
+                            showErrorMessageBelowCtrl('employeeListforApprover', 'Already added the approved.', true);
+                            checkFlag = true;
+                            approverPriorityIndex++;
+                        }
+
+                        if (userIdFromtb == userId && priority == priorityFromtb) {
+                            checkFlag = true;
+                            //console.log("Already Added");
+                            showErrorMessageBelowCtrl('priorityforApprover', 'Already added this approved with same priority', true);
+                            approverPriorityIndex++;
+                        }
+                    }
+                });
+
+                if (checkFlag == false) {
+                    $('#tApproverbody').append(
+                        `<tr id="RowApprover${++rowApproverIdx}">
+                            <td>&nbsp;</td>
+                            <td id="nameApproverId${rowApproverIdx}" class="approverName">` +
+                        username +
+                        `</td>
+                            <td id="idApproverId${rowApproverIdx}" class="approverId" hidden>` +
+                        userId +
+                        `</td>
+                            <td id="priorityApproverId${rowApproverIdx}" class="approverPriority" hidden>` +
+                        priority +
+                        `</td>
+                            <td id="priorityApproverTypeId${rowApproverIdx}" class="approverPriorityType" hidden>` +
+                        priorityType +
+                        `</td>
+                            <td id="priorityApproverTypeTextId${rowApproverIdx}" class="approverPriorityTypeText">` +
+                        priorityTypeTxt +
+                        `</td>
+                            <td id="departmentApproverId${rowApproverIdx}" class="approverDepartment">` +
+                        userDepartment +
+                        `</td>
+                            <td id="departmentIdApproverId${rowApproverIdx}" class="approverDepartmentId" hidden>` +
+                        DeptIdUserID +
+                        `</td>
+                            <td id="expectedTimeId${rowApproverIdx}" class="approverExpectedTime">` +
+                        expectedDate +
+                        `</td>
+                            <td class="text-center">
+                                <button class="btn btn-danger remove" type="button"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                            </td>
+                        </tr>`
+                    );
+                }
+            }
+
+            //approved button event
+            $(document).on("click", "#approvedButton", function () {
+                alertify.confirm('Approval Rejection', 'Do you want to really approve this settlement?', function (){
+                        $('#approvedButton').attr('disabled', 'disabled');
+                        var settlementId = Number($('#settlementId').val());
+                        var remarks = $('#approvalRemakrs').val();
+
+
+                        $.ajax({
+                            url: "/Settlement/SettlementApproval",
+                            type: "POST",
+                            data: { settlementId: settlementId, feedback: '100', remarks: remarks },
+                            beforeSend: function() {
+                                $.blockUI({
+                                    timeout: 0,
+                                    message: 'Processing..'
+                                });
+                            },
+                            success: function(response) {
+
+                                if (parseInt(response) > 0) {
+                                    $.unblockUI();
+                                    alertify.alert('SUCCESS', 'Feedback Successfully Submitted!', function() { window.location = "/Settlement/SettlementList"; });
+                                } else {
+                                    alertify.alert(response, function() { window.location = "/Settlement/SettlementList"; });
+                                }
+                            },
+                            complete: function() {
+                                $.unblockUI();
+                            },
+                            error: function(data) {
+                                $.unblockUI();
+                            }
+                        });
+                    }
+                    , function () {
+                        alertify.error('Cancelled')
+                    });
+            });
+            $(document).on("click", "#rollBackButton", function () {
+                alertify.confirm('Approval Rejection', 'Do you want to really Roll-Back this settlement?', function (){
+                        
+                        $('#rollBackButton').attr('disabled', 'disabled');
+                        var settlementId = Number($('#settlementId').val());
+                        var remarks = $('#approvalRemakrs').val();
+
+
+                        $.ajax({
+                            url: "/Settlement/SettlementApproval",
+                            type: "POST",
+                            data: { settlementId: settlementId, feedback: '-404', remarks: remarks },
+                            beforeSend: function() {
+                                $.blockUI({
+                                    timeout: 0,
+                                    message: 'Processing..'
+                                });
+                            },
+                            success: function(response) {
+
+                                if (parseInt(response) > 0) {
+                                    $.unblockUI();
+                                    alertify.alert('SUCCESS', 'Feedback Successfully Submitted!', function() { window.location = "/Settlement/SettlementList"; });
+                                } else {
+                                    alertify.alert(response, function() { window.location = "/Settlement/SettlementList"; });
+                                }
+                            },
+                            complete: function() {
+                                $.unblockUI();
+                            },
+                            error: function(data) {
+                                $.unblockUI();
+                            }
+                        });
+                    }
+                    , function () {
+                        alertify.error('Cancelled')
+                    });
+            });
+            $(document).on("click", "#rejectButton", function () {
+                alertify.confirm('Approval Rejection', 'Do you want to really Reject this settlement?', function (){
+                        
+                        $('#rejectButton').attr('disabled', 'disabled');
+                        var settlementId = Number($('#settlementId').val());
+                        var remarks = $('#approvalRemakrs').val();
+
+
+                        $.ajax({
+                            url: "/Settlement/SettlementApproval",
+                            type: "POST",
+                            data: { settlementId: settlementId, feedback: '-500', remarks: remarks },
+                            beforeSend: function() {
+                                $.blockUI({
+                                    timeout: 0,
+                                    message: 'Processing..'
+                                });
+                            },
+                            success: function(response) {
+
+                                if (parseInt(response) > 0) {
+                                    $.unblockUI();
+                                    alertify.alert('SUCCESS', 'Feedback Successfully Submitted!', function() { window.location = "/Settlement/SettlementList"; });
+                                } else {
+                                    alertify.alert(response, function() { window.location = "/Settlement/SettlementList"; });
+                                }
+                            },
+                            complete: function() {
+                                $.unblockUI();
+                            },
+                            error: function(data) {
+                                $.unblockUI();
+                            }
+                        });
+                    }
+                    , function () {
+                        alertify.error('Cancelled')
+                    });
+            });
+            $('#tbody').on('keyup',
+                '.findTotalPrice',
+                function() {
+                    var child = $(this).closest('tr').nextAll();
+                    var rowTrackId = child.prevObject.attr("id").slice(1);
+                    calculateTotalPrice(rowTrackId);
+                });
+            function calculateTotalPrice(rowTrackId) {
+                var multi = 0;
+                multi = $("#actualQuantity" + rowTrackId).val() * $("#actualUnitPrice" + rowTrackId).val();
+                $("#actualTotalPrice" + rowTrackId).text(multi.toFixed(2));
+
+                var formatter = new Intl.NumberFormat('en-IN');
+                $("#actualTotalPrice" + rowTrackId).val(formatter.format(multi.toFixed(2)))
+                getSumOfTotalPrice();
+
+            }
+            function getSumOfTotalPrice() {
+                var sum = 0;
+                $('.particularItemsAndDetailsTable tr').each(function(a, b) {
+
+                    var totalPrice = $('.actualTotalPrice', b).val();
+                    console.log(typeof(totalPrice));
+                   
+                    if (!isNaN(totalPrice) && totalPrice.length != 0) {
+                        sum += parseFloat(totalPrice);
+                    }
+
+                });
+                var formatter = new Intl.NumberFormat('en-IN',
+                    {
+                        style: 'currency',
+                        currency: 'BDT'
+                    });
+            }
+
+            function getSumOfTotalSettledAmount() {
+                var sum = 0;
+                $('.particularItemsAndDetailsTable tr').each(function(a, b) {
+
+                    var totalPrice = $('.alreadySettleCost', b).val();
+                    //console.log(totalPrice);
+                    if (!isNaN(totalPrice) && totalPrice.length != 0) {
+                        sum += parseFloat(totalPrice);
+                    }
+
+                });
+
+                $("#sumOfSettledCost").text(sum.toFixed(2));
+                var formatter = new Intl.NumberFormat('en-IN',
+                    {
+                        style: 'currency',
+                        currency: 'BDT'
+                    });
+                $('#sumOfSettledCost').text(formatter.format(sum.toFixed(2)));
+            }
+
+
+            function getSumOfTotalSettledQuantity() {
+                var sum = 0;
+                $('.particularItemsAndDetailsTable tr').each(function(a, b) {
+
+                    var totalPrice = $('.settleActualQuantity', b).val();
+                    if (!isNaN(totalPrice) && totalPrice.length != 0) {
+                        sum += parseFloat(totalPrice);
+                    }
+                });
+
+                $("#sumOfSettledQuantity").text(sum.toFixed(2));
+                var formatter = new Intl.NumberFormat('en-IN',
+                    {
+                        style: 'currency',
+                        currency: 'BDT'
+                    });
+                $('#sumOfSettledQuantity').text(sum.toFixed(2));
+            }
+
+
+            function ConstructResponseObject() {
+                var validFlag = 1
+                var settlement = {};
+                var procurementApprovalRequest = {};
+                var settlementItemList = [];
+                var settlementApproverList = [];
+                var departmentWiseSummaryList = [];
+                var particularWiseSummaryList = [];
+
+                formData = new FormData();
+                for (var i = 0; i < filelist.length; i++) {
+                    if (jQuery.isEmptyObject(filelist[i])) {
+                        // console.log("skip");
+                        continue;
+                    }
+                    formData.append(filelist[i].name, filelist[i]);
+                }
+                estimationAttachment = formData;
+
+
+                $('.particularItemsAndDetailsTable #tbody tr').each(function(a, b) {
+                    var itemId = $('.itemSelectorFromTable', b).find(":selected").val();
+                    var deptId = $('.departmentSelector', b).find(":selected").val();
+                    var thanaId = $('.particularTableThana', b).find(":selected").val();
+                    var estimateSeetleItemId = $('.estimateSettleItemId', b).text();
+                    let idActualQuantity = 'actualQuantity' + a;
+
+                    showErrorMessageBelowCtrl(idActualQuantity, 'please input all of related input ', false);
+
+                    if (Number(estimateSeetleItemId) > 0) {
+                        if (
+                            Number($('.actualQuantity', b).val().trim().length) > 0 ||
+                                Number($('.actualUnitPrice', b).val().trim().length) > 0 ||
+                                Number($('.actualTotalPrice', b).val().trim().length) > 0
+                        ) {
+
+                            if (
+                                Number($('.actualQuantity', b).val().trim().length) == 0 ||
+                                    Number($('.actualUnitPrice', b).val().trim().length) == 0 ||
+                                    Number($('.actualTotalPrice', b).val().trim().length) == 0
+                            ) {
+                                //console.log('validation msg');
+
+                                let idActualQuantity = 'actualQuantity' + a;
+
+                                showErrorMessageBelowCtrl(idActualQuantity, 'please input all of related input ', true);
+
+                            } else {
+
+                               // console.log('ROw id +' + a);
+                                settlementItemList.push({
+                                    estimationId: $("#estimateId").val(),
+                                    settlementId: $("#settlementId").val(),
+                                    estimateSettleItemId: Number($('.estimateSettleItemId', b).text()),
+                                    particular: null,
+                                    itemCategory: null,
+                                    itemName: null,
+                                    item_Id: -1,
+                                    itemCode: null,
+                                    itemUnit: null,
+                                    noOfMachineAndUsagesAndTeamAndCar: -1,
+                                    noOfDayAndTotalUnit: -1,
+                                    quantityRequired: -1,
+                                    unitPrice: -1,
+                                    totalPrice: -1,
+                                    responsibleDepartmentName: null,
+                                    responsibleDepartment_Id: -1,
+                                    districtName: null,
+                                    thanaName: null,
+                                    thana_Id: -1,
+                                    areaType: null,
+                                    settleItemId: Number($('.settleItemId', b).text()),
+                                    actualQuantity: $('.actualQuantity', b).val().trim().length == 0 ? -1 : $('.actualQuantity', b).val(),
+                                    actualUnitPrice: $('.actualUnitPrice', b).val().trim().length == 0 ? -1 : $('.actualUnitPrice', b).val(),
+                                    actualTotalPrice: $('.actualTotalPrice', b).val().trim().length == 0 ? -1 : $('.actualTotalPrice', b).val(),
+                                    settleItemRemarks: $('.settleItemRemarks', b).val()
+
+                                });
+                            }
+                        }
+                    } else {
+
+                        settlementItemList.push({
+                            estimationId: $("#estimateId").val(),
+                            settlementId: $("#settlementId").val(),
+                            estimateSettleItemId: -1,
+                            particular: $('.particularSelectorFromTable', b).find(":selected").text(),
+                            itemCategory: $('.itemCategoryDropdownSelector', b).find(":selected").text(),
+                            itemName: $('.itemSelectorFromTable', b).find(":selected").text(),
+                            itemId: Number($('.itemSelectorFromTable', b).find(":selected").val()),
+                            itemCode: $('.itemCodeText', b).text(),
+                            itemUnit: $('.itemUnitText', b).text(),
+                            noOfMachineAndUsagesAndTeamAndCar: -1,
+                            noOfDayAndTotalUnit: -1,
+                            quantityRequired: -1,
+                            unitPrice: -1,
+                            totalPrice: -1,
+                            responsibleDepartmentName: $('.departmentSelector', b).find(":selected").text(),
+                            responsibleDepartment_Id: Number($('.departmentSelector', b).find(":selected").val()),
+                            districtName: $('.distSelectorFromTable', b).find(":selected").text(),
+                            thanaName: $('.particularTableThana', b).find(":selected").text(),
+                            thanaId: Number($('.particularTableThana', b).find(":selected").val()),
+                            areaType: $('.areaType', b).find(":selected").val(),
+                            settleItemId: -1,
+                            actualQuantity: Number($('.actualQuantity', b).val()),
+                            actualUnitPrice: Number($('.actualUnitPrice', b).val()),
+                            actualTotalPrice: Number($('.actualTotalPrice', b).val()),
+                            settleItemRemarks: $('.settleItemRemarks', b).val()
+
+                        });
+                    }
+                });
+
+
+                var departmentSummaryTableRows = $('#TableDepartmentWishSummary tr').length;
+                $('#TableDepartmentWishSummary tr').each(function(a, b) {
+                    if (a > 0 && a < departmentSummaryTableRows) {
+                        if ($('#idDepartmentId' + a).text() == "-1") {
+                            //console.log("skip");
+                        } else {
+                            departmentWiseSummaryList.push({
+                                department_Id: parseInt($('#idDepartmentId' + a).text()),
+                                departmentName: $('#nameDepartmentId' + a).text(),
+                                totalPrice: $('#totalPriceDepartmentId' + a).text()
+                            });
+                        }
+
+                    }
+                });
+                var particularSummaryTableRows = $('#TableParticularWishSummary tr').length;
+                $('#TableParticularWishSummary tr').each(function(a, b) {
+                    if (a > 0 && a < particularSummaryTableRows) {
+                        if ($('#idParticularId' + a).text() == "-1") {
+                            //console.log("skip");
+                        } else {
+                            particularWiseSummaryList.push({
+                                particular_Id: parseInt($('#idParticularId' + a).text()),
+                                particlarName: $('#nameParticularId' + a).text(),
+                                totalPrice: $('#totalPriceParticularId' + a).text()
+                            });
+                        }
+                    }
+                });
+
+                var tvalue = tableOpen == 1 ? parseFloat($("#sumOfTotalPrice").text()) : parseFloat($("#totalPriceText").val());
+                if (isNaN(tvalue)) {
+                    tvalue = 0
+                }
+                settlement = {
+                    Id: $("#settlementId").val(),
+                    settlementNote: $("#settlementNote").val(),
+                    estimationId: Number($("#estimateId").val()),
+                    isFinalSettle: Number($("#isFinalSettleDiv input[type='radio']:checked").val())
+                };
+
+
+                $("#TableAprroverList tr").each(function(a, b) {
+                    if (a > 0) {
+                        settlementApproverList.push({
+                            user_Id: $('.approverId', b).text(),
+                            approverFullName: $('.approverName', b).text(),
+                            priority: $('.approverPriority', b).text(),
+                            rolePriority_Id: $('.approverPriorityType', b).text(),
+                            approverRole: $('.approverPriorityTypeText', b).text(),
+                            approverDepartment: $('.approverDepartment', b).text(),
+                            expectedTime: $('.approverExpectedTime', b).text()
+                        });
+                    }
+                });
+               
+                var data = new RequestData(settlement, settlementApproverList, settlementItemList);
+                if (validFlag == 1) {
+
+                    return data;
+                } else {
+                    return false;
+                }
+            }
+
+            $("#draftSettlement").click(function() {
+                var settlementData = ConstructResponseObject();
+                settlementDraftDataPostToServer(settlementData);
+            });
+
+            function settlementDraftDataPostToServer(settlementData) {
+                var dataJson = JSON.stringify(settlementData);
+                var postData = {
+                    "requestDto": dataJson
+                };
+
+                $.ajax({
+                    type: "POST",
+                    traditional: true,
+                    async: false,
+                    cache: false,
+                    url: "/Settlement/DraftSettlement",
+                    context: document.body,
+                    data: postData,
+                    beforeSend: function() {
+                        $.blockUI({
+                            timeout: 0,
+                            message: 'Processing..'
+                        });
+                    },
+                    success: function(response) {
+                        if (parseInt(response) > 0) {
+                            //draftEstimateAttachment(parseInt(response), estimationAttachment);
+
+                            $.unblockUI();
+                            alertify.alert('SUCCESS', 'Draft Saved Successfully!', function() { window.location = "/BudgetEstimation/DraftList"; });
+                        } else {
+                            alertify.alert('Something went wrong! please try again.');
+                        }
+                    },
+                    complete: function() {
+                        $.unblockUI();
+                    },
+                    failure: function(response) {
+                        $.unblockUI();
+                        alert(response.responseText);
+                    },
+                    error: function(response) {
+                        $.unblockUI();
+                        alert(response.responseText);
+                    }
+                });
+            }
+
+
+            function RequestData(settlement, settlementApproverList, settlementItems) {
+
+                this.settlement = settlement;
+                this.settlementApproverList = settlementApproverList;
+                this.settlementItems = settlementItems;
+
+            }
+
+
+        });
+    </script>
+}

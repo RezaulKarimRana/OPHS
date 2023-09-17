@@ -1,0 +1,47 @@
+﻿@model OpenGraphViewModel
+
+@{
+    if (Model != null)
+    {
+        <title>@Model.Title</title>
+        <meta name="description" content="@Model.Description">
+        <meta name="author" content="@Model.Author">
+
+        <meta property="og:site_name" content="AMS.Web" />
+        if (!string.IsNullOrEmpty(Model.Url))
+        {
+            <meta property="og:url" content="@Model.Url" />
+        }
+        if (!string.IsNullOrEmpty(Model.Type))
+        {
+            <meta property="og:type" content="@Model.Type" />
+        }
+
+
+        @if (!string.IsNullOrEmpty(Model.FacebookAppId))
+        {
+            <meta property="fb:app_id" content="@Model.FacebookAppId" />
+        }
+
+
+        if (!string.IsNullOrEmpty(Model.Title))
+        {
+            <meta property="og:title" content="@Model.Title" />
+        }
+        if (!string.IsNullOrEmpty(Model.Description))
+        {
+            <meta property="og:description" content="@Model.Description" />
+        }
+
+
+        if (Model.Image != null)
+        {
+            <!-- check which image sizes are required (might need to cater for multiple sizes) -->
+            <meta property="og:image" itemprop="image" content="@Model.Image.Url" />
+            <meta property="og:image:secure_url" content="@Model.Image.Url" />
+            <meta property="og:image:width" content="@Model.Image.Width" />
+            <meta property="og:image:height" content="@Model.Image.Height" />
+            <meta property="og:image:type" content="@Model.Image.ContentType" />
+        }
+    }
+}

@@ -1,0 +1,160 @@
+﻿@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+<link href="~/css/bootstrap-datepicker.css" rel="stylesheet" />
+<link href="~/css/alertify.css" rel="stylesheet" />
+<link href="~/lib/select2/css/select2.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/themes/smoothness/jquery-ui.css" />
+<style type="text/css">
+    #TableAprroverList tbody {
+        counter-reset: serial-number;
+    }
+    #TableAprroverList tbody td:first-child:before {
+        counter-increment: serial-number;
+        content: counter(serial-number);
+    }
+    table th, table td {
+        width: 100px;
+        padding: 5px;
+        border: 1px solid #ccc;
+    }
+    .selected {
+        background-color: #666;
+        color: #fff;
+    }
+    input[type=checkbox] {
+        height: 1rem;
+        width: 5rem;
+        visibility: visible;
+        display: block;
+    }
+    #showApprover,#addApprover,#updateApprover{
+        float:right;
+    }
+</style>
+<div class="container-fluid">
+    <div class="card border-secondary mb-4">
+        <div class="card-header">
+            <b>Approver Modification</b>
+        </div>
+        <div class="card-body">
+            <div class="container-fluid">
+                <div class="form-group required row">
+                    <label class="col-sm-2 col-form-label-sm control-label">Approval For</label>
+                    <div class="col-sm-4">
+                        <select class="form-control autoSuggestionSelect" aria-label=".form-select-sm example" id="ddlModules"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="form-group required row">
+                    <label class="col-sm-2 col-form-label-sm control-label">Request No</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="requestNo" />
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-md btn-info" id="showApprover" type="button"><i class="fa fa-submit" aria-hidden="true"></i>Show Approver</button>
+        </div>
+    </div>
+    <div class="card border-secondary mb-4">
+        <div class="card-header hideShow"><b>Add Approver</b></div>
+        <div class="card-body">
+            <div class="container-fluid" id="addApproverForm">
+                <div class="form-group required row">
+                    <label for="employeeListforApprover" class="col-sm-2 col-form-label-sm control-label">Employee List</label>
+                    <div class="col-sm-4">
+                        <select class="form-control autoSuggestionSelect" aria-label=".form-select-sm example" id="employeeListforApprover" style="width:100%" required>
+                            <option value="-1">Please Select Approver</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="userDepartmentID" disabled />
+                        <input type="text" class="form-control" id="DeptIdUserID" hidden />
+                    </div>
+                </div>
+                <div class="form-group required row">
+                    <label class="col-sm-2 col-form-label-sm" for="datetimepickerApproverTimeLine">Approver Role</label>
+                    <div class="col-sm-4" id="sequenORparalllerRadioDiv">
+                        <label class="btn btn-secondary" title="SEQUENCIAL or PARALLEL ??">
+                            Flow >>>
+                        </label>
+                        <label class="btn btn-secondary" title="The approval request will process one by one in SEQUENCIAL mode.">
+                            <input type="radio" class="btn btn-default" name="flow" value="Sequencial" checked />&nbsp;&nbsp;Sequencial
+                        </label>
+                        <label class="btn btn-secondary" title="The approval request will sent to all stakeholder during PARALLEL then will follow SEQUENCIAL mode.">
+                            <input type="radio" class="btn btn-default" name="flow" value="Parallel" />&nbsp;&nbsp;Parallel
+                        </label>
+                    </div>
+                    <div class="col-sm-6" id="approverTypeRadioDiv">
+                        <label class="btn btn-secondary" title="Only for notification and view access, no parking and no action required.">
+                            <input type="radio" class="btn btn-default" name="role" value="3" />&nbsp;&nbsp;Inform
+                        </label>
+                        <label class="btn btn-success" title="Will be pending to Recommendation end for input. Will go to next after recommendation input.">
+                            <input type="radio" class="btn btn-default" name="role" value="2" checked />&nbsp;&nbsp;Recommend
+                        </label>
+                        <label class="btn btn-warning" id="finalApproverBtn" title="Will be pending to Recommendation end for input. This will be the last stage of the workflow. Only one person can be final approver.">
+                            <input type="radio" class="btn btn-default" name="role" value="1" />&nbsp;&nbsp;Final Approve
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group required row">
+                    <label class="col-sm-2 col-form-label-sm" for="datetimepickerApproverTimeLine">Time Line</label>
+                    <div class="col-sm-4">
+                        <input readonly="readonly" id="datetimepickerApproverTimeLine" class="form-control datepicker" required />
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-md btn-info" id="addApprover" type="button"><i class="fa fa-submit" aria-hidden="true"></i>Add Approver</button>
+            <br />
+        </div>
+    </div>
+    <div class="card border-secondary mb-4">
+        <div class="card-header">
+            <b>Approver List</b>
+        </div>
+        <div class="card-body">
+            <div class="container-fluid">
+                <div class="table-responsive">
+                </div>
+            </div>
+            <table class="table table-sm table-hover table-bordered" id="TableAprroverList" cellpadding="0" cellspacing="0" border="1">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>#</th>
+                        <th class="text-center" scope="col">Approver Name</th>
+                        <th class="text-center" scope="col">Approver Type</th>
+                        <th class="text-center" scope="col">Approver Department</th>
+                        <th class="text-center" scope="col">Expected Time</th>
+                        <th class="text-center" scope="col">Is Approved</th>
+                    </tr>
+                </thead>
+                <tbody id="tApproverbody" style="text-align:left">
+                </tbody>
+            </table>
+            <button class="btn btn-md btn-primary" id="updateApprover" type="button"><i class="fa fa-submit" aria-hidden="true"></i>Update Modification</button>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/jquery-ui.min.js"></script>
+    <script src="~/js/bootstrap-datepicker.js"></script>
+    <script src="~/js/alertify.js"></script>
+    <script src="~/js/jquery.blockUI.js"></script>
+    <script src="~/lib/select2/js/select2.js"></script>
+    <script src="~/js/AjaxCall/AdminSupport.js"></script>
+    <script>
+        $(document).ready(function() {
+            getInitData();
+            $('.datepicker').datepicker({
+                format: 'mm/dd/yyyy',
+                "autoclose": true
+            });
+            $('.datepicker').datepicker('update', new Date());
+            $('tbody').sortable();
+        });
+    </script>
+}

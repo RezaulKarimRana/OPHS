@@ -1,0 +1,76 @@
+﻿@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+<link href="~/css/bootstrap-datepicker.css" rel="stylesheet" />
+<link href="~/css/alertify.css" rel="stylesheet" />
+<link href="~/lib/select2/css/select2.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/themes/smoothness/jquery-ui.css" />
+<style type="text/css">
+    #TableAprroverList tbody {
+        counter-reset: serial-number;
+    }
+    #TableAprroverList tbody td:first-child:before {
+        counter-increment: serial-number;
+        content: counter(serial-number);
+    }
+    table th, table td {
+        width: 100px;
+        padding: 5px;
+        border: 1px solid #ccc;
+    }
+    .selected {
+        background-color: #666;
+        color: #fff;
+    }
+    input[type=checkbox] {
+        height: 1rem;
+        width: 5rem;
+        visibility: visible;
+        display: block;
+    }
+    #showApprover,#addApprover,#updateApprover{
+        float:right;
+    }
+</style>
+<div class="container-fluid">
+    <div class="card border-secondary mb-4">
+        <div class="card-header">
+            <b>User Department Update</b>
+        </div>
+        <div class="card-body">
+            <div class="container-fluid">
+                <div class="form-group required row">
+                    <label class="col-sm-2 col-form-label-sm control-label">User Name</label>
+                    <div class="col-sm-4">
+                        <select class="form-control autoSuggestionSelect" aria-label=".form-select-sm example" id="employeeListforApprover"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="form-group required row">
+                    <label class="col-sm-2 col-form-label-sm control-label">Department</label>
+                    <div class="col-sm-4">
+                        <select class="form-control autoSuggestionSelect" aria-label=".form-select-sm example" id="ddlDepartment"></select>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-md btn-info" style="float:right" id="updateUserDepartment" type="button"><i class="fa fa-submit" aria-hidden="true"></i>Update</button>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/jquery-ui.min.js"></script>
+    <script src="~/js/bootstrap-datepicker.js"></script>
+    <script src="~/js/alertify.js"></script>
+    <script src="~/js/jquery.blockUI.js"></script>
+    <script src="~/lib/select2/js/select2.js"></script>
+    <script src="~/js/AjaxCall/AdminSupport.js"></script>
+    <script>
+        $(document).ready(function() {
+            getInitData();
+        });
+    </script>
+}

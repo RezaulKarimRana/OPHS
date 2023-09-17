@@ -1,0 +1,74 @@
+﻿@page
+@model LoginModel
+@{
+    ViewData.SetMeta("Login"); Layout = "~/Pages/Shared/_LayoutEmpty.cshtml";
+}
+<style type="text/css">
+    .center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 10px;
+    }
+    .glass{
+        background: rgba(6, 21, 93, 0.04);
+        border-radius: 16px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(0px);
+        -webkit-backdrop-filter: blur(0px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        padding:0px 15px 0px 15px;
+    }
+    .text-primary{
+        color:#0659b2 !important
+    }
+</style>
+<div class="col-5 center glass">
+    <div class="row">
+        <div class="col-7 align-self-end" style="margin:auto">
+            <img src="~/img/amsImage.png" alt="" height="200" width="250" style="float:left" class="img-fluid">
+        </div>
+        <div class="col-5 align-self-end" style="margin:auto;">
+            <img src="~/img/logoWhite.png" alt="" height="100" width="150" style="float:right" class="img-fluid">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="p-5">
+                <form class="user" method="post" role="form" asp-route-returnurl="@ViewData["ReturnUrl"]">
+                    <div asp-validation-summary="All" class="text-white"></div>
+                    <div class="form-group">
+                        <input asp-for="FormData.Username" class="form-control" placeholder="Username" style="border-radius:10px">
+                    </div>
+                    <div class="form-group">
+                        <input asp-for="FormData.Password" class="form-control" placeholder="Password" style="border-radius:10px">
+                    </div>
+                    <div class="form-group">
+                        <input asp-for="ShowPassword" type="checkbox" class="chkShowpassword">
+                        <label asp-for="ShowPassword"></label>
+                        <label asp-for="ShowPassword" style="color:#fff">Show Password</label>
+                        <a asp-page="/Account/ForgotPassword" style="float:right;text-decoration:underline;color:#fff">Forgot Password</a>
+                    </div>
+                    <div class="text-center" style="display:flex;justify-content:center">
+                        <button class="btn btn-block" type="submit" style="border-radius:10px;background:#0659b2;color:#fff;width:40%"> Login </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+
+        $(".chkShowpassword").change(function() {
+            var txtPassword = $("#FormData_Password");
+            if (txtPassword.attr('type') === 'password') {
+                txtPassword.attr('type', 'text');
+            } else {
+                txtPassword.attr('type', 'password');
+            }
+        });
+    </script>
+}

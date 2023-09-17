@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.2" />
+    <PackageReference Include="ClosedXML" Version="0.95.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
+    <PackageReference Include="Wangkanai.Detection" Version="2.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AMS.Common\AMS.Common.csproj" />
+    <ProjectReference Include="..\AMS.Infrastructure\AMS.Infrastructure.csproj" />
+    <ProjectReference Include="..\AMS.Models\AMS.Models.csproj" />
+    <ProjectReference Include="..\AMS.Repositories\AMS.Repositories.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="HTML.Generator.Helper">
+      <HintPath>..\CustomLibraryDLL\HTML.Generator.Helper.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

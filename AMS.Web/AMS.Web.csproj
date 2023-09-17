@@ -1,0 +1,109 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <ApplicationInsightsResourceId>/subscriptions/e3a69efd-2ca6-41c1-8c58-97310f0e5376/resourcegroups/thewebchameleon-euwest-dev/providers/microsoft.insights/components/AMS-razor</ApplicationInsightsResourceId>
+    <ApplicationInsightsAnnotationResourceId>/subscriptions/e3a69efd-2ca6-41c1-8c58-97310f0e5376/resourcegroups/thewebchameleon/providers/microsoft.insights/components/AMS-razor</ApplicationInsightsAnnotationResourceId>
+    <AssemblyName>AMS.Web</AssemblyName>
+    <Nullable>enable</Nullable>
+    <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
+    <StartupObject>AMS.Web.Program</StartupObject>
+    <UserSecretsId>8a9597fb-5b50-43f1-94cd-451a2dbdccae</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Pages\Admin\Dashboard\**" />
+    <Compile Remove="wwwroot\js\AjaxCall\PostDataToDb\**" />
+    <Compile Remove="wwwroot\js\CustomFunctions\**" />
+    <Compile Remove="wwwroot\pdf\**" />
+    <Content Remove="Pages\Admin\Dashboard\**" />
+    <Content Remove="wwwroot\js\AjaxCall\PostDataToDb\**" />
+    <Content Remove="wwwroot\js\CustomFunctions\**" />
+    <Content Remove="wwwroot\pdf\**" />
+    <EmbeddedResource Remove="Pages\Admin\Dashboard\**" />
+    <EmbeddedResource Remove="wwwroot\js\AjaxCall\PostDataToDb\**" />
+    <EmbeddedResource Remove="wwwroot\js\CustomFunctions\**" />
+    <EmbeddedResource Remove="wwwroot\pdf\**" />
+    <None Remove="Pages\Admin\Dashboard\**" />
+    <None Remove="wwwroot\js\AjaxCall\PostDataToDb\**" />
+    <None Remove="wwwroot\js\CustomFunctions\**" />
+    <None Remove="wwwroot\pdf\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="appsettings.Production.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="libwkhtmltox.dll" />
+    <None Remove="libwkhtmltox.dylib" />
+    <None Remove="libwkhtmltox.so" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="libwkhtmltox.dll">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="libwkhtmltox.dylib">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="libwkhtmltox.so">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+  <None Update="log4net.config">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+  </None>
+  <None Update="wwwroot\**\*">
+     <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+     <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  </None>
+</ItemGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="ClosedXML" Version="0.95.4" />
+    <PackageReference Include="DinkToPdf" Version="1.0.8" />
+    <PackageReference Include="jQuery-datetimepicker" Version="2.4.5" />
+    <PackageReference Include="jQuery.UI.Combined" Version="1.12.1" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.16.0" />
+    <PackageReference Include="Microsoft.ApplicationInsights.PerfCounterCollector" Version="2.16.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.RazorPages" Version="2.2.5" />
+    <PackageReference Include="Microsoft.AspNetCore.ResponseCompression" Version="2.2.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Serilog.AspNetCore" Version="3.4.0" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="3.1.0" />
+    <PackageReference Include="Serilog.Sinks.ApplicationInsights" Version="3.1.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
+    <PackageReference Include="Serilog.Sinks.Seq" Version="4.0.0" />
+    <PackageReference Include="System.Text.Encodings.Web" Version="5.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AMS.Infrastructure\AMS.Infrastructure.csproj" />
+    <ProjectReference Include="..\AMS.Models\AMS.Models.csproj" />
+    <ProjectReference Include="..\AMS.Repositories\AMS.Repositories.csproj" />
+    <ProjectReference Include="..\AMS.Services\AMS.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\FormatedExcelFile\" />
+    <Folder Include="wwwroot\uploadedFiles\MemoFiles\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\libwkhtmltox.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,39 @@
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using AMS.Models.DomainModels;
+using AMS.Services.Admin.Contracts;
+
+namespace AMS.Web.Pages
+{
+    public class ManageSessionEventsModel : PageModel
+    {
+        #region Private Fields
+
+        private readonly ISessionService _sessionService;
+
+        #endregion
+
+        #region Properties
+
+        public List<SessionEventEntity> SessionEvents { get; set; }
+
+        #endregion
+
+        #region Constructors
+
+        public ManageSessionEventsModel(ISessionService sessionService)
+        {
+            _sessionService = sessionService;
+            SessionEvents = new List<SessionEventEntity>();
+        }
+
+        #endregion
+
+        public async Task OnGet()
+        {
+            var response = await _sessionService.GetSessionEvents();
+            SessionEvents = response.SessionEvents;
+        }
+    }
+}

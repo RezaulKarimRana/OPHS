@@ -1,0 +1,56 @@
+﻿@model IEnumerable<AMS.Models.ServiceModels.BudgetEstimate.EstimateVM>
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+<div class="card shadow mb-4">
+    <div class="card-header">
+        <a class="float-left"><span>Ready To Settlement List</span></a>
+    </div>
+    <div class="card-body">
+        <div class="datatable">
+            <div class="col-sm-12">
+                <table class="table table-bordered table-hover table-striped dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>SL.</th>
+                            <th>Identity</th>
+                            <th>Subject</th>
+                            <th> Date</th>
+                            <th>Amount</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-left">
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script>
+$(document).ready(function() {
+    $('#dataTable').dataTable({
+        dom: "rtiplf",
+        responsive: true,
+        destroy: true,
+        searching: false,
+        processing: true,
+        ordering: false,
+        language: {
+            processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span> '
+        },
+        serverSide: true,
+        displayLength: 50,
+        order: [[0, "desc"]],
+        ajax: {
+            url: "/Settlement/ReadyToSettlementList",
+            type: 'POST',
+            data: function(d) {
+            }
+        }
+    });
+});
+    </script>
+}
