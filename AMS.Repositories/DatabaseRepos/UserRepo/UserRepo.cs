@@ -7,9 +7,9 @@ using AMS.Infrastructure.Adapters;
 using AMS.Infrastructure.Configuration.Models;
 using AMS.Repositories.DatabaseRepos.UserRepo.Contracts;
 using AMS.Repositories.DatabaseRepos.UserRepo.Models;
-using AMS.Models.DomainModels;
-using AMS.Models.CustomModels;
 using AMS.Repositories.DatabaseRepos.UserRepo.Models.User;
+using Models.CustomModels;
+using Models.DomainModels;
 
 namespace AMS.Repositories.DatabaseRepos.UserRepo
 {

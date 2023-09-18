@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 using AMS.Common.Notifications;
 using AMS.Infrastructure.Cache;
 using AMS.Infrastructure.Session;
-using AMS.Models.ServiceModels.Admin.SessionEvents;
-using AMS.Models.ServiceModels.Admin.Sessions;
+using Models.ServiceModels.Admin.SessionEvents;
+using Models.ServiceModels.Admin.Sessions;
 using AMS.Repositories.UnitOfWork.Contracts;
 using AMS.Services.Admin.Contracts;
 using AMS.Services.Contracts;
@@ -22,8 +22,6 @@ namespace AMS.Services.Admin
 
         private readonly IAccountService _accountService;
         private readonly ISessionManager _sessionManager;
-        private readonly IEmailManager _emailManager;
-
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IUnitOfWorkFactory _uowFactory;
         private readonly ICacheManager _cache;
@@ -35,7 +33,6 @@ namespace AMS.Services.Admin
         public SessionService(
             IAccountService accountService,
             ISessionManager sessionManager,
-            IEmailManager emailManager,
             IHttpContextAccessor httpContextAccessor,
             IUnitOfWorkFactory uowFactory,
             ICacheManager cache)
@@ -45,7 +42,6 @@ namespace AMS.Services.Admin
             _cache = cache;
             _accountService = accountService;
             _sessionManager = sessionManager;
-            _emailManager = emailManager;
         }
 
         #endregion

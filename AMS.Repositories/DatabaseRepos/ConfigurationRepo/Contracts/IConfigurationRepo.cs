@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AMS.Repositories.DatabaseRepos.ConfigurationRepo.Models;
-using AMS.Models.DomainModels;
+using Models.DomainModels;
 
 namespace AMS.Repositories.DatabaseRepos.ConfigurationRepo.Contracts
 {

@@ -1,13 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AMS.Common.Notifications;
 using AMS.Infrastructure.Cache;
 using AMS.Infrastructure.Session;
-using AMS.Models.ServiceModels;
-using AMS.Models.ServiceModels.Admin.Roles;
+using Models.ServiceModels;
+using Models.ServiceModels.Admin.Roles;
 using AMS.Repositories.UnitOfWork.Contracts;
 using AMS.Services.Admin.Contracts;
 using AMS.Services.Contracts;
@@ -21,9 +20,6 @@ namespace AMS.Services.Admin
 
         private readonly IAccountService _accountService;
         private readonly ISessionManager _sessionManager;
-        private readonly IEmailManager _emailManager;
-
-        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IUnitOfWorkFactory _uowFactory;
         private readonly ICacheManager _cache;
 
@@ -34,17 +30,13 @@ namespace AMS.Services.Admin
         public RoleService(
             IAccountService accountService,
             ISessionManager sessionManager,
-            IEmailManager emailManager,
-            IHttpContextAccessor httpContextAccessor,
             IUnitOfWorkFactory uowFactory,
             ICacheManager cache)
         {
             _uowFactory = uowFactory;
-            _httpContextAccessor = httpContextAccessor;
             _cache = cache;
             _accountService = accountService;
             _sessionManager = sessionManager;
-            _emailManager = emailManager;
         }
 
         #endregion

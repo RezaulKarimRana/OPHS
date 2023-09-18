@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using AMS.Models.DomainModels;
+using Models.DomainModels;
 using AMS.Services.Admin.Contracts;
 
 namespace AMS.Web.Pages

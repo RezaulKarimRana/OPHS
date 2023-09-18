@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AMS.Infrastructure.Configuration.Models;
-using AMS.Models.DomainModels;
+using Models.DomainModels;
 
 namespace AMS.Services.Managers.Contracts
 {

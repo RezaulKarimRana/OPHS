@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using AMS.Models;
-using AMS.Models.DomainModels;
+using Models;
+using Models.DomainModels;
 
 namespace AMS.Web.TagHelpers
 {

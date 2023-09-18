@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using AMS.Models.ServiceModels.Dashboard;
+using Models.ServiceModels.Dashboard;
 
 namespace AMS.Services.Contracts
 {

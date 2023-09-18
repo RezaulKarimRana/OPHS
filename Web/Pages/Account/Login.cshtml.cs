@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using AMS.Models.ServiceModels;
+using Models.ServiceModels;
 using AMS.Services.Contracts;
 
 namespace AMS.Web.Pages

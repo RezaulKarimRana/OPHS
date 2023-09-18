@@ -1,7 +1,7 @@
 ﻿@inject AMS.Services.Managers.Contracts.ISessionManager _sessionManager
 @{
     var user = await _sessionManager.GetUser();
-    var CountPendingForNav = (AMS.Models.ServiceModels.Dashboard.GetCountForAllPendingParkingForNavService)ViewData["CountPendingObject"];
+    var CountPendingForNav = (Models.ServiceModels.Dashboard.GetCountForAllPendingParkingForNavService)ViewData["CountPendingObject"];
 }
 <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion text-white" id="accordionSidebar" style="height:auto">
 

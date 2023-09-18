@@ -4,10 +4,10 @@ using AMS.Infrastructure.Cache;
 using AMS.Infrastructure.Cache.Contracts;
 using AMS.Infrastructure.Configuration.Models;
 using AMS.Repositories.UnitOfWork.Contracts;
-using AMS.Models.DomainModels;
 using AMS.Services.Managers.Contracts;
 using System.Linq;
 using AMS.Infrastructure.Configuration;
+using Models.DomainModels;
 
 namespace AMS.Services.Managers
 {

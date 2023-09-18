@@ -1,4 +1,4 @@
-﻿using AMS.Models.ViewModel;
+﻿using Models.ViewModel;
 using AMS.Services.Admin.Contracts;
 using AMS.Services.Managers.Contracts;
 using Microsoft.AspNetCore.Mvc;

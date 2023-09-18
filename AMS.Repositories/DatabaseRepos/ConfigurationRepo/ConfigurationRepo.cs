@@ -7,7 +7,7 @@ using AMS.Infrastructure.Adapters;
 using AMS.Infrastructure.Configuration.Models;
 using AMS.Repositories.DatabaseRepos.ConfigurationRepo.Contracts;
 using AMS.Repositories.DatabaseRepos.ConfigurationRepo.Models;
-using AMS.Models.DomainModels;
+using Models.DomainModels;
 
 namespace AMS.Repositories.DatabaseRepos.ConfigurationRepo
 {

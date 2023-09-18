@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using AMS.Models.DomainModels;
-using AMS.Models.ServiceModels.Admin.Sessions;
+using Models.DomainModels;
+using Models.ServiceModels.Admin.Sessions;
 using AMS.Services.Admin.Contracts;
 
 namespace AMS.Web.Pages

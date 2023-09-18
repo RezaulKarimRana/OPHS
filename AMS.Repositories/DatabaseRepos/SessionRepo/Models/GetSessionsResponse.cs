@@ -1,5 +1,5 @@
 using System;
-using AMS.Models.DomainModels;
+using Models.DomainModels;
 
 namespace AMS.Repositories.DatabaseRepos.SessionRepo.Models
 {

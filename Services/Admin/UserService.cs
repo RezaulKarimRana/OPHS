@@ -8,17 +8,15 @@ using AMS.Common.Notifications;
 using AMS.Infrastructure.Authentication;
 using AMS.Infrastructure.Cache;
 using AMS.Infrastructure.Configuration;
-using AMS.Infrastructure.Session;
-using AMS.Models;
-using AMS.Models.DomainModels;
-using AMS.Models.ServiceModels;
-using AMS.Models.ServiceModels.Admin.Users;
+using Models;
+using Models.DomainModels;
+using Models.ServiceModels;
+using Models.ServiceModels.Admin.Users;
 using AMS.Repositories.UnitOfWork.Contracts;
 using AMS.Services.Admin.Contracts;
 using AMS.Services.Contracts;
 using AMS.Services.Managers.Contracts;
 using AMS.Repositories.DatabaseRepos.UserRepo.Models.User;
-//using AMS.Repositories.DatabaseRepos.UserRepo.Models;
 
 namespace AMS.Services.Admin
 {
@@ -28,8 +26,6 @@ namespace AMS.Services.Admin
 
         private readonly IAccountService _accountService;
         private readonly ISessionManager _sessionManager;
-        private readonly IEmailManager _emailManager;
-
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IUnitOfWorkFactory _uowFactory;
         private readonly ICacheManager _cache;
@@ -41,7 +37,6 @@ namespace AMS.Services.Admin
         public UserService(
             IAccountService accountService,
             ISessionManager sessionManager,
-            IEmailManager emailManager,
             IHttpContextAccessor httpContextAccessor,
             IUnitOfWorkFactory uowFactory,
             ICacheManager cache)
@@ -51,7 +46,6 @@ namespace AMS.Services.Admin
             _cache = cache;
             _accountService = accountService;
             _sessionManager = sessionManager;
-            _emailManager = emailManager;
         }
 
         #endregion
@@ -91,15 +85,6 @@ namespace AMS.Services.Admin
                     Updated_By = sessionUser.Id
                 });
                 uow.Commit();
-
-                await _sessionManager.WriteSessionLogEvent(new Models.ManagerModels.Session.CreateSessionLogEventRequest()
-                {
-                    EventKey = SessionEventKeys.UserEnabled,
-                    Info = new Dictionary<string, string>()
-                    {
-                       { "User_Id", request.Id.ToString() }
-                    }
-                });
             }
 
             response.Notifications.Add($"User '{user.Username}' has been enabled", NotificationTypeEnum.Success);
@@ -125,15 +110,6 @@ namespace AMS.Services.Admin
                     Updated_By = sessionUser.Id
                 });
                 uow.Commit();
-
-                await _sessionManager.WriteSessionLogEvent(new Models.ManagerModels.Session.CreateSessionLogEventRequest()
-                {
-                    EventKey = SessionEventKeys.UserDisabled,
-                    Info = new Dictionary<string, string>()
-                    {
-                       { "User_Id", request.Id.ToString() }
-                    }
-                });
             }
 
             response.Notifications.Add($"User '{user.Username}' has been disabled", NotificationTypeEnum.Success);
@@ -218,15 +194,6 @@ namespace AMS.Services.Admin
 
             await CreateOrDeleteUserRoles(request.RoleIds, id, sessionUser.Id);
 
-            await _sessionManager.WriteSessionLogEvent(new Models.ManagerModels.Session.CreateSessionLogEventRequest()
-            {
-                EventKey = SessionEventKeys.UserCreated,
-                Info = new Dictionary<string, string>()
-                {
-                    { "User_Id", id.ToString() }
-                }
-            });
-
             response.Notifications.Add($"User {request.Username} has been created", NotificationTypeEnum.Success);
             return response;
         }
@@ -275,15 +242,6 @@ namespace AMS.Services.Admin
 
             await CreateOrDeleteUserRoles(request.RoleIds, request.Id, sessionUser.Id);
 
-            await _sessionManager.WriteSessionLogEvent(new Models.ManagerModels.Session.CreateSessionLogEventRequest()
-            {
-                EventKey = SessionEventKeys.UserUpdated,
-                Info = new Dictionary<string, string>()
-                {
-                    { "User_Id", request.Id.ToString() }
-                }
-            });
-
             response.Notifications.Add($"User {request.Username} has been updated", NotificationTypeEnum.Success);
             return response;
         }
@@ -324,15 +282,6 @@ namespace AMS.Services.Admin
                     uow.Commit();
                 }
                 _cache.Remove(CacheConstants.UserRoles);
-
-                await _sessionManager.WriteSessionLogEvent(new Models.ManagerModels.Session.CreateSessionLogEventRequest()
-                {
-                    EventKey = SessionEventKeys.UserRolesUpdated,
-                    Info = new Dictionary<string, string>()
-                    {
-                       { "User_Id", userId.ToString() }
-                    }
-                });
             }
         }
 
@@ -355,15 +304,6 @@ namespace AMS.Services.Admin
                     Updated_By = sessionUser.Id
                 });
                 uow.Commit();
-
-                await _sessionManager.WriteSessionLogEvent(new Models.ManagerModels.Session.CreateSessionLogEventRequest()
-                {
-                    EventKey = SessionEventKeys.UserUnlocked,
-                    Info = new Dictionary<string, string>()
-                    {
-                       { "User_Id", request.Id.ToString() }
-                    }
-                });
             }
 
             response.Notifications.Add($"User '{user.Username}' has been unlocked", NotificationTypeEnum.Success);
@@ -389,15 +329,6 @@ namespace AMS.Services.Admin
                     Updated_By = sessionUser.Id
                 });
                 uow.Commit();
-
-                await _sessionManager.WriteSessionLogEvent(new Models.ManagerModels.Session.CreateSessionLogEventRequest()
-                {
-                    EventKey = SessionEventKeys.UserActivated,
-                    Info = new Dictionary<string, string>()
-                    {
-                       { "User_Id", request.Id.ToString() }
-                    }
-                });
             }
 
             response.Notifications.Add($"User '{user.Username}' has been activated", NotificationTypeEnum.Success);
@@ -433,35 +364,12 @@ namespace AMS.Services.Admin
             var baseUrl = _httpContextAccessor.HttpContext.Request.GetBaseUrl();
             response.Url = $"{baseUrl}/Account/ResetPassword?token={resetToken}";
 
-            await _sessionManager.WriteSessionLogEvent(new Models.ManagerModels.Session.CreateSessionLogEventRequest()
-            {
-                EventKey = SessionEventKeys.ResetPasswordUrlGenerated,
-                Info = new Dictionary<string, string>()
-                {
-                    { "User_Id", request.UserId.ToString() }
-                }
-            });
-
             return response;
         }
 
         public async Task<SendResetPasswordEmailResponse> SendResetPasswordEmail(SendResetPasswordEmailRequest request)
         {
             var response = new SendResetPasswordEmailResponse();
-
-            await _emailManager.SendResetPassword(new Models.ServiceModels.Email.SendResetPasswordRequest()
-            {
-                UserId = request.UserId
-            });
-
-            await _sessionManager.WriteSessionLogEvent(new Models.ManagerModels.Session.CreateSessionLogEventRequest()
-            {
-                EventKey = SessionEventKeys.ResetPasswordEmailSent,
-                Info = new Dictionary<string, string>()
-                    {
-                       { "User_Id", request.UserId.ToString() }
-                    }
-            });
 
             return response;
         }

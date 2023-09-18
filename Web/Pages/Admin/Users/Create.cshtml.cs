@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using AMS.Models.DomainModels;
-using AMS.Models.ServiceModels.Admin.Users;
+using Models.DomainModels;
+using Models.ServiceModels.Admin.Users;
 using AMS.Services.Admin.Contracts;
 using AMS.Services.Managers.Contracts;
 

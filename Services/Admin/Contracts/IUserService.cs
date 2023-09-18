@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
-using AMS.Models.DomainModels;
-using AMS.Models.ServiceModels.Admin.Users;
+using Models.DomainModels;
+using Models.ServiceModels.Admin.Users;
 using AMS.Repositories.DatabaseRepos.UserRepo.Models.User;
 
 namespace AMS.Services.Admin.Contracts

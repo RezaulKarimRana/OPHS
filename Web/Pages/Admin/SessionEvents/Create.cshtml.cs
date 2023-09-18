@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using AMS.Models.ServiceModels.Admin.SessionEvents;
+using Models.ServiceModels.Admin.SessionEvents;
 using AMS.Services.Admin.Contracts;
 
 namespace AMS.Web.Pages

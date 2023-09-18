@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using AMS.Models.ServiceModels.Account;
+using Models.ServiceModels.Account;
 using AMS.Services.Contracts;
-using AMS.Models.ServiceModels.Dashboard;
+using Models.ServiceModels.Dashboard;
 
 namespace AMS.Web.Pages
 {

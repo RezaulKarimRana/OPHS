@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using AMS.Models.DomainModels;
-using AMS.Models.ServiceModels.Account;
+using Models.DomainModels;
+using Models.ServiceModels.Account;
 using AMS.Services.Contracts;
-using AMS.Models.ServiceModels.Dashboard;
+using Models.ServiceModels.Dashboard;
 
 namespace AMS.Web.Pages
 {

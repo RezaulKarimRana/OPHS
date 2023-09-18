@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 using AMS.Common.Notifications;
 using AMS.Infrastructure.Cache;
 using AMS.Infrastructure.Session;
-using AMS.Models.ServiceModels.Admin.Permissions;
+using Models.ServiceModels.Admin.Permissions;
 using AMS.Repositories.UnitOfWork.Contracts;
 using AMS.Services.Admin.Contracts;
-using AMS.Services.Contracts;
 using AMS.Services.Managers.Contracts;
 
 namespace AMS.Services.Admin
@@ -17,11 +16,7 @@ namespace AMS.Services.Admin
     {
         #region Instance Fields
 
-        private readonly IAccountService _accountService;
         private readonly ISessionManager _sessionManager;
-        private readonly IEmailManager _emailManager;
-
-        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IUnitOfWorkFactory _uowFactory;
         private readonly ICacheManager _cache;
 
@@ -30,19 +25,13 @@ namespace AMS.Services.Admin
         #region Constructor
 
         public PermissionsService(
-            IAccountService accountService,
             ISessionManager sessionManager,
-            IEmailManager emailManager,
-            IHttpContextAccessor httpContextAccessor,
             IUnitOfWorkFactory uowFactory,
             ICacheManager cache)
         {
             _uowFactory = uowFactory;
-            _httpContextAccessor = httpContextAccessor;
             _cache = cache;
-            _accountService = accountService;
             _sessionManager = sessionManager;
-            _emailManager = emailManager;
         }
 
         #endregion

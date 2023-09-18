@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AMS.Repositories.DatabaseRepos.UserRepo.Models;
-using AMS.Models.DomainModels;
-using AMS.Models.CustomModels;
 using AMS.Repositories.DatabaseRepos.UserRepo.Models.User;
+using Models.DomainModels;
+using Models.CustomModels;
 
 namespace AMS.Repositories.DatabaseRepos.UserRepo.Contracts
 {

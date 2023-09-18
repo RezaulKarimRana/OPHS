@@ -1,12 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using AMS.Models.ServiceModels.Admin.Roles;
-using AMS.Models.DomainModels;
+using Models.ServiceModels.Admin.Roles;
+using Models.DomainModels;
 using System.Collections.Generic;
 using System.Linq;
 using AMS.Services.Managers.Contracts;
 using AMS.Services.Admin.Contracts;
-using AMS.Models;
+using Models;
 
 namespace AMS.Web.Pages
 {

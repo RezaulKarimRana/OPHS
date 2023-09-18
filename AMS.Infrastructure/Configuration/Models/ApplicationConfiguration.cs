@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using AMS.Models.DomainModels;
+using Models.DomainModels;
 
 namespace AMS.Infrastructure.Configuration.Models
 {

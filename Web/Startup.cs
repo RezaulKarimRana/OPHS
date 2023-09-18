@@ -99,7 +99,6 @@ namespace AMS.Web
             services.AddTransient<IAuthenticationManager, AuthenticationManager>();
             services.AddTransient<ICacheManager, CacheManager>();
             services.AddTransient<ISessionManager, SessionManager>();
-            services.AddTransient<IEmailManager, EmailManager>();
             services.AddTransient<IAdminManager, AdminManager>();
 
             // Business Logic Service Repos

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using AMS.Models.DomainModels;
-using AMS.Models.ManagerModels.Session;
+using Models.DomainModels;
+using Models.ManagerModels.Session;
 
 namespace AMS.Services.Managers.Contracts
 {
@@ -24,7 +24,7 @@ namespace AMS.Services.Managers.Contracts
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        Task WriteSessionLogEvent(CreateSessionLogEventRequest request);
+        Task WriteSessionLogEvent(Models.ManagerModels.Session.CreateSessionLogEventRequest request);
 
         /// <summary>
         /// Clears session of all non-essential variables using reflection on SessionConstants.cs

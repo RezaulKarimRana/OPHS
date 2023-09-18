@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using AMS.Models.ServiceModels.BudgetEstimate;
-using AMS.Models.ServiceModels.Dashboard;
+using Models.ServiceModels.Dashboard;
 using AMS.Repositories.UnitOfWork.Contracts;
 using AMS.Services.Contracts;
 using AMS.Services.Managers.Contracts;
@@ -69,9 +68,8 @@ namespace AMS.Services
 
                 var navCount = await uow.DashboardRepo.GetNavBarCount(sessionUser.Id);
                 var data = new List<object>();
-                var resultSet = new List<EstimateVM>();
 
-                var recordsTotal = resultSet.Count;
+                var recordsTotal = 0;
 
                 var response = new GetCountForAllPendingParkingForNavService()
                 {

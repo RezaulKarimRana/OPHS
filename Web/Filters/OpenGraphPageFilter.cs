@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Threading.Tasks;
 using AMS.Common.Constants;
-using AMS.Models;
+using Models;
 
 namespace AMS.Web.Filters
 {

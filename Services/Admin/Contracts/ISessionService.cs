@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
-using AMS.Models.ServiceModels.Admin.SessionEvents;
-using AMS.Models.ServiceModels.Admin.Sessions;
+using Models.ServiceModels.Admin.SessionEvents;
+using Models.ServiceModels.Admin.Sessions;
 
 namespace AMS.Services.Admin.Contracts
 {

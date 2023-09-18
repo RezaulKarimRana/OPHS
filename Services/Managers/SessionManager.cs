@@ -10,8 +10,8 @@ using AMS.Infrastructure.Configuration;
 using AMS.Repositories.UnitOfWork.Contracts;
 using AMS.Infrastructure.Session;
 using AMS.Infrastructure.Session.Contracts;
-using AMS.Models.DomainModels;
-using AMS.Models.ManagerModels.Session;
+using Models.DomainModels;
+using Models.ManagerModels.Session;
 using AMS.Services.Managers.Contracts;
 using Microsoft.Net.Http.Headers;
 

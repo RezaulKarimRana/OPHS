@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using AMS.Models.ServiceModels.Admin;
+using Models.ServiceModels.Admin;
 
 namespace AMS.Services.Admin.Contracts
 {

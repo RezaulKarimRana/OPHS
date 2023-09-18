@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using AMS.Common.Notifications;
-using AMS.Models.ServiceModels;
+using Models.ServiceModels;
 
 namespace AMS.Web.Controllers
 {

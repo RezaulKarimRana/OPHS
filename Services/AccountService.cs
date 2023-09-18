@@ -11,14 +11,14 @@ using AMS.Infrastructure.Configuration;
 using AMS.Infrastructure.Session;
 using AMS.Infrastructure.Session.Contracts;
 using AMS.Repositories.UnitOfWork.Contracts;
-using AMS.Models;
-using AMS.Models.DomainModels;
-using AMS.Models.ServiceModels;
-using AMS.Models.ServiceModels.Account;
 using AMS.Services.Contracts;
 using AMS.Services.Managers.Contracts;
 using Newtonsoft.Json;
 using AMS.Repositories.DatabaseRepos.UserRepo.Models;
+using Models.ServiceModels.Account;
+using Models.DomainModels;
+using Models.ServiceModels;
+using Models;
 
 namespace AMS.Services
 {
@@ -30,7 +30,6 @@ namespace AMS.Services
 
         private readonly ISessionManager _sessionManager;
         private readonly IAuthenticationManager _authenticationManager;
-        private readonly IEmailManager _emailManager;
         private readonly ICacheManager _cache;
         private readonly IUnitOfWorkFactory _uowFactory;
         private readonly ISessionProvider _sessionProvider;
@@ -42,7 +41,6 @@ namespace AMS.Services
         public AccountService(
             ILogger<AccountService> logger,
             ISessionManager sessionManager,
-            IEmailManager emailManager,
             IUnitOfWorkFactory uowFactory,
             ICacheManager cache,
             ISessionProvider sessionProvider,
@@ -54,7 +52,6 @@ namespace AMS.Services
             _uowFactory = uowFactory;
             _cache = cache;
             _sessionManager = sessionManager;
-            _emailManager = emailManager;
             _authenticationManager = authenticationManager;
         }
 
@@ -95,20 +92,6 @@ namespace AMS.Services
             }
 
             _cache.Remove(CacheConstants.UserRoles);
-
-            await _sessionManager.WriteSessionLogEvent(new Models.ManagerModels.Session.CreateSessionLogEventRequest()
-            {
-                EventKey = SessionEventKeys.UserRegistered,
-                Info = new Dictionary<string, string>()
-                {
-                    { "Username", username }
-                }
-            });
-
-            await _emailManager.SendAccountActivation(new Models.ServiceModels.Email.SendAccountActivationRequest()
-            {
-                UserId = id
-            });
 
             response.Notifications.Add($"You have been successfully registered, please check {request.EmailAddress} for a link to activate your account.", NotificationTypeEnum.Success);
             return response;
@@ -213,12 +196,6 @@ namespace AMS.Services
 
                 uow.Commit();
             }
-
-            await _sessionManager.WriteSessionLogEvent(new Models.ManagerModels.Session.CreateSessionLogEventRequest()
-            {
-                EventKey = SessionEventKeys.PasswordUpdated
-            });
-
             response.Notifications.Add($"Your password has been reset.", NotificationTypeEnum.Success);
             return response;
         }
@@ -254,11 +231,6 @@ namespace AMS.Services
                                     Lockout_End = DateTime.Now.AddMinutes(config.Account_Lockout_Expiry_Minutes),
                                     Updated_By = ApplicationConstants.SystemUserId
                                 });
-
-                                await _sessionManager.WriteSessionLogEvent(new Models.ManagerModels.Session.CreateSessionLogEventRequest()
-                                {
-                                    EventKey = SessionEventKeys.UserLocked
-                                });
                             }
                             else
                             {
@@ -293,11 +265,6 @@ namespace AMS.Services
                                 Updated_By = ApplicationConstants.SystemUserId
                             });
                             uow.Commit();
-
-                            await _sessionManager.WriteSessionLogEvent(new Models.ManagerModels.Session.CreateSessionLogEventRequest()
-                            {
-                                EventKey = SessionEventKeys.UserUnlocked
-                            });
                         }
                         else
                         {
@@ -336,11 +303,6 @@ namespace AMS.Services
                     uow.Commit();
                     await _sessionProvider.Set(SessionConstants.SessionEntity, sessionEntity);
                 }
-
-                await _sessionManager.WriteSessionLogEvent(new Models.ManagerModels.Session.CreateSessionLogEventRequest()
-                {
-                    EventKey = SessionEventKeys.UserLoggedIn
-                });
 
                 await _authenticationManager.SignIn(session.SessionEntity.Id);
 
@@ -396,11 +358,7 @@ namespace AMS.Services
                     uow.Commit();
                 }
 
-                await _sessionManager.DehydrateSession(); // user has changed
-                await _sessionManager.WriteSessionLogEvent(new Models.ManagerModels.Session.CreateSessionLogEventRequest()
-                {
-                    EventKey = SessionEventKeys.UserUpdatedProfile,
-                });
+                await _sessionManager.DehydrateSession();
 
                 response.Notifications.Add("Profile updated successfully", NotificationTypeEnum.Success);
                 return response;
@@ -569,12 +527,6 @@ namespace AMS.Services
                 });
                 uow.Commit();
             }
-
-            await _sessionManager.WriteSessionLogEvent(new Models.ManagerModels.Session.CreateSessionLogEventRequest()
-            {
-                EventKey = SessionEventKeys.PasswordUpdated
-            });
-
             response.Notifications.Add($"Your password has been updated", NotificationTypeEnum.Success);
             return response;
         }
@@ -628,16 +580,6 @@ namespace AMS.Services
             var response = new SendFeedbackResponse();
 
             var user = await _sessionManager.GetUser();
-
-            if (user != null)
-            {
-                await _emailManager.SendFeedback(new Models.ServiceModels.Email.SendFeedbackRequest()
-                {
-                    Name = user.First_Name,
-                    EmailAddress = user.Email_Address,
-                    Message = request.Message
-                });
-            }
 
             response.Notifications.Add("Thank you for your feedback, we will read it as soon as possible", NotificationTypeEnum.Success);
             return response;

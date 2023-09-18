@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
-using AMS.Models.ServiceModels;
-using AMS.Models.ServiceModels.Account;
+using Models.ServiceModels;
+using Models.ServiceModels.Account;
 
 namespace AMS.Services.Contracts
 {

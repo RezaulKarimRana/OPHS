@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using AMS.Common.Constants;
-using AMS.Models;
+using Models;
 
 namespace AMS.Web.Helpers
 {
