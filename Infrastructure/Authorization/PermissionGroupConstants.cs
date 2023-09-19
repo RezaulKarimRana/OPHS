@@ -1,4 +1,4 @@
-﻿namespace AMS.Infrastructure.Authorization
+﻿namespace Infrastructure.Authorization
 {
     public static class PermissionGroupConstants
     {

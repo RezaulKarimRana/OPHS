@@ -1,4 +1,4 @@
-namespace AMS.Infrastructure.Authentication
+namespace Infrastructure.Authentication
 {
     public class PasswordHelper
     {

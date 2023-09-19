@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net;
 
-namespace AMS.Infrastructure.HttpClients.Exceptions
+namespace Infrastructure.HttpClients.Exceptions
 {
     public class UnsupportedHttpCodeException : Exception
     {

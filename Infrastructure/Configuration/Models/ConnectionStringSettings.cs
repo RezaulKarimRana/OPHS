@@ -1,4 +1,4 @@
-namespace AMS.Infrastructure.Configuration.Models
+namespace Infrastructure.Configuration.Models
 {
     public class ConnectionStringSettings
     {

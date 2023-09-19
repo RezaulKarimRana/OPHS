@@ -1,8 +1,8 @@
 ﻿using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
-using AMS.Infrastructure.Adapters;
-using AMS.Infrastructure.Configuration.Models;
+using Infrastructure.Adapters;
+using Infrastructure.Configuration.Models;
 using AMS.Repositories.DatabaseRepos.DashboardRepo.Contracts;
 using AMS.Repositories.DatabaseRepos.DashboardRepo.Models;
 

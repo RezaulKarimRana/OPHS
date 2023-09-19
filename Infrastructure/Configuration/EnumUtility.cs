@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Linq;
 
-namespace AMS.Infrastructure.Configuration
+namespace Infrastructure.Configuration
 {
     public class EnumUtility
     {

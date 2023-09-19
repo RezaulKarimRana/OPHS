@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Models.DomainModels;
 
-namespace AMS.Infrastructure.Configuration.Models
+namespace Infrastructure.Configuration.Models
 {
     public class ApplicationConfiguration
     {

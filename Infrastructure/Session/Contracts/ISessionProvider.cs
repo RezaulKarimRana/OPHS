@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace AMS.Infrastructure.Session.Contracts
+namespace Infrastructure.Session.Contracts
 {
     public interface ISessionProvider
     {

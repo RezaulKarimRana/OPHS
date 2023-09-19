@@ -1,13 +1,13 @@
 using Microsoft.Extensions.Options;
 using SendGrid;
 using System.Threading.Tasks;
-using AMS.Infrastructure.Email.Contracts;
-using AMS.Infrastructure.Email.Models;
+using Infrastructure.Email.Contracts;
+using Infrastructure.Email.Models;
 using System.Net.Mail;
 using System.Net;
 using System;
 
-namespace AMS.Infrastructure.Email
+namespace Infrastructure.Email
 {
     public class SendGridEmailProvider : IEmailProvider
     {

@@ -1,4 +1,4 @@
-namespace AMS.Infrastructure.Email.Models
+namespace Infrastructure.Email.Models
 {
     public class SendRequest
     {

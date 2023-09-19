@@ -5,7 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 
-namespace AMS.Infrastructure.Adapters
+namespace Infrastructure.Adapters
 {
     public class DapperAdapter
     {

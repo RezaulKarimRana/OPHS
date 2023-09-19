@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using AMS.Infrastructure.Configuration.Models;
+using Infrastructure.Configuration.Models;
 using Models.DomainModels;
 
 namespace AMS.Services.Managers.Contracts

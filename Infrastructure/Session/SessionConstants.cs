@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace AMS.Infrastructure.Session
+namespace Infrastructure.Session
 {
     public class SessionConstants
     {

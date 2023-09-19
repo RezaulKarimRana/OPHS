@@ -1,4 +1,4 @@
-namespace AMS.Infrastructure.Configuration
+namespace Infrastructure.Configuration
 {
     /// <summary>
     /// These constants map to the [Key] field of each configuration item

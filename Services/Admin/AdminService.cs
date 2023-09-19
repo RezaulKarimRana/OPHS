@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
-using AMS.Infrastructure.Authentication;
-using AMS.Infrastructure.Cache;
-using AMS.Infrastructure.Cache.Contracts;
-using AMS.Infrastructure.Configuration;
-using AMS.Infrastructure.Session;
-using AMS.Infrastructure.Session.Contracts;
+using Infrastructure.Authentication;
+using Infrastructure.Cache;
+using Infrastructure.Cache.Contracts;
+using Infrastructure.Configuration;
+using Infrastructure.Session;
+using Infrastructure.Session.Contracts;
 using Models.ServiceModels;
 using Models.ServiceModels.Admin;
 using AMS.Repositories.UnitOfWork.Contracts;

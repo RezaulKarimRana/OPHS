@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
-using AMS.Infrastructure.Session.Contracts;
+using Infrastructure.Session.Contracts;
 
-namespace AMS.Infrastructure.Session
+namespace Infrastructure.Session
 {
     public class SessionProvider : ISessionProvider
     {

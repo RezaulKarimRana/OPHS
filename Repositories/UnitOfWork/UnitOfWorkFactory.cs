@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Options;
 using MySql.Data.MySqlClient;
 using System.Data.SqlClient;
-using AMS.Infrastructure.Configuration.Models;
+using Infrastructure.Configuration.Models;
 using AMS.Repositories.UnitOfWork.Contracts;
 
 namespace AMS.Repositories.UnitOfWork

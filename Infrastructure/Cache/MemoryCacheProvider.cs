@@ -1,9 +1,9 @@
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 using System;
-using AMS.Infrastructure.Cache.Contracts;
+using Infrastructure.Cache.Contracts;
 
-namespace AMS.Infrastructure.Cache
+namespace Infrastructure.Cache
 {
     public class MemoryCacheProvider : ICacheProvider
     {

@@ -1,4 +1,4 @@
-namespace AMS.Infrastructure.Session
+namespace Infrastructure.Session
 {
     /// <summary>
     /// These constants map to the [Key] field of each session event item

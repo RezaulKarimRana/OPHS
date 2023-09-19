@@ -1,4 +1,4 @@
-namespace AMS.Infrastructure.Cache
+namespace Infrastructure.Cache
 {
     public class CacheSettings
     {

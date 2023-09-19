@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using AMS.Infrastructure.Cache;
-using AMS.Infrastructure.Cache.Contracts;
-using AMS.Infrastructure.Configuration.Models;
+using Infrastructure.Cache;
+using Infrastructure.Cache.Contracts;
+using Infrastructure.Configuration.Models;
 using AMS.Repositories.UnitOfWork.Contracts;
 using AMS.Services.Managers.Contracts;
 using System.Linq;
-using AMS.Infrastructure.Configuration;
+using Infrastructure.Configuration;
 using Models.DomainModels;
 
 namespace AMS.Services.Managers

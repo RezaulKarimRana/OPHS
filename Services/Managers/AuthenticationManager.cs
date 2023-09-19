@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using AMS.Infrastructure.Session;
-using AMS.Infrastructure.Session.Contracts;
+using Infrastructure.Session;
+using Infrastructure.Session.Contracts;
 using AMS.Services.Managers.Contracts;
 
 namespace AMS.Services.Managers

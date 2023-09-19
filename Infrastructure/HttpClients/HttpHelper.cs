@@ -5,10 +5,10 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using AMS.Infrastructure.HttpClients.Exceptions;
-using AMS.Infrastructure.HttpClients.Models;
+using Infrastructure.HttpClients.Exceptions;
+using Infrastructure.HttpClients.Models;
 
-namespace AMS.Infrastructure.HttpClients
+namespace Infrastructure.HttpClients
 {
     public static class HttpHelper
     {

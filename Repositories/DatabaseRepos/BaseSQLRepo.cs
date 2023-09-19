@@ -1,4 +1,4 @@
-using AMS.Infrastructure.Configuration.Models;
+using Infrastructure.Configuration.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AMS.Infrastructure.HttpClients.Models
+namespace Infrastructure.HttpClients.Models
 {
     public class InternalServiceErrorException : Exception
     {

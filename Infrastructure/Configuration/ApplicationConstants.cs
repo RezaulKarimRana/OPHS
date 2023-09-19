@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 
-namespace AMS.Infrastructure.Configuration
+namespace Infrastructure.Configuration
 {
     public static class ApplicationConstants
     {

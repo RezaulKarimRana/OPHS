@@ -1,4 +1,4 @@
-using AMS.Infrastructure.Configuration.Models;
+using Infrastructure.Configuration.Models;
 
 namespace AMS.Repositories.UnitOfWork
 {

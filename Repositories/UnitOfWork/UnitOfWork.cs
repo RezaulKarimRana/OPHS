@@ -1,6 +1,6 @@
 using System;
 using System.Data;
-using AMS.Infrastructure.Configuration.Models;
+using Infrastructure.Configuration.Models;
 using AMS.Repositories.UnitOfWork.Contracts;
 using AMS.Repositories.DatabaseRepos.ConfigurationRepo.Contracts;
 using AMS.Repositories.DatabaseRepos.SessionRepo.Contracts;

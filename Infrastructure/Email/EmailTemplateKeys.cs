@@ -1,4 +1,4 @@
-namespace AMS.Infrastructure.Email
+namespace Infrastructure.Email
 {
     public class EmailTemplateKeys
     {

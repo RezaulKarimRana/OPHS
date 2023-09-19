@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
-using AMS.Infrastructure.Cache;
-using AMS.Infrastructure.Cache.Contracts;
+using Infrastructure.Cache;
+using Infrastructure.Cache.Contracts;
 using Models.ManagerModels.Admin;
 using AMS.Repositories.UnitOfWork.Contracts;
 using AMS.Services.Managers.Contracts;

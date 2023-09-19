@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AMS.Infrastructure.Configuration.Models
+namespace Infrastructure.Configuration.Models
 {
     public class Client_Configuration
     {

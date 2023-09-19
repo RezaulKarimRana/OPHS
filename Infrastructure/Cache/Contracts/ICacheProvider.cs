@@ -1,6 +1,6 @@
 using System;
 
-namespace AMS.Infrastructure.Cache.Contracts
+namespace Infrastructure.Cache.Contracts
 {
     public interface ICacheProvider
     {

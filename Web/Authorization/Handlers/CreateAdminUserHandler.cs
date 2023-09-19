@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using System.Threading.Tasks;
-using AMS.Infrastructure.Cache;
-using AMS.Infrastructure.Cache.Contracts;
+using Infrastructure.Cache;
+using Infrastructure.Cache.Contracts;
 using AMS.Web.Authorization.Requirements;
 
 namespace AMS.Web.Authorization.Handlers
