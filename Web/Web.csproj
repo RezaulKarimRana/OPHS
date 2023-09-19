@@ -90,7 +90,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AMS.Infrastructure\AMS.Infrastructure.csproj" />
-    <ProjectReference Include="..\AMS.Repositories\AMS.Repositories.csproj" />
     <ProjectReference Include="..\Services\Services.csproj" />
   </ItemGroup>
 

@@ -17,7 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\AMS.Common\AMS.Common.csproj" />
     <ProjectReference Include="..\AMS.Infrastructure\AMS.Infrastructure.csproj" />
-    <ProjectReference Include="..\AMS.Repositories\AMS.Repositories.csproj" />
+    <ProjectReference Include="..\Repositories\Repositories.csproj" />
   </ItemGroup>
 
   <ItemGroup>
