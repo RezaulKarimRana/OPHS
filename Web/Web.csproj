@@ -89,7 +89,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AMS.Infrastructure\AMS.Infrastructure.csproj" />
     <ProjectReference Include="..\Services\Services.csproj" />
   </ItemGroup>
 
