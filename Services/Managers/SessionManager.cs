@@ -7,15 +7,15 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Infrastructure.Configuration;
-using AMS.Repositories.UnitOfWork.Contracts;
+using Repositories.UnitOfWork.Contracts;
 using Infrastructure.Session;
 using Infrastructure.Session.Contracts;
 using Models.DomainModels;
 using Models.ManagerModels.Session;
-using AMS.Services.Managers.Contracts;
+using Services.Managers.Contracts;
 using Microsoft.Net.Http.Headers;
 
-namespace AMS.Services.Managers
+namespace Services.Managers
 {
     public class SessionManager : ISessionManager
     {

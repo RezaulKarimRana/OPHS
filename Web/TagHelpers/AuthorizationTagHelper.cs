@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AMS.Services.Managers.Contracts;
+using Services.Managers.Contracts;
 
-namespace AMS.Web.TagHelpers
+namespace Web.TagHelpers
 {
     [HtmlTargetElement(Attributes = "asp-authorize")]
     [HtmlTargetElement(Attributes = "asp-permission")]

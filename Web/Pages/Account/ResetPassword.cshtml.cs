@@ -1,9 +1,9 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Models.ServiceModels.Account;
-using AMS.Services.Contracts;
+using Services.Contracts;
 
-namespace AMS.Web.Pages
+namespace Web.Pages
 {
     public class ResetPasswordModel : BasePageModel
     {

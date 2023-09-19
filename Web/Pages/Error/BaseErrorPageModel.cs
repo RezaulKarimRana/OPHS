@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 
-namespace AMS.Web.Pages
+namespace Web.Pages
 {
     public class BaseErrorPageModel : BasePageModel
     {

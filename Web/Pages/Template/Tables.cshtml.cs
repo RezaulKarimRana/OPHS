@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace AMS.Web.Pages
+namespace Web.Pages
 {
     public class TablesModel : PageModel
     {

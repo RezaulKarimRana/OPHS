@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Models.ServiceModels.Admin;
 
-namespace AMS.Services.Admin.Contracts
+namespace Services.Admin.Contracts
 {
     public interface IAdminService
     {

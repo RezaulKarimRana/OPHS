@@ -1,6 +1,6 @@
 using System;
 
-namespace AMS.Repositories.DatabaseRepos.UserRepo.Models
+namespace Repositories.DatabaseRepos.UserRepo.Models
 {
     public class ProcessUserTokenRequest
     {

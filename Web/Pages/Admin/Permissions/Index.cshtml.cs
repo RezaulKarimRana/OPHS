@@ -2,9 +2,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Models.DomainModels;
-using AMS.Services.Admin.Contracts;
+using Services.Admin.Contracts;
 
-namespace AMS.Web.Pages
+namespace Web.Pages
 {
     public class ManagePermissionsModel : PageModel
     {

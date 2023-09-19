@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AMS.Repositories.DatabaseRepos.Common
+namespace Repositories.DatabaseRepos.Common
 {
     public class CommonProperties
     {

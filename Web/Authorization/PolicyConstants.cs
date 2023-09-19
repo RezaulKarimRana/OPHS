@@ -1,4 +1,4 @@
-﻿namespace AMS.Web.Authorization
+﻿namespace Web.Authorization
 {
     public static class PolicyConstants
     {

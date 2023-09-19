@@ -1,17 +1,17 @@
 using System;
 using System.Data;
 using Infrastructure.Configuration.Models;
-using AMS.Repositories.UnitOfWork.Contracts;
-using AMS.Repositories.DatabaseRepos.ConfigurationRepo.Contracts;
-using AMS.Repositories.DatabaseRepos.SessionRepo.Contracts;
-using AMS.Repositories.DatabaseRepos.ConfigurationRepo;
-using AMS.Repositories.DatabaseRepos.SessionRepo;
-using AMS.Repositories.DatabaseRepos.DashboardRepo;
-using AMS.Repositories.DatabaseRepos.DashboardRepo.Contracts;
-using AMS.Repositories.DatabaseRepos.UserRepo.Contracts;
-using AMS.Repositories.DatabaseRepos.UserRepo;
+using Repositories.UnitOfWork.Contracts;
+using Repositories.DatabaseRepos.ConfigurationRepo.Contracts;
+using Repositories.DatabaseRepos.SessionRepo.Contracts;
+using Repositories.DatabaseRepos.ConfigurationRepo;
+using Repositories.DatabaseRepos.SessionRepo;
+using Repositories.DatabaseRepos.DashboardRepo;
+using Repositories.DatabaseRepos.DashboardRepo.Contracts;
+using Repositories.DatabaseRepos.UserRepo.Contracts;
+using Repositories.DatabaseRepos.UserRepo;
 
-namespace AMS.Repositories.UnitOfWork
+namespace Repositories.UnitOfWork
 {
     public class UnitOfWork : BaseUow, IUnitOfWork
     {

@@ -1,4 +1,4 @@
-﻿@inject AMS.Services.Managers.Contracts.ISessionManager _sessionManager
+﻿@inject Services.Managers.Contracts.ISessionManager _sessionManager
 @{
     var user = await _sessionManager.GetUser();
     var CountPendingForNav = (Models.ServiceModels.Dashboard.GetCountForAllPendingParkingForNavService)ViewData["CountPendingObject"];

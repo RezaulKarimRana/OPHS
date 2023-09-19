@@ -7,7 +7,7 @@ using System.Linq;
 using Common.Notifications;
 using Models.ServiceModels;
 
-namespace AMS.Web.Pages
+namespace Web.Pages
 {
     public class BasePageModel : PageModel
     {

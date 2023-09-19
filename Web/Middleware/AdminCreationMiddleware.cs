@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
-using AMS.Services.Managers.Contracts;
+using Services.Managers.Contracts;
 
-namespace AMS.Web.Middleware
+namespace Web.Middleware
 {
     public class AdminCreationMiddleware
     {

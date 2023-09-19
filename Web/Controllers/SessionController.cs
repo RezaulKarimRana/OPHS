@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
-namespace AMS.Web.Controllers
+namespace Web.Controllers
 {
     [Route("[controller]/[action]")]
     public class SessionController : BaseController

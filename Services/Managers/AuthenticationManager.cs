@@ -6,9 +6,9 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Infrastructure.Session;
 using Infrastructure.Session.Contracts;
-using AMS.Services.Managers.Contracts;
+using Services.Managers.Contracts;
 
-namespace AMS.Services.Managers
+namespace Services.Managers
 {
     public class AuthenticationManager : IAuthenticationManager
     {

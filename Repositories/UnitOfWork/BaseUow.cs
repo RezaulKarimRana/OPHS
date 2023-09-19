@@ -1,6 +1,6 @@
 using Infrastructure.Configuration.Models;
 
-namespace AMS.Repositories.UnitOfWork
+namespace Repositories.UnitOfWork
 {
     public class BaseUow
     {

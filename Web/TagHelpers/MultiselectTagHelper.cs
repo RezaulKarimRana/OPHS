@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using Models.DomainModels;
 
-namespace AMS.Web.TagHelpers
+namespace Web.TagHelpers
 {
     [HtmlTargetElement("multiselect", Attributes = "asp-items, asp-for")]
     public class MultiSelectTagHelper : TagHelper

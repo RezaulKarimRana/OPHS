@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 
-namespace AMS.Repositories.DatabaseRepos
+namespace Repositories.DatabaseRepos
 {
     public class BaseSQLRepo
     {

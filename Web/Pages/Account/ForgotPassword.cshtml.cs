@@ -1,11 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Models.ServiceModels;
-using AMS.Services.Contracts;
+using Services.Contracts;
 using System;
 using System.Text;
 
-namespace AMS.Web.Pages
+namespace Web.Pages
 {
     public class ForgotPasswordModel : BasePageModel
     {

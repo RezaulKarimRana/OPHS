@@ -7,12 +7,12 @@ using Common.Helpers;
 using Infrastructure.Configuration;
 using Infrastructure.Session;
 using Infrastructure.Session.Contracts;
-using AMS.Repositories.UnitOfWork.Contracts;
+using Repositories.UnitOfWork.Contracts;
 using System.Collections.Generic;
-using AMS.Services.Managers.Contracts;
+using Services.Managers.Contracts;
 using System.Diagnostics;
 
-namespace AMS.Web.Filters
+namespace Web.Filters
 {
     public class SessionLoggingFilter : IAsyncPageFilter
     {

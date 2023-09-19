@@ -6,7 +6,7 @@ using System.Linq;
 using Common.Notifications;
 using Models.ServiceModels;
 
-namespace AMS.Web.Controllers
+namespace Web.Controllers
 {
     public class BaseController : Controller
     {

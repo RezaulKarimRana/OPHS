@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Models.DomainModels;
 using Models.ServiceModels.Admin.Users;
-using AMS.Services.Admin.Contracts;
-using AMS.Services.Managers.Contracts;
+using Services.Admin.Contracts;
+using Services.Managers.Contracts;
 
-namespace AMS.Web.Pages
+namespace Web.Pages
 {
     public class EditUserModel : BasePageModel
     {

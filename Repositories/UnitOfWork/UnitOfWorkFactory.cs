@@ -2,9 +2,9 @@ using Microsoft.Extensions.Options;
 using MySql.Data.MySqlClient;
 using System.Data.SqlClient;
 using Infrastructure.Configuration.Models;
-using AMS.Repositories.UnitOfWork.Contracts;
+using Repositories.UnitOfWork.Contracts;
 
-namespace AMS.Repositories.UnitOfWork
+namespace Repositories.UnitOfWork
 {
     public class UnitOfWorkFactory : IUnitOfWorkFactory
     {

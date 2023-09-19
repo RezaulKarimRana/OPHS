@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Infrastructure.Configuration.Models;
 using Models.DomainModels;
 
-namespace AMS.Services.Managers.Contracts
+namespace Services.Managers.Contracts
 {
     public interface ICacheManager
     {

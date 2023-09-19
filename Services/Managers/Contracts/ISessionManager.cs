@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Models.DomainModels;
 using Models.ManagerModels.Session;
 
-namespace AMS.Services.Managers.Contracts
+namespace Services.Managers.Contracts
 {
     public interface ISessionManager
     {

@@ -1,6 +1,6 @@
 using System;
 
-namespace AMS.Repositories.DatabaseRepos.ConfigurationRepo.Models
+namespace Repositories.DatabaseRepos.ConfigurationRepo.Models
 {
     public class UpdateConfigurationItemRequest
     {

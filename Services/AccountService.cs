@@ -10,17 +10,17 @@ using Infrastructure.Cache;
 using Infrastructure.Configuration;
 using Infrastructure.Session;
 using Infrastructure.Session.Contracts;
-using AMS.Repositories.UnitOfWork.Contracts;
-using AMS.Services.Contracts;
-using AMS.Services.Managers.Contracts;
+using Repositories.UnitOfWork.Contracts;
+using Services.Contracts;
+using Services.Managers.Contracts;
 using Newtonsoft.Json;
-using AMS.Repositories.DatabaseRepos.UserRepo.Models;
+using Repositories.DatabaseRepos.UserRepo.Models;
 using Models.ServiceModels.Account;
 using Models.DomainModels;
 using Models.ServiceModels;
 using Models;
 
-namespace AMS.Services
+namespace Services
 {
     public class AccountService : IAccountService
     {

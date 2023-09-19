@@ -9,12 +9,12 @@ using Infrastructure.Cache;
 using Infrastructure.Session;
 using Models.ServiceModels.Admin.SessionEvents;
 using Models.ServiceModels.Admin.Sessions;
-using AMS.Repositories.UnitOfWork.Contracts;
-using AMS.Services.Admin.Contracts;
-using AMS.Services.Contracts;
-using AMS.Services.Managers.Contracts;
+using Repositories.UnitOfWork.Contracts;
+using Services.Admin.Contracts;
+using Services.Contracts;
+using Services.Managers.Contracts;
 
-namespace AMS.Services.Admin
+namespace Services.Admin
 {
     public class SessionService : ISessionService
     {

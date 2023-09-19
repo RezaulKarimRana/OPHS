@@ -1,11 +1,11 @@
 ﻿using Models.ViewModel;
-using AMS.Services.Admin.Contracts;
-using AMS.Services.Managers.Contracts;
+using Services.Admin.Contracts;
+using Services.Managers.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 
-namespace AMS.Web.Controllers
+namespace Web.Controllers
 {
     [Route("[controller]/[action]")]
     public class UserController : BaseController

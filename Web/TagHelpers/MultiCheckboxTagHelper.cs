@@ -7,7 +7,7 @@ using System.Text;
 using Models;
 using Models.DomainModels;
 
-namespace AMS.Web.TagHelpers
+namespace Web.TagHelpers
 {
     [HtmlTargetElement("multicheckbox", Attributes = "asp-items, asp-for")]
     public class MultiCheckboxTagHelper : TagHelper

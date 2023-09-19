@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using System.Collections.Generic;
 
-namespace AMS.Web.Authorization.Requirements
+namespace Web.Authorization.Requirements
 {
     public class PermissionRequirement : IAuthorizationRequirement
     {

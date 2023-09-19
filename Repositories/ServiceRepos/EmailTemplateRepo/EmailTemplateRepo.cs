@@ -3,9 +3,9 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Common.Extensions;
 using Infrastructure.HttpClients;
-using AMS.Repositories.ServiceRepos.EmailTemplateRepo.Contracts;
+using Repositories.ServiceRepos.EmailTemplateRepo.Contracts;
 
-namespace AMS.Repositories.ServiceRepos.EmailTemplateRepo
+namespace Repositories.ServiceRepos.EmailTemplateRepo
 {
     public class EmailTemplateRepo : IEmailTemplateRepo
     {

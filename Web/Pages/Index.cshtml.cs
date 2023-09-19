@@ -2,10 +2,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Models.CustomModels;
 using Models.ServiceModels.Dashboard;
-using AMS.Services.Contracts;
-using AMS.Services.Managers.Contracts;
+using Services.Contracts;
+using Services.Managers.Contracts;
 
-namespace AMS.Web.Pages
+namespace Web.Pages
 {
     public class IndexModel : BasePageModel
     {

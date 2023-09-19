@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using Models.ServiceModels;
 using Models.ServiceModels.Account;
 
-namespace AMS.Services.Contracts
+namespace Services.Contracts
 {
     public interface IAccountService
     {

@@ -4,11 +4,11 @@ using Models.ServiceModels.Admin.Roles;
 using Models.DomainModels;
 using System.Collections.Generic;
 using System.Linq;
-using AMS.Services.Managers.Contracts;
-using AMS.Services.Admin.Contracts;
+using Services.Managers.Contracts;
+using Services.Admin.Contracts;
 using Models;
 
-namespace AMS.Web.Pages
+namespace Web.Pages
 {
     public class EditRoleModel : BasePageModel
     {

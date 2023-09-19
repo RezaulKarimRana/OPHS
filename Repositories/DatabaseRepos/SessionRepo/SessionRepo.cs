@@ -5,11 +5,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Infrastructure.Adapters;
 using Infrastructure.Configuration.Models;
-using AMS.Repositories.DatabaseRepos.SessionRepo.Models;
-using AMS.Repositories.DatabaseRepos.SessionRepo.Contracts;
+using Repositories.DatabaseRepos.SessionRepo.Models;
+using Repositories.DatabaseRepos.SessionRepo.Contracts;
 using Models.DomainModels;
 
-namespace AMS.Repositories.DatabaseRepos.SessionRepo
+namespace Repositories.DatabaseRepos.SessionRepo
 {
     public class SessionRepo : BaseSQLRepo, ISessionRepo
     {

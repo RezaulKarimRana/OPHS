@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using System.Threading.Tasks;
-using AMS.Services.Managers.Contracts;
+using Services.Managers.Contracts;
 
-namespace AMS.Web.TagHelpers
+namespace Web.TagHelpers
 {
     [HtmlTargetElement(Attributes = "asp-not-authenticated")]
     public class NotAuthenticatedTagHelper : TagHelper

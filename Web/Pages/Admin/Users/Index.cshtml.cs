@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using AMS.Services.Admin.Contracts;
+using Services.Admin.Contracts;
 
-namespace AMS.Web.Pages
+namespace Web.Pages
 {
     public class ManageUsersModel : BasePageModel
     {

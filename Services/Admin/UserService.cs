@@ -12,13 +12,13 @@ using Models;
 using Models.DomainModels;
 using Models.ServiceModels;
 using Models.ServiceModels.Admin.Users;
-using AMS.Repositories.UnitOfWork.Contracts;
-using AMS.Services.Admin.Contracts;
-using AMS.Services.Contracts;
-using AMS.Services.Managers.Contracts;
-using AMS.Repositories.DatabaseRepos.UserRepo.Models.User;
+using Repositories.UnitOfWork.Contracts;
+using Services.Admin.Contracts;
+using Services.Contracts;
+using Services.Managers.Contracts;
+using Repositories.DatabaseRepos.UserRepo.Models.User;
 
-namespace AMS.Services.Admin
+namespace Services.Admin
 {
     public class UserService : IUserService
     {

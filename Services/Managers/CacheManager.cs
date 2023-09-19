@@ -3,13 +3,13 @@ using System.Threading.Tasks;
 using Infrastructure.Cache;
 using Infrastructure.Cache.Contracts;
 using Infrastructure.Configuration.Models;
-using AMS.Repositories.UnitOfWork.Contracts;
-using AMS.Services.Managers.Contracts;
+using Repositories.UnitOfWork.Contracts;
+using Services.Managers.Contracts;
 using System.Linq;
 using Infrastructure.Configuration;
 using Models.DomainModels;
 
-namespace AMS.Services.Managers
+namespace Services.Managers
 {
     public class CacheManager : ICacheManager
     {

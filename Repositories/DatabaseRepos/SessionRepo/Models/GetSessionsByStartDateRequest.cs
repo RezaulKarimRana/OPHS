@@ -1,6 +1,6 @@
 using System;
 
-namespace AMS.Repositories.DatabaseRepos.SessionRepo.Models
+namespace Repositories.DatabaseRepos.SessionRepo.Models
 {
     public class GetSessionsByStartDateRequest
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AMS.Repositories.DatabaseRepos.UserRepo.Models.User
+namespace Repositories.DatabaseRepos.UserRepo.Models.User
 {
     public class UserDepartmentResponse
     {

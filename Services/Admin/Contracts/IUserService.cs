@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
 using Models.DomainModels;
 using Models.ServiceModels.Admin.Users;
-using AMS.Repositories.DatabaseRepos.UserRepo.Models.User;
+using Repositories.DatabaseRepos.UserRepo.Models.User;
 
-namespace AMS.Services.Admin.Contracts
+namespace Services.Admin.Contracts
 {
     public interface IUserService
     {

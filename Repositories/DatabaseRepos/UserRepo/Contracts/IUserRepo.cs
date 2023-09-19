@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using AMS.Repositories.DatabaseRepos.UserRepo.Models;
-using AMS.Repositories.DatabaseRepos.UserRepo.Models.User;
+using Repositories.DatabaseRepos.UserRepo.Models;
+using Repositories.DatabaseRepos.UserRepo.Models.User;
 using Models.DomainModels;
 using Models.CustomModels;
 
-namespace AMS.Repositories.DatabaseRepos.UserRepo.Contracts
+namespace Repositories.DatabaseRepos.UserRepo.Contracts
 {
     public interface IUserRepo
     {

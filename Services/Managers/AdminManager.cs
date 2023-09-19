@@ -2,10 +2,10 @@
 using Infrastructure.Cache;
 using Infrastructure.Cache.Contracts;
 using Models.ManagerModels.Admin;
-using AMS.Repositories.UnitOfWork.Contracts;
-using AMS.Services.Managers.Contracts;
+using Repositories.UnitOfWork.Contracts;
+using Services.Managers.Contracts;
 
-namespace AMS.Services.Managers
+namespace Services.Managers
 {
     public class AdminManager : IAdminManager
     {

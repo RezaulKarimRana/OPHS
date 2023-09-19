@@ -16,31 +16,31 @@ using Infrastructure.Email;
 using Infrastructure.Email.Contracts;
 using Infrastructure.Session;
 using Infrastructure.Session.Contracts;
-using AMS.Repositories.UnitOfWork;
-using AMS.Repositories.UnitOfWork.Contracts;
-using AMS.Web.Filters;
-using AMS.Web.Middleware;
-using AMS.Services;
-using AMS.Services.Contracts;
-using AMS.Repositories.ServiceRepos.EmailTemplateRepo.Contracts;
-using AMS.Repositories.ServiceRepos.EmailTemplateRepo;
-using AMS.Services.Managers.Contracts;
-using AMS.Services.Managers;
+using Repositories.UnitOfWork;
+using Repositories.UnitOfWork.Contracts;
+using Web.Filters;
+using Web.Middleware;
+using Services;
+using Services.Contracts;
+using Repositories.ServiceRepos.EmailTemplateRepo.Contracts;
+using Repositories.ServiceRepos.EmailTemplateRepo;
+using Services.Managers.Contracts;
+using Services.Managers;
 using System.Globalization;
-using AMS.Services.Admin;
-using AMS.Services.Admin.Contracts;
-using AMS.Web.Authorization;
-using AMS.Web.Authorization.Requirements;
+using Services.Admin;
+using Services.Admin.Contracts;
+using Web.Authorization;
+using Web.Authorization.Requirements;
 using Infrastructure.Authorization;
 using Microsoft.AspNetCore.Authorization;
-using AMS.Web.Authorization.Handlers;
+using Web.Authorization.Handlers;
 using Microsoft.Net.Http.Headers;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.StaticFiles;
 using DinkToPdf;
 using DinkToPdf.Contracts;
 
-namespace AMS.Web
+namespace Web
 {
     public class Startup
     {

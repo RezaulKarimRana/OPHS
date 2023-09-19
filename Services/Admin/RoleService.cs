@@ -7,12 +7,12 @@ using Infrastructure.Cache;
 using Infrastructure.Session;
 using Models.ServiceModels;
 using Models.ServiceModels.Admin.Roles;
-using AMS.Repositories.UnitOfWork.Contracts;
-using AMS.Services.Admin.Contracts;
-using AMS.Services.Contracts;
-using AMS.Services.Managers.Contracts;
+using Repositories.UnitOfWork.Contracts;
+using Services.Admin.Contracts;
+using Services.Contracts;
+using Services.Managers.Contracts;
 
-namespace AMS.Services.Admin
+namespace Services.Admin
 {
     public class RoleService : IRoleService
     {

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
-namespace AMS.Web.TagHelpers
+namespace Web.TagHelpers
 {
     [HtmlTargetElement("a", Attributes = "asp-back-url")]
     public class BackButtonTagHelper : TagHelper

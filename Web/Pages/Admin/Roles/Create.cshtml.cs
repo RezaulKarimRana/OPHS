@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Models.DomainModels;
 using Models.ServiceModels.Admin.Roles;
-using AMS.Services.Admin.Contracts;
-using AMS.Services.Managers.Contracts;
+using Services.Admin.Contracts;
+using Services.Managers.Contracts;
 
-namespace AMS.Web.Pages
+namespace Web.Pages
 {
     public class CreateRoleModel : BasePageModel
     {

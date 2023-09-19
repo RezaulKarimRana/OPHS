@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace AMS.Services.Contracts
+namespace Services.Contracts
 {
     public interface IHtmlGeneratorService
     {

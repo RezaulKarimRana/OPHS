@@ -4,10 +4,10 @@
     <TargetFramework>net5.0</TargetFramework>
     <ApplicationInsightsResourceId>/subscriptions/e3a69efd-2ca6-41c1-8c58-97310f0e5376/resourcegroups/thewebchameleon-euwest-dev/providers/microsoft.insights/components/AMS-razor</ApplicationInsightsResourceId>
     <ApplicationInsightsAnnotationResourceId>/subscriptions/e3a69efd-2ca6-41c1-8c58-97310f0e5376/resourcegroups/thewebchameleon/providers/microsoft.insights/components/AMS-razor</ApplicationInsightsAnnotationResourceId>
-    <AssemblyName>AMS.Web</AssemblyName>
+    <AssemblyName>Web</AssemblyName>
     <Nullable>enable</Nullable>
     <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
-    <StartupObject>AMS.Web.Program</StartupObject>
+    <StartupObject>Web.Program</StartupObject>
     <UserSecretsId>8a9597fb-5b50-43f1-94cd-451a2dbdccae</UserSecretsId>
   </PropertyGroup>
 

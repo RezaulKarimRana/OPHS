@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace AMS.Repositories.ServiceRepos.EmailTemplateRepo.Contracts
+namespace Repositories.ServiceRepos.EmailTemplateRepo.Contracts
 {
     public interface IEmailTemplateRepo
     {

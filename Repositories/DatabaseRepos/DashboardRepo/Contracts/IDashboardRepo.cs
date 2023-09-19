@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using AMS.Repositories.DatabaseRepos.DashboardRepo.Models;
+using Repositories.DatabaseRepos.DashboardRepo.Models;
 
-namespace AMS.Repositories.DatabaseRepos.DashboardRepo.Contracts
+namespace Repositories.DatabaseRepos.DashboardRepo.Contracts
 {
     public interface IDashboardRepo
     {

@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
-using AMS.Services.Contracts;
+using Services.Contracts;
 
-namespace AMS.Web.Pages.Dashboard
+namespace Web.Pages.Dashboard
 {
     public class dashboardModel : BasePageModel
     {

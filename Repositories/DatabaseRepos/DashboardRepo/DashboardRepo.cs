@@ -3,10 +3,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Infrastructure.Adapters;
 using Infrastructure.Configuration.Models;
-using AMS.Repositories.DatabaseRepos.DashboardRepo.Contracts;
-using AMS.Repositories.DatabaseRepos.DashboardRepo.Models;
+using Repositories.DatabaseRepos.DashboardRepo.Contracts;
+using Repositories.DatabaseRepos.DashboardRepo.Models;
 
-namespace AMS.Repositories.DatabaseRepos.DashboardRepo
+namespace Repositories.DatabaseRepos.DashboardRepo
 {
     public class DashboardRepo : BaseSQLRepo, IDashboardRepo
     {

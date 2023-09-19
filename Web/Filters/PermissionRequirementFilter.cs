@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Linq;
 using System.Threading.Tasks;
-using AMS.Services.Managers.Contracts;
+using Services.Managers.Contracts;
 
-namespace AMS.Web.Filters
+namespace Web.Filters
 {
     public class PermissionRequirementFilter : IAsyncAuthorizationFilter
     {

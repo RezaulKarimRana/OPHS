@@ -1,10 +1,10 @@
 using System;
-using AMS.Repositories.DatabaseRepos.ConfigurationRepo.Contracts;
-using AMS.Repositories.DatabaseRepos.DashboardRepo.Contracts;
-using AMS.Repositories.DatabaseRepos.SessionRepo.Contracts;
-using AMS.Repositories.DatabaseRepos.UserRepo.Contracts;
+using Repositories.DatabaseRepos.ConfigurationRepo.Contracts;
+using Repositories.DatabaseRepos.DashboardRepo.Contracts;
+using Repositories.DatabaseRepos.SessionRepo.Contracts;
+using Repositories.DatabaseRepos.UserRepo.Contracts;
 
-namespace AMS.Repositories.UnitOfWork.Contracts
+namespace Repositories.UnitOfWork.Contracts
 {
     public interface IUnitOfWork : IDisposable
     {

@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Models.ServiceModels.Dashboard;
-using AMS.Repositories.UnitOfWork.Contracts;
-using AMS.Services.Contracts;
-using AMS.Services.Managers.Contracts;
+using Repositories.UnitOfWork.Contracts;
+using Services.Contracts;
+using Services.Managers.Contracts;
 
-namespace AMS.Services
+namespace Services
 {
     public class DashboardService : IDashboardService
     {

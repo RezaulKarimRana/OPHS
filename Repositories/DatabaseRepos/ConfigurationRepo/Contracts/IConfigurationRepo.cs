@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using AMS.Repositories.DatabaseRepos.ConfigurationRepo.Models;
+using Repositories.DatabaseRepos.ConfigurationRepo.Models;
 using Models.DomainModels;
 
-namespace AMS.Repositories.DatabaseRepos.ConfigurationRepo.Contracts
+namespace Repositories.DatabaseRepos.ConfigurationRepo.Contracts
 {
     public interface IConfigurationRepo
     {

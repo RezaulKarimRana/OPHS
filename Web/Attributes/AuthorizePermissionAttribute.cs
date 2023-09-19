@@ -1,7 +1,7 @@
-﻿using AMS.Web.Filters;
+﻿using Web.Filters;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AMS.Web.Attributes
+namespace Web.Attributes
 {
     public class AuthorizePermissionAttribute : TypeFilterAttribute
     {

@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Models.ServiceModels.Dashboard;
 
-namespace AMS.Services.Contracts
+namespace Services.Contracts
 {
     public interface IDashboardService
     {

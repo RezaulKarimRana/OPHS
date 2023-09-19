@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace AMS.Services.Managers.Contracts
+namespace Services.Managers.Contracts
 {
     public interface IAuthenticationManager
     {

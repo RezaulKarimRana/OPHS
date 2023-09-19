@@ -2,7 +2,7 @@
 using Common.Constants;
 using Models;
 
-namespace AMS.Web.Helpers
+namespace Web.Helpers
 {
     public static class MetaTagsHelper
     {

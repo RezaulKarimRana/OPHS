@@ -1,4 +1,4 @@
-namespace AMS.Web.Pages
+namespace Web.Pages
 {
     public class PrivacyModel : BasePageModel
     {

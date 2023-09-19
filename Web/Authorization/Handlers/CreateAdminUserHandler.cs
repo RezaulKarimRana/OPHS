@@ -2,9 +2,9 @@
 using System.Threading.Tasks;
 using Infrastructure.Cache;
 using Infrastructure.Cache.Contracts;
-using AMS.Web.Authorization.Requirements;
+using Web.Authorization.Requirements;
 
-namespace AMS.Web.Authorization.Handlers
+namespace Web.Authorization.Handlers
 {
     public class CreateAdminUserHandler : AuthorizationHandler<CreateAdminUserRequirement>
     {

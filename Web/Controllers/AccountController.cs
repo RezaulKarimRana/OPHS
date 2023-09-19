@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using AMS.Services.Contracts;
+using Services.Contracts;
 
-namespace AMS.Web.Controllers
+namespace Web.Controllers
 {
     [Route("[controller]/[action]")]
     public class AccountController : BaseController

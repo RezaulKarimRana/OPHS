@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Common.Constants;
 using Models;
 
-namespace AMS.Web.Filters
+namespace Web.Filters
 {
     public class OpenGraphPageFilter : IAsyncPageFilter
     {
@@ -25,7 +25,7 @@ namespace AMS.Web.Filters
 
                 if (!string.IsNullOrEmpty(metaTags.Title))
                 {
-                    metaTags.Title = "AMS.Web";
+                    metaTags.Title = "Web";
                 }
                 if (!string.IsNullOrEmpty(metaTags.Description))
                 {

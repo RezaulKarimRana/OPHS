@@ -1,4 +1,4 @@
-namespace AMS.Repositories.UnitOfWork.Contracts
+namespace Repositories.UnitOfWork.Contracts
 {
     public interface IUnitOfWorkFactory
     {

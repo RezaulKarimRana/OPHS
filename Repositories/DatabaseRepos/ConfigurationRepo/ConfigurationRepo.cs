@@ -5,11 +5,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Infrastructure.Adapters;
 using Infrastructure.Configuration.Models;
-using AMS.Repositories.DatabaseRepos.ConfigurationRepo.Contracts;
-using AMS.Repositories.DatabaseRepos.ConfigurationRepo.Models;
+using Repositories.DatabaseRepos.ConfigurationRepo.Contracts;
+using Repositories.DatabaseRepos.ConfigurationRepo.Models;
 using Models.DomainModels;
 
-namespace AMS.Repositories.DatabaseRepos.ConfigurationRepo
+namespace Repositories.DatabaseRepos.ConfigurationRepo
 {
     public class ConfigurationRepo : BaseSQLRepo, IConfigurationRepo
     {

@@ -1,4 +1,4 @@
-﻿namespace AMS.Repositories.ServiceRepos
+﻿namespace Repositories.ServiceRepos
 {
     public static class EndpointKeys
     {

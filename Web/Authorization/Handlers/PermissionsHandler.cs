@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using System.Linq;
 using System.Threading.Tasks;
-using AMS.Web.Authorization.Requirements;
-using AMS.Services.Managers.Contracts;
+using Web.Authorization.Requirements;
+using Services.Managers.Contracts;
 
-namespace AMS.Web.Authorization.Handlers
+namespace Web.Authorization.Handlers
 {
     public class PermissionsHandler : AuthorizationHandler<PermissionRequirement>
     {

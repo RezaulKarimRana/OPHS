@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Models.DomainModels;
 using Models.ServiceModels.Account;
-using AMS.Services.Contracts;
+using Services.Contracts;
 using Models.ServiceModels.Dashboard;
 
-namespace AMS.Web.Pages
+namespace Web.Pages
 {
     public class ActivityLogModel : BasePageModel
     {

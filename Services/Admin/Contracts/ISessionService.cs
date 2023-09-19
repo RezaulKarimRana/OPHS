@@ -2,7 +2,7 @@
 using Models.ServiceModels.Admin.SessionEvents;
 using Models.ServiceModels.Admin.Sessions;
 
-namespace AMS.Services.Admin.Contracts
+namespace Services.Admin.Contracts
 {
     public interface ISessionService
     {

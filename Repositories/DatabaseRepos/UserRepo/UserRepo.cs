@@ -5,13 +5,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Infrastructure.Adapters;
 using Infrastructure.Configuration.Models;
-using AMS.Repositories.DatabaseRepos.UserRepo.Contracts;
-using AMS.Repositories.DatabaseRepos.UserRepo.Models;
-using AMS.Repositories.DatabaseRepos.UserRepo.Models.User;
+using Repositories.DatabaseRepos.UserRepo.Contracts;
+using Repositories.DatabaseRepos.UserRepo.Models;
+using Repositories.DatabaseRepos.UserRepo.Models.User;
 using Models.CustomModels;
 using Models.DomainModels;
 
-namespace AMS.Repositories.DatabaseRepos.UserRepo
+namespace Repositories.DatabaseRepos.UserRepo
 {
     public class UserRepo : BaseSQLRepo, IUserRepo
     {

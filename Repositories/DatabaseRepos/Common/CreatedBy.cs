@@ -1,4 +1,4 @@
-﻿namespace AMS.Repositories.DatabaseRepos.Common
+﻿namespace Repositories.DatabaseRepos.Common
 {
     public abstract class CreatedBy
     {

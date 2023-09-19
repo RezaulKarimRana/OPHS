@@ -1,10 +1,10 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Models.ServiceModels.Account;
-using AMS.Services.Contracts;
+using Services.Contracts;
 using Models.ServiceModels.Dashboard;
 
-namespace AMS.Web.Pages
+namespace Web.Pages
 {
     public class FeedbackModel : BasePageModel
     {

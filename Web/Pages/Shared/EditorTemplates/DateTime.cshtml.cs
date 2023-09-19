@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace AMS.Web.Pages.Shared.EditorTemplates
+namespace Web.Pages.Shared.EditorTemplates
 {
     public class DateTimeModel : PageModel
     {

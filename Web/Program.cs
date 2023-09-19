@@ -6,7 +6,7 @@ using Serilog.Formatting.Compact;
 using System;
 using System.IO;
 
-namespace AMS.Web
+namespace Web
 {
     public static class Program
     {

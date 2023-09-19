@@ -1,4 +1,4 @@
-﻿namespace AMS.Repositories.DatabaseRepos.DashboardRepo.Models
+﻿namespace Repositories.DatabaseRepos.DashboardRepo.Models
 {
     public class GetCountForAllPendingParkingsForNav
     {
