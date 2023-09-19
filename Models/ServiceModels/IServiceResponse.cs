@@ -1,4 +1,4 @@
-using AMS.Common.Notifications;
+using Common.Notifications;
 
 namespace Models.ServiceModels
 {

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 
-namespace AMS.Common.Extensions
+namespace Common.Extensions
 {
     public static class EnumExtensions
     {

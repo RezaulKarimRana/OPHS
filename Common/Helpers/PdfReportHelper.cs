@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AMS.Common.Helpers
+﻿namespace Common.Helpers
 {
     public static class PdfReportHelper
     {

@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AMS.Common.Notifications;
+using Common.Notifications;
 using AMS.Infrastructure.Cache;
 using AMS.Infrastructure.Session;
 using Models.ServiceModels.Admin.SessionEvents;

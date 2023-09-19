@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using AMS.Common.Notifications;
+using Common.Notifications;
 using Models.ServiceModels;
 
 namespace AMS.Web.Pages

@@ -1,6 +1,6 @@
 using System;
 
-namespace AMS.Common.Extensions
+namespace Common.Extensions
 {
     public static class DateTimeExtensions
     {

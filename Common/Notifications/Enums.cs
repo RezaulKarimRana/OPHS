@@ -1,4 +1,4 @@
-namespace AMS.Common.Notifications
+namespace Common.Notifications
 {
     public enum NotificationTypeEnum : int
     {

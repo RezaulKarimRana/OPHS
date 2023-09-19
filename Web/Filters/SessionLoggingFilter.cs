@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Newtonsoft.Json;
 using System.Linq;
 using System.Threading.Tasks;
-using AMS.Common.Helpers;
+using Common.Helpers;
 using AMS.Infrastructure.Configuration;
 using AMS.Infrastructure.Session;
 using AMS.Infrastructure.Session.Contracts;

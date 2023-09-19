@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using AMS.Common.Constants;
+using Common.Constants;
 using Models;
 
 namespace AMS.Web.Helpers

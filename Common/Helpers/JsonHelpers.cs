@@ -2,7 +2,7 @@ using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AMS.Common.Helpers
+namespace Common.Helpers
 {
     public static class JsonHelper
     {

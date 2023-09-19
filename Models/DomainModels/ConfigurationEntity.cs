@@ -1,5 +1,4 @@
 using System;
-using AMS.Common.Constants;
 
 namespace Models.DomainModels
 {

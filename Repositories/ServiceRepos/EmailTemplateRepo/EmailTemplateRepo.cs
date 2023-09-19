@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Http;
 using System.Net.Http;
 using System.Threading.Tasks;
-using AMS.Common.Extensions;
+using Common.Extensions;
 using AMS.Infrastructure.HttpClients;
 using AMS.Repositories.ServiceRepos.EmailTemplateRepo.Contracts;
 

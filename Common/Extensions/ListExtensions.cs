@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace AMS.Common.Extensions
+namespace Common.Extensions
 {
     public static class ListExtensions
     {

@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
-namespace AMS.Common.Helpers
+namespace Common.Helpers
 {
     public static class Utility
     {

@@ -1,4 +1,4 @@
-﻿namespace AMS.Common.Constants
+﻿namespace Common.Constants
 {
     public static class ViewDataConstants
     {

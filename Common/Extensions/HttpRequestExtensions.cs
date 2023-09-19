@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Http;
 
-namespace AMS.Common.Extensions
+namespace Common.Extensions
 {
     public static class HttpRequestExtensions
     {

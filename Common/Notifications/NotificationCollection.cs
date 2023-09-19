@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AMS.Common.Notifications
+namespace Common.Notifications
 {
     public class NotificationCollection : IEnumerable<Notification>
     {
