@@ -4,121 +4,8 @@
     ViewData.SetMeta("ওসমানপুর প্রাগপুর মাধ্যমিক বিদ্যালয়");
     Layout = "~/Pages/Shared/_LayoutDashBoard.cshtml";
 }
-<style type="text/css">
-    #logo img {
-        display: block;
-        width: 50px;
-        height: 50px;
-        align-items: center;
-        margin-left: 20px;
-        margin-top: -90px;
-    }
-
-    #site-name a {
-        display: block;
-        width: auto;
-        height: auto;
-        align-items: center;
-        margin-left: -32px;
-        margin-top: -42px;
-        font-size: 16px;
-        padding-bottom: 0px;
-    }
-
-    .rslides img {
-        height: 118px;
-        margin-top: 12px;
-        margin-bottom: 4px;
-        object-fit: cover;
-        object-position: center center;
-    }
-
-    .drop-one-columns {
-        display: none;
-    }
-
-        .drop-one-columns li a {
-            background-color: transparent;
-            border: 0;
-            padding-left: 20px;
-        }
-
-        .drop-one-columns li {
-            padding: 3px;
-        }
-
-    .right-side-bar .block ul li a {
-        font-size: 14px;
-    }
-
-    #notice-board ul a {
-        font-size: 14px;
-    }
-
-    .mainwrapper .box {
-        margin-right: 13px
-    }
-
-    .meganizr .one-col {
-        width: auto !important;
-        min-width: 150px;
-    }
-
-    .drop-one-columns .one-col a {
-        display: block;
-        border-bottom: 1px solid #ccc;
-        white-space: nowrap;
-    }
-
-        .drop-one-columns .one-col a:hover {
-            border-bottom: 1px solid #ccc !important;
-            background-color: #ebccaccf !important;
-        }
-
-    .drop-one-columns .one-col a {
-        background-color: transparent;
-        border-bottom: 0px solid #ccc;
-        width: 100%;
-    }
-
-        .drop-one-columns .one-col a:hover {
-            background: transparent !important;
-            border: 0 !important;
-        }
-
-    .pm > a > img {
-        width: 100%;
-        height: 380px;
-    }
-
-    .scroll {
-        background: #E6E7E8;
-        padding: 5px 0 0 0;
-    }
-
-        .scroll > h3 {
-            font-weight: bold;
-            font-size: 22px;
-            line-height: 22px;
-        }
-
-    marquee {
-        padding: 5px;
-    }
-
-    iframe {
-        height: 215px !important;
-    }
-
-    .scroll {
-        margin: 0 0 40px 0;
-    }
-
-    .pm > a > img {
-        width: 100%;
-        height: 215px;
-    }
-</style>
+<a class="skip-link" href="#jmenu">Jump to Menu</a>
+<a class="skip-link" href="#btnLang">Jump to Language</a>
 <div class="container">
     <div class="sixteen columns" style="background-color: #393232; box-shadow: 0 1px 5px #999999;height:40px;">
         <div style="display: inline-block;float: left;width: 960px;border-bottom: 4px solid #e48257;">
@@ -146,8 +33,32 @@
                         <a title="Home" href="index">   শহীদ জিয়াউর রহমান ডিগ্রি কলেজ </a>
                     </span>
                 </div>
-                <!-- /site-name-wrapper -->
             </div>
+            <style>
+                @@media only screen and (max-width: 950px) {
+                    #logo img {
+                        display: block;
+                        width: 50px;
+                        height: 50px;
+                        align-items: center;
+                        margin-left: 20px;
+                        margin-top: -90px;
+                    }
+
+                    #site-name a {
+                        display: block;
+                        width: auto;
+                        height: auto;
+                        align-items: center;
+                        margin-left: -32px;
+                        margin-top: -42px;
+                        font-size: 16px;
+                        padding-bottom: 0px;
+                    }
+                }
+
+                }
+            </style>
         </div>
         <div class="callbacks_container" style="box-shadow: 0 1px 5px #999999;">
             <ul class="rslides" id="front-image-slider">
@@ -170,21 +81,27 @@
                     height: 300px;
                 }
             </style>
+            <style>
+                @@media only screen and (max-width: 950px) {
+                    .rslides img {
+                        height: 118px;
+                        margin-top: 12px;
+                        margin-bottom: 4px;
+                        object-fit: cover;
+                        object-position: center center;
+                    }
+                }
+            </style>
         </div>
     </div>
     <script>
-        /* Responsive Design*/
         $(document).ready(function() {
             var wi = $(window).width();
             if (wi < 980) {
-
                 $('#jmenu .show-menu').click(function() {
-                    //$('.mzr-responsive').show();
                     $(".mzr-responsive").slideToggle(400, "linear");
                     $('.drop-one-columns').slideUp();
                 });
-
-
                 $('.submenu').on('click', function(e) {
                     e.preventDefault();
                     let parent = $(this).parent('.mzr-drop');
@@ -193,10 +110,26 @@
                     console.log(parent.siblings().find('.drop-one-columns'))
                 })
             }
-
         });
 
     </script>
+    <style>
+        @@media only screen and (max-width: 950px) {
+            .drop-one-columns {
+                display: none;
+            }
+
+                .drop-one-columns li a {
+                    background-color: transparent;
+                    border: 0;
+                    padding-left: 20px;
+                }
+        }
+
+        .drop-one-columns li {
+            padding: 3px;
+        }
+    </style>
     <div class="sixteen columns" id="jmenu">
         <div class="sixteen columns" id="nav_mn">
             <a href="javascript:;" class="show-menu menu-head"> মেনু নির্বাচন করুন</a>
@@ -260,6 +193,10 @@
                                     <li><a href="https://ziacollegejamalpur.edu.bd/index.php/dept_office/dept_profile/500008">উচ্চমাধ্যমিক (সাধারণ)</a></li>
 
                                     <li><a href="https://ziacollegejamalpur.edu.bd/index.php/dept_office/dept_profile/500009">উচ্চমাধ্যমিক   (বিএমটি)</a></li>
+
+                                    <li><a href="https://ziacollegejamalpur.edu.bd/index.php/dept_office/dept_profile/500010">স্নাতক (পাস)</a></li>
+
+                                    <li><a href="https://ziacollegejamalpur.edu.bd/index.php/dept_office/dept_profile/500011">স্নাতক(সম্মান)</a></li>
 
 
 
@@ -381,6 +318,60 @@
     </div>
 </div>
          </div>
+<style>
+    .right-side-bar .block ul li a {
+        font-size: 14px;
+    }
+
+    #notice-board ul a {
+        font-size: 14px;
+    }
+
+    @@media screen and (min-width: 1400px) {
+        .mainwrapper .box {
+            margin-right: 13px
+        }
+    }
+    /*submenu fixing*/
+    /* .drop-one-columns .one-col a {
+                display: block;
+                border-bottom: 1px solid #ccc;
+                white-space: nowrap;
+                }*/
+    .meganizr .one-col {
+        width: auto !important;
+        min-width: 150px;
+    }
+    /*.mzr-links {
+                column-count: 2;
+                }*/
+    .drop-one-columns .one-col a {
+        display: block;
+        border-bottom: 1px solid #ccc;
+        white-space: nowrap;
+    }
+
+        .drop-one-columns .one-col a:hover {
+            border-bottom: 1px solid #ccc !important;
+            background-color: #ebccaccf !important;
+        }
+
+    }
+</style>
+<style type="text/css">
+    @@media only screen and (min-width: : 980px) {
+        .drop-one-columns .one-col a {
+            background-color: transparent;
+            border-bottom: 0px solid #ccc;
+            width: 100%;
+        }
+
+            .drop-one-columns .one-col a:hover {
+                background: transparent !important;
+                border: 0 !important;
+            }
+    }
+</style>
 <script type="text/javascript">
     $(window).on('load', () => {
         if ($(window).width() >= 980) {
@@ -405,19 +396,50 @@
             <div class="scroll">
                 <h3>
                     <marquee direction="left" scrollamount="4" onmouseover="this.stop()" onmouseout="this.start()">
-                        <a href="#">জামালপুরে জিয়া কলেজ চ্যাম্পিয়ন</a>
-                        <a href="#">  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </a>
-
-                        <a href="#">জামালপুর শহীদ জিয়াউর রহমান ডিগ্রি কলেজে অভিভাবক সমাবেশ অনুষ্ঠিত</a>
-                        <a href="#">  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </a>
-
-                        <a href="#">প্রতিরোধ্য অগ্রযাত্রায় বাংলাদেশ, অধ্যক্ষ, শহীদ জিয়াউর রহমান ডিগ্রি কলেজ ।</a>
+                        <a href="#">“বঙ্গবন্ধু শেখ মুজিব স্কলার “নির্বাচন ও অ্যাওয়াড প্রদান ২০২৩</a>
                         <a href="#">  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </a>
 
 
                     </marquee>
                 </h3>
             </div>
+            <style>
+                .pm > a > img {
+                    width: 100%;
+                    height: 380px;
+                }
+
+                .scroll {
+                    background: #E6E7E8;
+                    padding: 5px 0 0 0;
+                }
+
+                    .scroll > h3 {
+                        font-weight: bold;
+                        font-size: 22px;
+                        line-height: 22px;
+                    }
+
+                marquee {
+                    padding: 5px;
+                }
+
+                @@media(max-width: 480px) {
+                    iframe {
+                        height: 215px !important;
+                    }
+
+                    .scroll {
+                        margin: 0 0 40px 0;
+                    }
+
+                    .pm > a > img {
+                        width: 100%;
+                        height: 215px;
+                    }
+                }
+            </style>
+            <script></script>
             ﻿
             <div class="row" id="notice-board">
                 <div class="notice-board-bg">
@@ -426,21 +448,14 @@
                         <ul style="margin:0">
                             <li style="margin:1px">
                                 <td style="margin:0">
-                                    <a href="https://ziacollegejamalpur.edu.bd/notice_document/admission_notice1.jpg" style="margin:0"> ২০২২ – ২০২৩ শিক্ষাবর্ষে  একাদশ শ্রেণীতে ভর্তি বিজ্ঞপ্তি  </i> <i>(13-09-2023)</i>
+                                    <a href="https://ziacollegejamalpur.edu.bd/notice_document/চিঠি-১৪৩.pdf" style="margin:0"> “বঙ্গবন্ধু শেখ মজিব স্কলার “নির্বাচন ও অ্যাওয়াড প্রদান ২০২৩ </i> <i>(21-09-2023)</i>
                                 </td>
                                 </a> </td>
                             </li>
 
                             <li style="margin:1px">
                                 <td style="margin:0">
-                                    <a href="https://ziacollegejamalpur.edu.bd/notice_document/notice1.jpg" style="margin:0"> পরীক্ষার ফি সংক্রান্ত বিজ্ঞপ্তি  </i> <i>(13-09-2023)</i>
-                                </td>
-                                </a> </td>
-                            </li>
-
-                            <li style="margin:1px">
-                                <td style="margin:0">
-                                    <a href="https://ziacollegejamalpur.edu.bd/notice_document/GST_Admission_Guideline_2022_2381.pdf" style="margin:0"> ২০২২ – ২০২৩ শিক্ষাবর্ষে GST গুচ্ছভূক্ত বিশ্ববিদ্যালয় ভর্তি নির্দেশিকা  </i> <i>(13-09-2023)</i>
+                                    <a href="https://ziacollegejamalpur.edu.bd/notice_document/ZRC-jamalpur-19-09-23(1).jpg" style="margin:0"> দ্বাদশ শ্রেণিতে ভর্তি বিষয়ে বিজ্ঞপ্তি: </i> <i>(20-09-2023)</i>
                                 </td>
                                 </a> </td>
                             </li>
@@ -465,9 +480,8 @@
                 <h5 style="float:left;margin:-3px 5px 0 0; font-weight:bold;font-size:.9em">খবর:</h5>
                 <div id="bdes-ticker" style="overflow: hidden; position: relative; height: 0px;">
                     <ul style="font-size: 0.9em; position: absolute; margin: 0px; padding: 0px; width: 85%;">
-                        <li class="lineheight"><a href="notice-view-main.php?id=106">২০২২ – ২০২৩ শিক্ষাবর্ষে  একাদশ শ্রেণীতে ভর্তি বিজ্ঞপ্তি  </a> <i>(13-09-2023)</i></li>
-                        <li class="lineheight"><a href="notice-view-main.php?id=106">পরীক্ষার ফি সংক্রান্ত বিজ্ঞপ্তি  </a> <i>(13-09-2023)</i></li>
-                        <li class="lineheight"><a href="notice-view-main.php?id=106">২০২২ – ২০২৩ শিক্ষাবর্ষে GST গুচ্ছভূক্ত বিশ্ববিদ্যালয় ভর্তি নির্দেশিকা  </a> <i>(13-09-2023)</i></li>
+                        <li class="lineheight"><a href="notice-view-main.php?id=106">“বঙ্গবন্ধু শেখ মজিব স্কলার “নির্বাচন ও অ্যাওয়াড প্রদান ২০২৩ </a> <i>(21-09-2023)</i></li>
+                        <li class="lineheight"><a href="notice-view-main.php?id=106">দ্বাদশ শ্রেণিতে ভর্তি বিষয়ে বিজ্ঞপ্তি: </a> <i>(20-09-2023)</i></li>
 
                     </ul>
                     <div style="float:right">
@@ -675,12 +689,12 @@
                 <hr>
                 <div class="six columns" style="text-align: center;">
                     <div style="padding: 0px;">
-                        <iframe width="310" height="200" src="https://www.youtube.com/embed/WROUyCS1zsY?si=fvaMmbiOkO8x9ObS" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> <br>
+                        <iframe width="310" height="200" src="https://www.youtube.com/embed/da6W7LQfjvw?si=w2W_sn-NADffuGhl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> <br>
                     </div>
                 </div>
                 <div class="six columns" style="text-align: center;">
                     <div style="padding: 0px;">
-                        <iframe width="310" height="200" src="https://www.youtube.com/embed/da6W7LQfjvw?si=w2W_sn-NADffuGhl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> <br>
+                        <iframe width="310" height="200" src="https://www.youtube.com/embed/Rs6jMyfYlMQ?si=Iw1Bt7CHl-Jw-RXU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> <br>
                     </div>
                 </div>
 
@@ -903,6 +917,9 @@
             display: inline;
         }
     </style>
+</div>
+      </div>
+      </div>
 </div>
 <script type="text/javascript">
     window.addEventListener('scroll', function() {

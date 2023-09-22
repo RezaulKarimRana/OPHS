@@ -1,0 +1,33 @@
+.sticky{
+        position: fixed !important;
+        position: relative;
+        top: 0;
+        width: 100%;
+        display: contents;
+        background-image: url("../images/logo/sticky_logo1.png");
+        background-repeat: no-repeat;
+        background-size: 330px 62px;
+        background-position: center top;
+        border: 1px solid LightGray;
+        background-color: #fafafa; /*#fdf7fb;*/ /*LightGray;*/
+        padding: 32px 0px 0px 0px ;
+        width: 200px;
+        z-index: 999;
+        
+    }
+    @media only screen and (min-width: 960px) {
+    .sticky{
+        position: fixed !important;
+        position: relative;
+        top: 0;
+        width: 100%;
+        display: contents;
+        background-image: url("../images/logo/sticky_logo.png");
+        background-repeat: no-repeat;
+        background-size: 600px 50px;
+        background-position: center top;
+        border: 1px solid LightGray;
+        background-color: #fdf7fb; /*LightGray;*/
+        padding: 50px 0px 0px 0px ;
+        width: 200px;
+        z-index: 999; }
