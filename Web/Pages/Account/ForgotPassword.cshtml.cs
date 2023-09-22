@@ -12,7 +12,6 @@ namespace Web.Pages
         #region Private Fields
 
         private readonly IAccountService _service;
-        private readonly IHtmlGeneratorService _htmlGeneratorService;
 
         #endregion
 
@@ -25,10 +24,9 @@ namespace Web.Pages
 
         #region Constructors
 
-        public ForgotPasswordModel(IAccountService service, IHtmlGeneratorService htmlGeneratorService)
+        public ForgotPasswordModel(IAccountService service)
         {
             _service = service;
-            _htmlGeneratorService = htmlGeneratorService;
             FormData = new ForgotPasswordRequest();
         }
 
@@ -44,7 +42,7 @@ namespace Web.Pages
             if (ModelState.IsValid)
             {
                 var password = CreateRandomPassword();
-                var emailBody = await _htmlGeneratorService.getPasswordResetEmailBody(password);
+                var emailBody = string.Empty;
                 var response = await _service.ForgotPassword(FormData, emailBody, password);
                 if (response.IsSuccessful)
                 {
