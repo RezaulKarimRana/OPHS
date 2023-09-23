@@ -32,34 +32,12 @@ namespace Repositories.DatabaseRepos.DashboardRepo
 
         public async Task<GetDashboardResponse> GetDashboard()
         {
-            var sqlStoredProc = "sp_dashboard_get";
-
-            var response = await DapperAdapter.GetFromStoredProcAsync<GetDashboardResponse>
-                (
-                    storedProcedureName: sqlStoredProc,
-                    parameters: new { },
-                    dbconnectionString: DefaultConnectionString,
-                    sqltimeout: DefaultTimeOut,
-                    dbconnection: _connection,
-                    dbtransaction: _transaction);
-
-            return response.FirstOrDefault();
+            return new GetDashboardResponse();
         }
 
         public async Task<GetCountForAllPendingParkingsForNav> GetNavBarCount(int userId)
         {
-            var sqlStoredProc = "sp_count_all_pending_parking_for_a_user_get";
-
-            var response = await DapperAdapter.GetFromStoredProcAsync<GetCountForAllPendingParkingsForNav>
-                (
-                    storedProcedureName: sqlStoredProc,
-                    parameters: new { @user_Id = userId },
-                    dbconnectionString: DefaultConnectionString,
-                    sqltimeout: DefaultTimeOut,
-                    dbconnection: _connection,
-                    dbtransaction: _transaction);
-
-            return response.FirstOrDefault();
+            return new GetCountForAllPendingParkingsForNav();
         }
 
         #endregion
