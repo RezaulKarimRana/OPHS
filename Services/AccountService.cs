@@ -254,46 +254,6 @@ namespace Services
                         response.Notifications.AddError("Username or password is incorrect");
                         return response;
                     }
-
-                    if (user.Is_Locked_Out)
-                    {
-                        if (user.Lockout_End <= DateTime.Now)
-                        {
-                            await uow.UserRepo.UnlockUser(new Repositories.DatabaseRepos.UserRepo.Models.UnlockUserRequest()
-                            {
-                                Id = user.Id,
-                                Updated_By = ApplicationConstants.SystemUserId
-                            });
-                            uow.Commit();
-                        }
-                        else
-                        {
-                            response.Notifications.AddError($"Your account has been locked, please try again in {config.Account_Lockout_Expiry_Minutes} minute(s)");
-                            return response;
-                        }
-                    }
-                    else if (user.Invalid_Login_Attempts > 0) // cleanup of old invalid login attempts
-                    {
-                        await uow.UserRepo.UnlockUser(new Repositories.DatabaseRepos.UserRepo.Models.UnlockUserRequest()
-                        {
-                            Id = user.Id,
-                            Updated_By = ApplicationConstants.SystemUserId
-                        });
-                        uow.Commit();
-                    }
-
-                    if (!user.Is_Enabled)
-                    {
-                        response.Notifications.AddError("Your account has been disabled, please contact the website administrator");
-                        return response;
-                    }
-
-                    //if (!user.Registration_Confirmed)
-                    //{
-                    //    response.Notifications.AddError("Please check your email to activate your account");
-                    //    return response;
-                    //}
-
                     var sessionEntity = await uow.SessionRepo.AddUserToSession(new Repositories.DatabaseRepos.SessionRepo.Models.AddUserToSessionRequest()
                     {
                         Id = session.SessionEntity.Id,
