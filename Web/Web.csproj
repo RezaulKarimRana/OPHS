@@ -13,21 +13,29 @@
 
   <ItemGroup>
     <Compile Remove="Pages\Admin\Dashboard\**" />
+    <Compile Remove="wwwroot\FormatedExcelFile\**" />
     <Compile Remove="wwwroot\js\AjaxCall\PostDataToDb\**" />
     <Compile Remove="wwwroot\js\CustomFunctions\**" />
     <Compile Remove="wwwroot\pdf\**" />
+    <Compile Remove="wwwroot\uploadedFiles\**" />
     <Content Remove="Pages\Admin\Dashboard\**" />
+    <Content Remove="wwwroot\FormatedExcelFile\**" />
     <Content Remove="wwwroot\js\AjaxCall\PostDataToDb\**" />
     <Content Remove="wwwroot\js\CustomFunctions\**" />
     <Content Remove="wwwroot\pdf\**" />
+    <Content Remove="wwwroot\uploadedFiles\**" />
     <EmbeddedResource Remove="Pages\Admin\Dashboard\**" />
+    <EmbeddedResource Remove="wwwroot\FormatedExcelFile\**" />
     <EmbeddedResource Remove="wwwroot\js\AjaxCall\PostDataToDb\**" />
     <EmbeddedResource Remove="wwwroot\js\CustomFunctions\**" />
     <EmbeddedResource Remove="wwwroot\pdf\**" />
+    <EmbeddedResource Remove="wwwroot\uploadedFiles\**" />
     <None Remove="Pages\Admin\Dashboard\**" />
+    <None Remove="wwwroot\FormatedExcelFile\**" />
     <None Remove="wwwroot\js\AjaxCall\PostDataToDb\**" />
     <None Remove="wwwroot\js\CustomFunctions\**" />
     <None Remove="wwwroot\pdf\**" />
+    <None Remove="wwwroot\uploadedFiles\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -90,11 +98,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Services\Services.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\FormatedExcelFile\" />
-    <Folder Include="wwwroot\uploadedFiles\MemoFiles\" />
   </ItemGroup>
 
   <ItemGroup>
