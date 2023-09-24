@@ -5,6 +5,9 @@ namespace Infrastructure.Authorization
     /// </summary>
     public class PermissionKeys
     {
+        //public const string ManageUsers = "Manage_Users";
+        //public const string ManageRoles = "Manage_Roles";
+        public const string ManagePermissions = "Manage_Permissions";
         public const string ViewSessions = "SESSIONS_VIEW";
         public const string ManageUsers = "USERS_MANAGE";
         public const string ManageBudgetEstimation = "BUDGET_ESTIMATION";

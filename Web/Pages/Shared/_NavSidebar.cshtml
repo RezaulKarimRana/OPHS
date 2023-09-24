@@ -1,7 +1,6 @@
 ﻿@inject Services.Managers.Contracts.ISessionManager _sessionManager
 @{
     var user = await _sessionManager.GetUser();
-    var CountPendingForNav = (Models.ServiceModels.Dashboard.GetCountForAllPendingParkingForNavService)ViewData["CountPendingObject"];
 }
 <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion text-white" id="accordionSidebar" style="height:auto">
 
@@ -20,10 +19,9 @@
         </a>
         <div id="collapseAdmin" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Fund Disburse</h6>
                 <a class="collapse-item" asp-permission="@PermissionKeys.ManageUsers" asp-page="/Admin/Users/Index" method="get"><i class="fas fa-fw fa-users"></i> &nbsp;Users</a>
                 <a class="collapse-item" asp-permission="@PermissionKeys.ManageRoles" asp-page="/Admin/Roles/Index" method="get"><i class="fas fa-fw fa-user-shield"></i> &nbsp;Roles</a>
-                <a class="collapse-item" asp-permission="@PermissionKeys.ManageRoles" asp-page="/Admin/Permissions/Index" method="get"><i class="fas fa-fw fa-universal-access "></i> &nbsp;Permission</a>
+                <a class="collapse-item" asp-permission="@PermissionKeys.ManagePermissions" asp-page="/Admin/Permissions/Index" method="get"><i class="fas fa-fw fa-universal-access "></i> &nbsp;Permission</a>
             </div>
         </div>
     </li>
