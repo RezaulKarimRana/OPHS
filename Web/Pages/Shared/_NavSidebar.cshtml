@@ -6,18 +6,16 @@
 <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion text-white" id="accordionSidebar" style="height:auto">
 
     <a class="sidebar-brand d-flex align-items-center justify-content-center" asp-page="/Index">
-        <div class="sidebar-brand-icon rotate-n-15">
-        </div>
-        <div class="sidebar-brand-text mx-3">AMS System<sup></sup></div>
+        <div class="sidebar-brand-text mx-3">@(user.First_Name + " " + user.Last_Name)<sup></sup></div>
     </a>
 
     <hr class="sidebar-divider my-0">
 
     <li class="nav-item active">
-        <a class="nav-link" asp-page="/Index">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Home</span>
-        </a>
+        <a class="nav-link active" asp-page="/Index"><i class="fa fa-home"></i><span>Home</span></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" asp-page="/Account/Profile"><i class="fa fa-user"></i><span>Profile</span></a>
     </li>
 
     <div asp-permission-group="@PermissionGroupConstants.Admin">
@@ -292,4 +290,7 @@
     </li>
     </div>
     </div>
+    <li class="nav-item">
+        <a class="nav-link" href="#" data-toggle="modal" data-target="#modalLogout"><i class="fa fa-sign-out-alt"></i>Logout</a>
+    </li>
 </ul>
