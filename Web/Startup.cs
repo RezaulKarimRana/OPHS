@@ -121,14 +121,9 @@ namespace Web
 
             services.AddAuthorization(options =>
             {
-                options.AddPolicy(PolicyConstants.ViewSessions, policy => policy.Requirements.Add(new PermissionRequirement(PermissionKeys.ViewSessions)));
-                options.AddPolicy(PolicyConstants.ManageUsers, policy => policy.Requirements.Add(new PermissionRequirement(PermissionKeys.ManageUsers)));
-                options.AddPolicy(PolicyConstants.ManageRoles, policy => policy.Requirements.Add(new PermissionRequirement(PermissionKeys.ManageRoles)));
-                options.AddPolicy(PolicyConstants.ManageConfiguration, policy => policy.Requirements.Add(new PermissionRequirement(PermissionKeys.ManageConfiguration)));
-
-                options.AddPolicy(PolicyConstants.CreateAdminUser, policy => policy.Requirements.Add(new CreateAdminUserRequirement()));
-
-                //options.AddPolicy(PolicyConstants.DashoardView, policy => policy.Requirements.Add(new PermissionRequirement(PermissionKeys.DashboardView)));
+                options.AddPolicy(PolicyConstants.ManageUsers, policy => policy.Requirements.Add(new PermissionRequirement(PermissionKeys.MANAGE_USERS)));
+                options.AddPolicy(PolicyConstants.ManageRoles, policy => policy.Requirements.Add(new PermissionRequirement(PermissionKeys.MANAGE_ROLES)));
+                options.AddPolicy(PolicyConstants.ManageConfiguration, policy => policy.Requirements.Add(new PermissionRequirement(PermissionKeys.MANAGE_PERMISSIONS)));
             });
             services.AddScoped<IAuthorizationHandler, PermissionsHandler>();
 
@@ -174,20 +169,11 @@ namespace Web
                 //options.Conventions.AllowAnonymousToPage("/Account/Dashboard");
 
                 // custom authorization
-                options.Conventions.AuthorizeFolder("/Admin/Sessions", PolicyConstants.ViewSessions);
                 options.Conventions.AuthorizeFolder("/Admin/Users", PolicyConstants.ManageUsers);
                 options.Conventions.AuthorizeFolder("/Admin/Roles", PolicyConstants.ManageRoles);
                 options.Conventions.AuthorizeFolder("/Admin/Configuration", PolicyConstants.ManageConfiguration);
                 options.Conventions.AuthorizeFolder("/Admin/Permissions", PolicyConstants.ManageConfiguration);
                 options.Conventions.AuthorizeFolder("/Admin/SessionEvents", PolicyConstants.ManageConfiguration);
-                options.Conventions.AuthorizeFolder("/BudgetEstimation", PolicyConstants.ViewSessions);
-
-                //options.Conventions.AuthorizeFolder("/Admin/Dashboard", PolicyConstants.ViewSessions);
-
-                options.Conventions.AllowAnonymousToPage("/Admin/CreateAdminUser"); // remove default authorization
-                options.Conventions.AuthorizePage("/Admin/CreateAdminUser", PolicyConstants.CreateAdminUser);
-
-                //options.Conventions.AuthorizePage("/Admin/Dashboard", PolicyConstants.DashoardView);
             });
         }
 
