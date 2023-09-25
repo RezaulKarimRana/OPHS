@@ -16,7 +16,6 @@ using Repositories.UnitOfWork.Contracts;
 using Services.Admin.Contracts;
 using Services.Contracts;
 using Services.Managers.Contracts;
-using Repositories.DatabaseRepos.UserRepo.Models.User;
 
 namespace Services.Admin
 {
@@ -116,15 +115,6 @@ namespace Services.Admin
             return response;
         }
 
-        public async Task<string> getUserEmailAddressByDepartmentId(int departmentId)
-        {
-            using (var uow = _uowFactory.GetUnitOfWork())
-            {
-                var concateEmail = string.Empty;
-                return concateEmail;
-            }
-        }
-
         public async Task<GetUserResponse> GetUser(GetUserRequest request)
         {
             var response = new GetUserResponse();
@@ -185,7 +175,6 @@ namespace Services.Admin
                     Email_Address = request.EmailAddress,
                     Password_Hash = PasswordHelper.HashPassword(request.Password),
                     Created_By = sessionUser.Id,
-                    Department_Id = request.DepartmentId,
                     CanEdit = 1,
                     Is_Enabled = true
                 });
@@ -203,20 +192,6 @@ namespace Services.Admin
             var sessionUser = await _sessionManager.GetUser();
             var response = new UpdateUserResponse();
 
-            var duplicateResponse = await _accountService.DuplicateUserCheck(new DuplicateUserCheckRequest()
-            {
-                EmailAddress = request.EmailAddress,
-                Username = request.Username,
-                MobileNumber = request.MobileNumber,
-                UserId = request.Id
-            });
-
-            //if (duplicateResponse.Notifications.HasErrors)
-            //{
-            //    response.Notifications.Add(duplicateResponse.Notifications);
-            //    return response;
-            //}
-
             using (var uow = _uowFactory.GetUnitOfWork())
             {
                 var user = await uow.UserRepo.GetUserById(new Repositories.DatabaseRepos.UserRepo.Models.GetUserByIdRequest()
@@ -232,7 +207,6 @@ namespace Services.Admin
                     Last_Name = request.LastName,
                     Mobile_Number = request.MobileNumber,
                     Email_Address = request.EmailAddress,
-                    DepartmentId = request.DepartmentId,
                     Updated_By = sessionUser.Id,
                 };
 
@@ -374,26 +348,6 @@ namespace Services.Admin
             return response;
         }
 
-        public async Task<Follower> GetFollowersByUserId(int userId)
-        {
-            var sessionUser = await _sessionManager.GetUser();
-
-
-            Follower follower = new Follower();
-            
-            using (var uow = _uowFactory.GetUnitOfWork())
-            {
-                 follower = await uow.UserRepo.GetFollowersByUserId(userId);
-
-               
-                uow.Commit();
-
-                
-            }
-
-            return follower;
-        }
-
         #endregion
 
         #region Private Methods
@@ -423,39 +377,6 @@ namespace Services.Admin
             tokenResult.Wait();
             return tokenResult.Result != null;
         }
-
-        public async Task<GetUsersWithDepartmentNameRequest> GetUsersWithDepartmentService()
-        {
-            var response = new GetUsersWithDepartmentNameRequest();
-            using var uow = _uowFactory.GetUnitOfWork();
-            response.Users = await uow.UserRepo.GetUsersWithDepartmentName();
-            uow.Commit();
-
-            return response;
-        }
-
-        public async Task<UserEntity> GetById(int id)
-        {
-            try
-            {
-                using var uow = _uowFactory.GetUnitOfWork();
-                var response = await uow.UserRepo.GetUserById(id);
-                return response;
-            }
-            catch (Exception e) { throw; }
-        }
-
-        public async Task<UserDepartmentResponse> GetUserAndDepartmentByIdService(int userId)
-        {
-            try
-            {
-                using var uow = _uowFactory.GetUnitOfWork();
-                var response = await uow.UserRepo.GetUserAndDepartmentById(userId);
-                return response;
-            }
-            catch (Exception) { throw; }
-        }
-
         #endregion
     }
 }

@@ -1,9 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Repositories.DatabaseRepos.UserRepo.Models;
-using Repositories.DatabaseRepos.UserRepo.Models.User;
 using Models.DomainModels;
-using Models.CustomModels;
 
 namespace Repositories.DatabaseRepos.UserRepo.Contracts
 {
@@ -65,8 +63,6 @@ namespace Repositories.DatabaseRepos.UserRepo.Contracts
 
         Task<UserEntity> GetUserByMobileNumber(GetUserByMobileNumberRequest request);
 
-        Task<IList<GetUsersWithDepartmentName>> GetUsersWithDepartmentName();
-
         Task LockoutUser(LockoutUserRequest request);
 
         Task UnlockUser(UnlockUserRequest request);
@@ -78,10 +74,5 @@ namespace Repositories.DatabaseRepos.UserRepo.Contracts
         Task<List<UserPermissionEntity>> GetUserPermissionsByUserId(GetUserPermissionsByIdRequest request);
 
         Task<List<UserRoleEntity>> GetUserRolesByUserId(GetUserRolesByUserIdRequest request);
-        Task<UserEntity> GetUserById(int id);
-
-        Task<UserDepartmentResponse> GetUserAndDepartmentById(int userId);
-        Task DeleteUserRoleByUserId(int userId);
-        Task<Follower> GetFollowersByUserId(int userId);
     }
 }

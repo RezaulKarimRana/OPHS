@@ -81,20 +81,6 @@ namespace Web.TagHelpers
 
     public static class SelectListExtensions
     {
-        public static List<SelectListItem> ToSelectList(this List<PermissionEntity> items)
-        {
-            return items.Select(i =>
-            new SelectListItem()
-            {
-                Text = i.Name,
-                Value = i.Id.ToString(),
-                Group = new SelectListGroup()
-                {
-                    Name = i.Group_Name
-                }
-            }).ToList();
-        }
-
         public static List<SelectListItem> ToSelectList(this List<RoleEntity> items)
         {
             return items.Select(i =>
@@ -104,16 +90,5 @@ namespace Web.TagHelpers
                 Value = i.Id.ToString()
             }).ToList();
         }
-
-        public static List<SelectListItem> ToSelectList(this IList<DepartmentEntity> items)
-        {
-            return items.Select(i =>
-            new SelectListItem()
-            {
-                Text = i.Name,
-                Value = i.Id.ToString()
-            }).ToList();
-        }
-
     }
 }

@@ -13,7 +13,6 @@ namespace Repositories.DatabaseRepos.UserRepo.Models
         public string Last_Name { get; set; }
 
         public string Mobile_Number { get; set; }
-        public int DepartmentId { get; set; }
 
         public int Updated_By { get; set; }
     }

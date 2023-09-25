@@ -13,4 +13,8 @@
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DatabaseRepos\UserRepo\Models\User\" />
+  </ItemGroup>
+
 </Project>

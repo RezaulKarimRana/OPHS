@@ -22,7 +22,6 @@ namespace Web.Pages
         [BindProperty]
         public CreateUserRequest FormData { get; set; }
         public List<RoleEntity> RolesLookup { get; set; }
-        public IList<DepartmentEntity> Department { get; set; }
 
         #endregion
 
@@ -33,7 +32,6 @@ namespace Web.Pages
             _userService = userService;
             _cache = cache;
             RolesLookup = new List<RoleEntity>();
-            Department = new List<DepartmentEntity>();
             FormData = new CreateUserRequest();
         }
 

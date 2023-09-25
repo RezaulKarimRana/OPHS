@@ -27,9 +27,6 @@ namespace Models.ServiceModels.Admin.Users
         [Display(Name = "Roles")]
         public List<int> RoleIds { get; set; }
 
-        [Display(Name = "Department")]
-        public int DepartmentId { get; set; }
-
         public UpdateUserRequest()
         {
             RoleIds = new List<int>();

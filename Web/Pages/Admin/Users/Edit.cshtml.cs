@@ -29,7 +29,6 @@ namespace Web.Pages
         public UserEntity? UserEntity { get; set; }
 
         public List<RoleEntity> RolesLookup { get; set; }
-        public IList<DepartmentEntity> Department { get; set; }
 
         #endregion
 
@@ -40,7 +39,6 @@ namespace Web.Pages
             _userService = userService;
             _cache = cache;
             RolesLookup = new List<RoleEntity>();
-            Department = new List<DepartmentEntity>();
             FormData = new UpdateUserRequest();
         }
 
@@ -67,8 +65,7 @@ namespace Web.Pages
                 FirstName = response.User.First_Name,
                 LastName = response.User.Last_Name,
                 MobileNumber = response.User.Mobile_Number,
-                RoleIds = response.Roles.Select(r => r.Id).ToList(),
-                DepartmentId = response.User.Department_Id
+                RoleIds = response.Roles.Select(r => r.Id).ToList()
             };
             return Page();
         }

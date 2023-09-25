@@ -34,10 +34,6 @@ namespace Models.ServiceModels.Admin.Users
         [Display(Name = "Roles")]
         public List<int> RoleIds { get; set; }
 
-        [Required]
-        [Display(Name = "Department")]
-        public int DepartmentId { get; set; }
-
         public CreateUserRequest()
         {
             RoleIds = new List<int>();

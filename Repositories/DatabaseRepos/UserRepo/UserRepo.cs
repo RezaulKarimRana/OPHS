@@ -7,8 +7,6 @@ using Infrastructure.Adapters;
 using Infrastructure.Configuration.Models;
 using Repositories.DatabaseRepos.UserRepo.Contracts;
 using Repositories.DatabaseRepos.UserRepo.Models;
-using Repositories.DatabaseRepos.UserRepo.Models.User;
-using Models.CustomModels;
 using Models.DomainModels;
 
 namespace Repositories.DatabaseRepos.UserRepo
@@ -394,22 +392,6 @@ namespace Repositories.DatabaseRepos.UserRepo
 
             return response.FirstOrDefault();
         }
-
-        public async Task<UserEntity> GetUserById(int id)
-        {
-            var sqlStoredProc = "sp_user_get_by_id";
-
-            var response = await DapperAdapter.GetFromStoredProcAsync<UserEntity>
-                (
-                    storedProcedureName: sqlStoredProc,
-                    parameters: new { Id = id },
-                    dbconnectionString: DefaultConnectionString,
-                    sqltimeout: DefaultTimeOut,
-                    dbconnection: _connection,
-                    dbtransaction: _transaction);
-
-            return response.FirstOrDefault();
-        }
         public async Task<UserEntity> GetUserByUsername(GetUserByUsernameRequest request)
         {
             var sqlStoredProc = "sp_user_get_by_username";
@@ -647,77 +629,6 @@ namespace Repositories.DatabaseRepos.UserRepo
 
             return response.ToList();
         }
-
-        public async Task<IList<GetUsersWithDepartmentName>> GetUsersWithDepartmentName()
-        {
-            var sqlStoredProc = "sp_users_with_departmentName_get";
-
-            var response = await DapperAdapter.GetFromStoredProcAsync<GetUsersWithDepartmentName>
-                (
-                    storedProcedureName: sqlStoredProc,
-                    parameters: new { },
-                    dbconnectionString: DefaultConnectionString,
-                    sqltimeout: DefaultTimeOut,
-                    dbconnection: _connection,
-                    dbtransaction: _transaction);
-
-            return response.ToList();
-        }
-
-        public async Task<UserDepartmentResponse> GetUserAndDepartmentById(int userId)
-        {
-            var sqlStoredProc = "sp_get_user_with_department";
-
-            var response = await DapperAdapter.GetFromStoredProcAsync<UserDepartmentResponse>
-                (
-                    storedProcedureName: sqlStoredProc,
-                    parameters: new { @userId },
-                    dbconnectionString: DefaultConnectionString,
-                    sqltimeout: DefaultTimeOut,
-                    dbconnection: _connection,
-                    dbtransaction: _transaction);
-
-            return response.FirstOrDefault();
-        }
-        public async Task DeleteUserRoleByUserId(int userId)
-        {
-            var sqlStoredProc = "sp_delete_role_by_user_id";
-
-            var response = await DapperAdapter.GetFromStoredProcAsync<int>
-            (
-                storedProcedureName: sqlStoredProc,
-                parameters: new
-                {
-                    @User_Id = userId
-                    
-                },
-                dbconnectionString: DefaultConnectionString,
-                sqltimeout: DefaultTimeOut,
-                dbconnection: _connection,
-                dbtransaction: _transaction);
-
-            if (response == null || response.FirstOrDefault() == 0)
-            {
-                throw new Exception("No items were deleted");
-            }
-        }
-
-        public async Task<Follower> GetFollowersByUserId(int userId)
-        {
-            var sqlStoredProc = "sp_get_followers_by_user_id";
-
-            var response = await DapperAdapter.GetFromStoredProcAsync<Follower>
-                (
-                    storedProcedureName: sqlStoredProc,
-                    parameters: new { @UserId = userId },
-                    dbconnectionString: DefaultConnectionString,
-                    sqltimeout: DefaultTimeOut,
-                    dbconnection: _connection,
-                    dbtransaction: _transaction);
-
-            return response.FirstOrDefault();
-        }
-
 
         #endregion
     }

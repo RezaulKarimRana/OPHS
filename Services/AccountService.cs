@@ -300,7 +300,7 @@ namespace Services
                 var response = new UpdateProfileResponse();
                 var user = await _sessionManager.GetUser();
 
-                var dbRequest = new Repositories.DatabaseRepos.UserRepo.Models.UpdateUserRequest()
+                var dbRequest = new UpdateUserRequest()
                 {
                     Id = user.Id,
                     Username = user.Username,
@@ -308,8 +308,7 @@ namespace Services
                     First_Name = request.FirstName,
                     Last_Name = request.LastName,
                     Mobile_Number = request.MobileNumber,
-                    Updated_By = user.Id,
-                    DepartmentId = user.Department_Id
+                    Updated_By = user.Id
                 };
 
                 using (var uow = _uowFactory.GetUnitOfWork())

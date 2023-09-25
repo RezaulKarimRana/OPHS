@@ -25,7 +25,6 @@ namespace Repositories.DatabaseRepos.UserRepo.Models
         public bool Is_Enabled { get; set; }
 
         public int Created_By { get; set; }
-        public int Department_Id { get; set; }
         public int CanEdit { get; set; }
     }
 }
