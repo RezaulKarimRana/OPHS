@@ -24,12 +24,6 @@
 							        <tr>
 								        <td height='5' colspan='2' style='background-color:rgba(2,1,1,0.76)'></td>
 							        </tr>
-							        <tr>
-								        <td id='top-left' width='50%' height='80' style='text-align:left;padding:10px 0 40px 20px'>
-									        <img src='http://www.summitcommunications.net/images/logo.png' alt='Logo' border='0' width='200px' id='logo' class='CToWUd'>
-									        </td>
-									    <td id='top-right' width='50%' style='text-align:left;padding:0 30px 0 0'></td>
-								    </tr>
 							        </tbody>
 						        </table>
                             </td>

@@ -20,12 +20,6 @@
 							        <tr>
 								        <td height='5' colspan='2' style='background-color:rgba(2,1,1,0.76)'></td>
 							        </tr>
-							        <tr>
-								        <td id='top-left' width='50%' height='80' style='text-align:left;padding:10px 0 40px 20px'>
-									        <img src='http://www.summitcommunications.net/images/logo.png' alt='Logo' border='0' width='200px' id='logo' class='CToWUd'>
-									        </td>
-									    <td id='top-right' width='50%' style='text-align:left;padding:0 30px 0 0'></td>
-								    </tr>
 							        </tbody>
 						        </table>
                             </td>
@@ -42,7 +36,7 @@
                                     <tr>
                                         <td style='color:rgba(31,6,4,0.96);padding-bottom:15px'>
                                             <h4>Dear Concern,</h4>
-                                            <p>Greetings from the Approval Management System of Summit Communications Limited (SComm).</p>"
+                                            <p>Greetings from the Education Management System</p>"
                                     + upperBodyPart +
                                     @"<p></p>
                                     </tr>
@@ -244,10 +238,8 @@
                                 <br/>
                                 <p>Thank you for your cooperation.</p>
                                 <p>
-                                <strong>Best Regards,</strong>
-                                <br/>System Administrator,
-                                <br/>Summit Communications Limited,
-                                <br/>Summit Centre, Kawran Bazar, Dhaka-1215
+                                <strong>Best Regards</strong>
+                                <br/>Thank You
                                 </p>
                             </td>
                         </tr>
@@ -297,12 +289,6 @@
 							        <tr>
 								        <td height='5' colspan='2' style='background-color:rgba(2,1,1,0.76)'></td>
 							        </tr>
-							        <tr>
-								        <td id='top-left' width='50%' height='80' style='text-align:left;padding:10px 0 40px 20px'>
-									        <img src='http://www.summitcommunications.net/images/logo.png' alt='Logo' border='0' width='200px' id='logo' class='CToWUd'>
-									        </td>
-									    <td id='top-right' width='50%' style='text-align:left;padding:0 30px 0 0'></td>
-								    </tr>
 							        </tbody>
 						        </table>
                             </td>

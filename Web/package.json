@@ -1,7 +1,7 @@
 {
   "name": "ams",
   "version": "1.0.0",
-  "description": "Approval Management System for Summit Communications Ltd.",
+  "description": "Education Management System",
   "main": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

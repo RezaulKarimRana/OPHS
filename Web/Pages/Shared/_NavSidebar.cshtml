@@ -8,12 +8,12 @@
         <div class="sidebar-brand-text mx-3">@(user.First_Name + " " + user.Last_Name)<sup></sup></div>
     </a>
     <li class="nav-item active">
-        <a class="nav-link active" asp-page="/Index"><i class="fa fa-home"></i><span>Home</span></a>
+        <a class="nav-link active" asp-page="/Index"><i class="fa fa-home"></i><span>হোম</span></a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" asp-page="/Account/Profile"><i class="fa fa-user"></i><span>Profile</span></a>
+        <a class="nav-link" asp-page="/Account/Profile"><i class="fa fa-user"></i><span>প্রোফাইল দেখুন</span></a>
     </li>
-    <li class="nav-item" asp-permission-group="@PermissionGroupConstants.Admin">
+    @*<li class="nav-item" asp-permission-group="@PermissionGroupConstants.Admin">
         <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseAdmin" aria-expanded="true" aria-controls="collapseAdmin">
             <i class="fas fa-fw fa-money-bill"></i><span>Settings</span>
         </a>
@@ -24,8 +24,19 @@
                 <a class="collapse-item" asp-permission="@PermissionKeys.MANAGE_PERMISSIONS" asp-page="/Admin/Permissions/Index" method="get"><i class="fas fa-fw fa-universal-access "></i> &nbsp;Permission</a>
             </div>
         </div>
+    </li>*@
+    <li class="nav-item" asp-permission-group="@PermissionGroupConstants.Admin">
+        <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseBanner" aria-expanded="true" aria-controls="collapseBanner">
+            <i class="fas fa-fw fa-money-bill"></i><span>ব্যানার</span>
+        </a>
+        <div id="collapseBanner" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" asp-page="/Admin/Users/Index" method="get"><i class="fas fa-fw fa-arrow-up"></i> &nbsp;ব্যানার আপলোড</a>
+                <a class="collapse-item" asp-page="/Admin/Roles/Index" method="get"><i class="fas fa-fw fa-list"></i> &nbsp;ব্যানার তালিকা</a>
+            </div>
+        </div>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="#" data-toggle="modal" data-target="#modalLogout"><i class="fa fa-sign-out-alt"></i>Logout</a>
+        <a class="nav-link" href="#" data-toggle="modal" data-target="#modalLogout"><i class="fa fa-sign-out-alt"></i>লগ আউট করুন</a>
     </li>
 </ul>
