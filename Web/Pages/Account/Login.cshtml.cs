@@ -44,7 +44,8 @@ namespace Web.Pages
                 ModelState.AddModelError("success", response.IsSuccessful.ToString());
                 if (response.IsSuccessful)
                 {
-                    return RedirectToHome(ReturnUrl);
+                    //return RedirectToHome(ReturnUrl);
+                    return RedirectToPage("/Index");
                 }
                 AddFormErrors(response);
             }
