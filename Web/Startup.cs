@@ -154,21 +154,13 @@ namespace Web
             .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
             .AddRazorPagesOptions(options =>
             {
-                // apply authorization by default to all pages
                 options.Conventions.AuthorizeFolder("/");
-
-                // white-listed routes
                 options.Conventions.AllowAnonymousToFolder("/Error");
                 options.Conventions.AllowAnonymousToFolder("/Email");
-
                 options.Conventions.AllowAnonymousToPage("/Account/ForgotPassword");
                 options.Conventions.AllowAnonymousToPage("/Account/Login");
                 options.Conventions.AllowAnonymousToPage("/Account/Register");
                 options.Conventions.AllowAnonymousToPage("/Account/ResetPassword");
-
-                //options.Conventions.AllowAnonymousToPage("/Account/Dashboard");
-
-                // custom authorization
                 options.Conventions.AuthorizeFolder("/Admin/Users", PolicyConstants.ManageUsers);
                 options.Conventions.AuthorizeFolder("/Admin/Roles", PolicyConstants.ManageRoles);
                 options.Conventions.AuthorizeFolder("/Admin/Configuration", PolicyConstants.ManageConfiguration);
@@ -176,11 +168,8 @@ namespace Web
                 options.Conventions.AuthorizeFolder("/Admin/SessionEvents", PolicyConstants.ManageConfiguration);
             });
         }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            // force the application to run under the specified culture
             CultureInfo.DefaultThreadCurrentCulture = ApplicationConstants.Culture;
             CultureInfo.DefaultThreadCurrentUICulture = ApplicationConstants.Culture;
 
@@ -191,7 +180,6 @@ namespace Web
             else
             {
                 app.UseStatusCodePagesWithReExecute("/Error/{0}");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
@@ -230,14 +218,6 @@ namespace Web
                 endpoints.MapControllers();
                 endpoints.MapRazorPages();
             });
-
-            //app.UseEndpoints(endpoints =>
-            //{
-            //    endpoints.MapControllerRoute(
-            //        name: "default",
-            //        pattern: "{controller=Home}/{action=Login}/{id?}");
-            //    endpoints.MapRazorPages();
-            //});
         }
     }
 }
