@@ -19,7 +19,6 @@ using Infrastructure.Session.Contracts;
 using Repositories.UnitOfWork;
 using Repositories.UnitOfWork.Contracts;
 using Web.Filters;
-using Web.Middleware;
 using Services;
 using Services.Contracts;
 using Repositories.ServiceRepos.EmailTemplateRepo.Contracts;
@@ -209,7 +208,6 @@ namespace Web
 
             app.UseRouting();
             app.UseSession();
-            app.UseAdminCreationMiddleware();
             app.UseAuthentication();
             app.UseAuthorization();
 
